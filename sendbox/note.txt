@@ -4,3 +4,5 @@ test2
 Простой файл для заметок
 
 test_linux_coment
+test2_linux
+test3_linux
