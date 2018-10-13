@@ -3,3 +3,4 @@ test win comment1
 Простой файл для заметок
 
 test_linux_coment
+test2_linux
