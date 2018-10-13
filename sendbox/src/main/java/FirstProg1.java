@@ -7,10 +7,10 @@ public class FirstProg1 {
 		LocalDateTime testtime = LocalDateTime.now();
 // выводить сообщение
 
-		System.out.println ( "******_TEST_*************");
+		System.out.println ( "******_TEST_START*************");
 		System.out.println ( "   "  + testtime + "    " );
 		System.out.println ("     " + "Hello, world !"  + "     ");
-		System.out.println ("******_TEST_*************");
+		System.out.println ("******_TEST_END*************");
 
 	}
 
