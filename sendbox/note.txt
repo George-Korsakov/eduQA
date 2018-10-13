@@ -1,4 +1,5 @@
 test win comment1
+test2
 
 Простой файл для заметок
 
