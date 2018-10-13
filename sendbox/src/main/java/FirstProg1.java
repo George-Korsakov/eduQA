@@ -5,7 +5,7 @@ public class FirstProg1 {
 	public static void main ( String[] args) {
 // простая программа для проверки сборщика и системы контроля версий
 		LocalDateTime testtime = LocalDateTime.now();
-// выодить сообщение
+// выводить сообщение
 
 		System.out.println ( "******_TEST_*************");
 		System.out.println ( "   "  + testtime + "    " );
