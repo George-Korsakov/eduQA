@@ -7,12 +7,12 @@ public class FirstProg1 {
 
 	public static void main ( String[] args) {
 // простая программа для проверки сборщика и системы контроля версий
-		hello("world");
-		hello("test");
-		char a = 25;
+		int a = 25;
 		double b = 33.0;
+		hello("world");
+		System.out.println( "Плошадь прямоугольнка с сторанми " + a + " и " + b + " равна " +  area( b, a));
 		// пример вызова функции с неявным преобразованием типов
-		System.out.println( area( b, a));
+
 	}
 
 
@@ -22,6 +22,7 @@ public class FirstProg1 {
 		LocalDateTime testtime = LocalDateTime.now();
 		// вывод сообщения в консоль
 		System.out.println ( "******_TEST_START*************");
+		// выводить текущую дату и время
 		System.out.println ( "   "  + testtime + "    " );
 		System.out.println ("     " + "Hello, "+ somebody + " !"  + "     ");
 		System.out.println ("******_TEST_END*************");

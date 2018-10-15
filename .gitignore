@@ -22,3 +22,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 .idea/workspace.xml
+.gradle
+build/
+sendbox/.gradle/4.10.2/fileHashes/fileHashes.bin
+sendbox/.gradle/4.10.2/fileHashes/fileHashes.lock
+sendbox/.gradle/4.10.2/javaCompile/javaCompile.lock
+sendbox/.gradle/4.10.2/taskHistory/taskHistory.bin
+sendbox/.gradle/4.10.2/taskHistory/taskHistory.lock
+sendbox/.gradle/buildOutputCleanup/buildOutputCleanup.lock
