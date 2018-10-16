@@ -6,10 +6,16 @@ public class FirstProg1 {
 
   public static void main(String[] args) {
 // простая программа для проверки сборщика и системы контроля версий
-    int a = 25;
-    double b = 33.0;
     hello("world");
-    System.out.println("Плошадь прямоугольнка со сторанми " + a + " и " + b + " равна " + area(b, a));
+    // задаемзначение двух точек
+    Point p1 = new Point();
+    p1.x = 6;
+    p1.y = 6;
+    Point p2 = new Point();
+    p2.x = 3;
+    p2.y = 2;
+    // вызываем функцию расчета расстояние между точками и выводим результат вычислений
+    System.out.println("Расстояние моежду nочками " + "(" + p1.x + ", " + p1.y + ") и (" + p2.x + ", "+ p2.y + ") равнo " + distance(p1, p2));
     // пример вызова функции с неявным преобразованием типов
   }
 
@@ -24,9 +30,9 @@ public class FirstProg1 {
     System.out.println("******_TEST_END*************");
   }
 
-  // расчет площади
-  public static double area(double l1, double l2) {
-    return l1 * l2;
+  // функция которая вычисляет расстояение между двумя точками
+  public static double distance(Point p1, Point p2) {
+    return Math.sqrt(Math.pow((p1.x-p2.x),2)+Math.pow((p1.y-p2.y),2));
   }
 
 }
