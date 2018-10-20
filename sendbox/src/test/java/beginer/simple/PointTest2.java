@@ -13,6 +13,6 @@ public class PointTest2 {
     // альтернативнsq расчитывает ответ для сравнения
     double d = Math.sqrt(Math.pow((r1.x - r2.x), 2) + Math.pow((r1.y - r2.y), 2));
     // проверка не равенства занчению
-    Assert.assertNotEquals(r1.distance(r2.x, r2.y), d-1);
+    Assert.assertNotEquals(r1.distancep2p(r2.x, r2.y), d-1);
   }
 }

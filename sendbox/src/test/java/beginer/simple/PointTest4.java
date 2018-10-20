@@ -7,10 +7,13 @@ public class PointTest4 {
   @Test
   public void testPointExp()
   {
-    // для воспроизведения ошибки с граничным значении
+    // простой тест сравнение расчетов растояние до псевдослучайной точки
+    double a = (1 + (Math.random() * 999));
+    double b = (1 + (Math.random() * 999));
     Point p1 = new Point(1, 1);
-    Point p2 = new Point(250*Math.pow(10, 485), 1);
-    Assert.assertEquals(p1.distance(p2.x, p2.y), 1);
+    Point p2 = new Point( a, b);
+    double dif = Math.sqrt( (a - 1)*(a - 1) + (b - 1)*(b - 1) );
+    Assert.assertEquals(p1.distancep2p(p2), dif);
 
   }
 
