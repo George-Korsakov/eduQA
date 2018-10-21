@@ -4,8 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.*;
 import org.openqa.selenium.*;
-//import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class ContactCreationTests {
@@ -14,8 +15,9 @@ public class ContactCreationTests {
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
-//    wd = new FirefoxDriver();
-    wd = new ChromeDriver();
+    wd = new FirefoxDriver();
+//    wd = new ChromeDriver();
+//      wd = new InternetExplorerDriver();
     wd.get("http://localhost/addressbook/");
     login("admin", "secret");
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -35,7 +37,7 @@ public class ContactCreationTests {
   public void testContactCreation() throws Exception {
 
     initContactCreation();
-    fillContactForm(new ContactData("NameTest6", "MiddleNameTest6", "LastNameTest6", "NickNameTest6", "C:\\Temp\\03.jpg", "Test123", "CoTest", "Russian, Moscow, Red Square, 1", "+74951230007", "test1@test.test", "5", "September", "1987", "TestGroup2"));
+    fillContactForm(new ContactData("NameTest6", "MiddleNameTest7", "LastNameTest7", "NickNameTest7", "C:\\Temp\\04.jpg", "Test123", "CoTest", "Russian, Moscow, Red Square, 1", "+74951230007", "test1@test.test", "5", "September", "1987", "TestGroup2"));
     submitContactCreation();
     retutnHomePage();
   }
