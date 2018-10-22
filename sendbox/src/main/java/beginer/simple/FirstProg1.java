@@ -5,6 +5,18 @@ import java.time.LocalDateTime;
 public class FirstProg1 {
 
   public static void main(String[] args) {
+    // создаем объекты
+    Girl Maria = new Girl(56, 90);
+    Girl Anna = new Girl(89,45);
+    // обявляем переменную и присваеваем ей результтаты вычисления метода
+    double result = Maria.choice_girlfriend(Anna);
+    // выводим результат
+    System.out.println("The result of the coefficient of choice of girlfriend - " +  result + " ... no, let choice be random number generator of my heart )))");
+
+
+
+
+
 // простая программа для проверки сборщика и системы контроля версий
     hello("world");
     // создаем обхкты точки и задаем им значение параметров
@@ -33,5 +45,12 @@ public class FirstProg1 {
     System.out.println("     " + "Hello, " + somebody + " !" + "     ");
     System.out.println("******_TEST_END*************");
   }
+
+  public static double clac (){
+    double rez = (double)(Math.random() * 999) + 123;
+    return rez;
+
+  }
+
 
 }

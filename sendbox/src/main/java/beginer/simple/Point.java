@@ -30,4 +30,6 @@ public class Point {
    return distancep2p(p.x, p.y);
  }
 
+
+
 }
