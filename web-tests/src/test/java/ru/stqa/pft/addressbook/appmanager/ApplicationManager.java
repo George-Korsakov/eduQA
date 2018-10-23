@@ -1,20 +1,18 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.firefox.FirefoxDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.support.ui.Select;
-import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.concurrent.TimeUnit;
 
+//import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.ie.InternetExplorerDriver;
+
 public class ApplicationManager {
-//  public ContactHelper getContactHelper;
+  //  public ContactHelper getContactHelper;
   FirefoxDriver wd;
-  private  NavigationHelper navigationHelper;
+  private NavigationHelper navigationHelper;
   private SessionHelper sessionHelper;
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
@@ -33,10 +31,10 @@ public class ApplicationManager {
   }
 
 
-
   // возврат на страницу списка групп временно оставлена вне класса помошника
   public void returnToGroupPage() {
-    wd.findElement(By.linkText("Logout")).click();;
+    wd.findElement(By.linkText("Logout")).click();
+    ;
   }
 
   public void stop() {
@@ -48,15 +46,6 @@ public class ApplicationManager {
       wd.findElement(by);
       return true;
     } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  public boolean isAlertPresent() {
-    try {
-      wd.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
       return false;
     }
   }

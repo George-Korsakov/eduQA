@@ -6,7 +6,7 @@ public class GroupDelitionTests extends TestBase {
 
 
   @Test
-  public void testGroupDelition()  {
+  public void testGroupDelition() {
 
     app.getNavigationHelper().gotoGroupPage();
     app.getGroupHelper().selectGroup();
