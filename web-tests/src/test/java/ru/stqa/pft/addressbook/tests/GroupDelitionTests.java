@@ -11,7 +11,7 @@ public class GroupDelitionTests extends TestBase {
     app.getNavigationHelper().gotoGroupPage();
     app.getGroupHelper().selectGroup();
     app.getGroupHelper().deleteSelectedGroups();
-    app.returnToGroupPage();
+    app.returnToGroupPage(); // намерено оставленный метод вне класса помошника
   }
 
 
