@@ -7,7 +7,7 @@ public class GroupModificationTest extends TestBase {
 
   @Test
   public void testGroupModification() {
-
+// редактирование полей первой группы в списке
     app.getNavigationHelper().gotoGroupPage();
     app.getGroupHelper().selectGroup();
     app.getGroupHelper().initGroupModification();

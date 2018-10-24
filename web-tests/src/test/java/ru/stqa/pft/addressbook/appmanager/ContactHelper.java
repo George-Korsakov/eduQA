@@ -24,18 +24,18 @@ public class ContactHelper extends HelperBase {
 
   // заполнение полей формы контакта
   public void fillContactForm(ContactData contactData) {
-    type(By.name("firstname"),contactData.getFname());
-    type(By.name("middlename"),contactData.getMname());
-    type(By.name("lastname"),contactData.getLname());
-    type(By.name("nickname"),contactData.getNname());
-   //  удалить или заменить type(By.name("photo"),contactData.getPhotoPathToFile());
+    type(By.name("firstname"), contactData.getFname());
+    type(By.name("middlename"), contactData.getMname());
+    type(By.name("lastname"), contactData.getLname());
+    type(By.name("nickname"), contactData.getNname());
+    //  удалить или заменить type(By.name("photo"),contactData.getPhotoPathToFile());
     // выбор файла для контактов
     wd.findElement(By.name("photo")).sendKeys(contactData.getPhotoPathToFile());
-    type(By.name("title"),contactData.getTitle());
-    type(By.name("company"),contactData.getCompany());
-    type(By.name("address"),contactData.getAddress());
-    type(By.name("home"),contactData.getPhoneNumHome());
-    type(By.name("email"),contactData.getEmail());
+    type(By.name("title"), contactData.getTitle());
+    type(By.name("company"), contactData.getCompany());
+    type(By.name("address"), contactData.getAddress());
+    type(By.name("home"), contactData.getPhoneNumHome());
+    type(By.name("email"), contactData.getEmail());
 
     // задание даты рожения (позже вынести в отдельный класс и объект)
     new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getbDay());
@@ -44,7 +44,8 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.name("byear")).click();
     wd.findElement(By.name("byear")).clear();
     wd.findElement(By.name("byear")).sendKeys(contactData.getbYear());
-    new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
+    // выбор группы для контакта убран, т.к. порождает зависимость тестов
+    //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
     // альтернативный сопособ выбора группы
     //wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Group:'])[1]/following::option[6]")).click();
   }
@@ -54,4 +55,23 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedContact() {
+    click(By.xpath("//input[@value='Delete']"));
+  }
+
+  public void submitContactDelete() {
+    confirmAlert();
+  }
+
+  public void initContactModification() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
 }
