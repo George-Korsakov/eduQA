@@ -2,24 +2,41 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import sun.plugin2.util.BrowserType;
 
 import java.util.concurrent.TimeUnit;
 
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class ApplicationManager {
-  //  public ContactHelper getContactHelper;
-  FirefoxDriver wd;
+
+  WebDriver wd;
   private NavigationHelper navigationHelper;
   private SessionHelper sessionHelper;
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
+  private int browser;
+
+  public ApplicationManager(int browser) {
+
+    this.browser = browser;
+  }
 
   public void init() {
-    // вызов драйвера, переход на страницу и авторизация
+  // выбор браузера
+  if( browser == BrowserType.MOZILLA){
     wd = new FirefoxDriver();
+  } else if (browser == BrowserType.INTERNET_EXPLORER) {
+    wd = new InternetExplorerDriver();
+  } else if(browser == BrowserType.DEFAULT) {
+    wd = new ChromeDriver();
+  }
+
+    wd = new FirefoxDriver();
+    // вызов драйвера, переход на страницу и авторизация
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get("http://localhost/addressbook/");
