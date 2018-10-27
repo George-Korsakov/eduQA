@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.BrowserType;
 
 public class TestBase {
 
-  protected ApplicationManager app = new ApplicationManager(BrowserType.IE);
+  protected ApplicationManager app = new ApplicationManager(BrowserType.GOOGLECHROME);
 
   @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
