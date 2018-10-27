@@ -32,11 +32,11 @@ public class ApplicationManager {
 
   public void init() {
   // выбор браузера
-  if( browser == BrowserType.FIREFOX){
+  if(browser.equals(BrowserType.FIREFOX)){
     wd = new FirefoxDriver();
-  } else if (browser == BrowserType.IE) {
+  } else if (browser.equals(BrowserType.IE)) {
     wd = new InternetExplorerDriver();
-  } else if(browser == BrowserType.GOOGLECHROME) {
+  } else if(browser.equals(BrowserType.GOOGLECHROME)) {
     wd = new ChromeDriver();
   }
 
