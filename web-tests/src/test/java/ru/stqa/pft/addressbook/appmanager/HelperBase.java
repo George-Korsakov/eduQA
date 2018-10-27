@@ -19,8 +19,13 @@ public class HelperBase {
 // нажатие, очитска поля и ввод текста поиск по локатору
   protected void type(By locator, String text) {
     click(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
+    if(text != null) {
+      String existngText = wd.findElement(locator).getAttribute("value");
+      if (! text.equals(existngText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+      }
+    }
   }
   protected void confirmAlert(){
     wd.switchTo().alert().accept();

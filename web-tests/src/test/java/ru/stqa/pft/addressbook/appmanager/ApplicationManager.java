@@ -40,8 +40,7 @@ public class ApplicationManager {
     wd = new ChromeDriver();
   }
 
-    wd = new FirefoxDriver();
-    // вызов драйвера, переход на страницу и авторизация
+      // вызов драйвера, переход на страницу и авторизация
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get("http://localhost/addressbook/");
@@ -60,7 +59,9 @@ public class ApplicationManager {
   }
 
   public void stop() {
+    //wd.close();
     wd.quit();
+
   }
 
   public boolean isElementPresent(By by) {
