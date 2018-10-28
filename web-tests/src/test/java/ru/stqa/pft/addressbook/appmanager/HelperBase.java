@@ -13,27 +13,30 @@ public class HelperBase {
   public HelperBase(WebDriver wd) {
     this.wd = wd;
   }
-// нажатие на элемент найденный по локалтору
+
+  // нажатие на элемент найденный по локалтору
   protected void click(By locator) {
     wd.findElement(locator).click();
   }
-// нажатие, очитска поля и ввод текста поиск по локатору
+
+  // нажатие, очитска поля и ввод текста поиск по локатору
   protected void type(By locator, String text) {
     click(locator);
     // проверка на наличие значения в поле ввода и сравнение его на совпадение
-    if(text != null) {
+    if (text != null) {
       String existngText = wd.findElement(locator).getAttribute("value");
-      if (! text.equals(existngText)) {
+      if (!text.equals(existngText)) {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
       }
     }
   }
-  protected void confirmAlert(){
+
+  protected void confirmAlert() {
     wd.switchTo().alert().accept();
   }
 
-// проверка исключений
+  // проверка всплывающего сообщения на странице
   public boolean isAlertPresent() {
     try {
       wd.switchTo().alert();
@@ -43,13 +46,12 @@ public class HelperBase {
     }
   }
 
-
+// проверка наличие элемента на странице
   protected boolean isElementPresents(By locator) {
-    try{
+    try {
       wd.findElement(locator);
       return true;
-    }
-    catch(NoSuchElementException ex) {
+    } catch (NoSuchElementException ex) {
       return false;
     }
   }

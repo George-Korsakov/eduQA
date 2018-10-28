@@ -40,8 +40,8 @@ public class ApplicationManager {
     wd = new ChromeDriver();
   }
 
-      // вызов драйвера, переход на страницу и авторизация
-    wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+      // ожидание пояявление элемента на странице 1c для подстраховки
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get("http://localhost/addressbook/");
     navigationHelper = new NavigationHelper(wd);

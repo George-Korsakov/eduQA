@@ -10,14 +10,30 @@ public class NavigationHelper extends HelperBase {
     super(wd);
   }
 
-  // переход к списку групп
+  // переход к списку групп с проверкой
   public void gotoGroupPage() {
-    click(By.linkText("groups"));
+
+    if (isElementPresents(By.tagName("h1"))
+            && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+            && isElementPresents(By.name("New"))) {
+      return;
+    } else {
+      click(By.linkText("groups"));
+    }
+
   }
 
   // есть основание подозревать дублирование кода с returnGroupPage, но будет оставлено воимя аутентичности :-))
   public void gotoExit() {
     click(By.linkText("Logout"));
+  }
+
+  public void gotoHomePage() {
+    if (isElementPresents(By.id("maintable"))) {
+      return;
+    } else {
+      click(By.linkText("home"));
+    }
   }
 
 }
