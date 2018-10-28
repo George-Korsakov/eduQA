@@ -27,7 +27,7 @@ public class NavigationHelper extends HelperBase {
   public void gotoExit() {
     click(By.linkText("Logout"));
   }
-
+// проверка для страницы с контакатами
   public void gotoHomePage() {
     if (isElementPresents(By.id("maintable"))) {
       return;

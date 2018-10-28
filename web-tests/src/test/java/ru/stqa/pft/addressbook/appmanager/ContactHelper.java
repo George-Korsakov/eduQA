@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.ContactShortData;
 
 public class ContactHelper extends HelperBase {
 
@@ -24,7 +25,7 @@ public class ContactHelper extends HelperBase {
     click(By.name("submit"));
   }
 
-  // заполнение полей формы контакта
+  // заполнение полей полной формы контакта
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFname());
     type(By.name("middlename"), contactData.getMname());
@@ -57,8 +58,18 @@ public class ContactHelper extends HelperBase {
 
   }
 
+  //  заполнение сокращенной формы контакта
 
-  // добавление нового контакта вызов формы
+  public void fillShortContactForm(ContactShortData contactShortData) {
+    type(By.name("firstname"), contactShortData.getFname());
+    type(By.name("lastname"), contactShortData.getLname());
+    type(By.name("address"), contactShortData.getAddress());
+    type(By.name("home"), contactShortData.getPhoneNumHome());
+    type(By.name("email"), contactShortData.getEmail());
+
+  }
+
+    // добавление нового контакта вызов формы
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
@@ -81,5 +92,15 @@ public class ContactHelper extends HelperBase {
 
   public void submitContactModification() {
     click(By.name("update"));
+  }
+  // вспомогательный мететод, для создание предусловия другим тестам
+  public void createShortContact(ContactShortData contact) {
+   initContactCreation();
+   fillShortContactForm(contact);
+   submitContactCreation();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresents(By.name("selected[]"));
   }
 }

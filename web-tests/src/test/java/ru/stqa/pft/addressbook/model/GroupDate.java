@@ -11,6 +11,15 @@ public class GroupDate {
     this.groupCommmet = groupCommmet;
   }
 
+/*
+  public GroupDate(GroupDate group) {
+    this.groupName = GroupDate.this.getGroupName();
+    this.groupHeader = GroupDate.this.getGroupHeader();
+    this.groupCommmet = GroupDate.this.getGroupCommmet();
+  }
+*/
+
+
   public String getGroupName() {
     return groupName;
   }

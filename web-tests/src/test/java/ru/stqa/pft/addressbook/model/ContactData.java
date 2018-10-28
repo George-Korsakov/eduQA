@@ -16,6 +16,8 @@ public class ContactData {
   private final String bYear;
   private  final String chosenGroup;
 
+
+
   public ContactData(String fname, String mname, String lname, String nname, String photoPathToFile, String title, String company, String address, String phoneNumHome, String email, String bDay, String bMonth, String bYear, String chosenGroup) {
     this.fname = fname;
     this.mname = mname;
@@ -32,6 +34,8 @@ public class ContactData {
     this.bYear = bYear;
     this.chosenGroup = chosenGroup;
   }
+
+
 
   public String getFname() {
     return fname;
@@ -88,4 +92,6 @@ public class ContactData {
  public String getChosenGroup() {
     return chosenGroup;
   }
+
+
 }
