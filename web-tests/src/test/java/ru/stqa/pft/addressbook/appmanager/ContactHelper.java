@@ -1,8 +1,10 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -23,7 +25,7 @@ public class ContactHelper extends HelperBase {
   }
 
   // заполнение полей формы контакта
-  public void fillContactForm(ContactData contactData) {
+  public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFname());
     type(By.name("middlename"), contactData.getMname());
     type(By.name("lastname"), contactData.getLname());
@@ -44,11 +46,17 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.name("byear")).click();
     wd.findElement(By.name("byear")).clear();
     wd.findElement(By.name("byear")).sendKeys(contactData.getbYear());
-    // выбор группы для контакта убран, т.к. порождает зависимость тестов
-    //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
-    // альтернативный сопособ выбора группы
-    //wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Group:'])[1]/following::option[6]")).click();
+
+    if (creation){
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
+    }
+    else {
+      Assert.assertFalse(isElementPresents(By.name("new_group")));
+    }
+
+
   }
+
 
   // добавление нового контакта вызов формы
   public void initContactCreation() {

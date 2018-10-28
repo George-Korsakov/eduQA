@@ -14,9 +14,9 @@ public class ContactData {
   private final String bDay;
   private final String bMonth;
   private final String bYear;
+  private  final String chosenGroup;
 
-
-  public ContactData(String fname, String mname, String lname, String nname, String photoPathToFile, String title, String company, String address, String phoneNumHome, String email, String bDay, String bMonth, String bYear) {
+  public ContactData(String fname, String mname, String lname, String nname, String photoPathToFile, String title, String company, String address, String phoneNumHome, String email, String bDay, String bMonth, String bYear, String chosenGroup) {
     this.fname = fname;
     this.mname = mname;
     this.lname = lname;
@@ -30,7 +30,7 @@ public class ContactData {
     this.bDay = bDay;
     this.bMonth = bMonth;
     this.bYear = bYear;
-
+    this.chosenGroup = chosenGroup;
   }
 
   public String getFname() {
@@ -84,8 +84,8 @@ public class ContactData {
   public String getbYear() {
     return bYear;
   }
-// убран для уменьшения зависимости между тестами
- /* public String getChosenGroup() {
+// выбор группы
+ public String getChosenGroup() {
     return chosenGroup;
-  }*/
+  }
 }

@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 
@@ -19,6 +20,7 @@ public class HelperBase {
 // нажатие, очитска поля и ввод текста поиск по локатору
   protected void type(By locator, String text) {
     click(locator);
+    // проверка на наличие значения в поле ввода и сравнение его на совпадение
     if(text != null) {
       String existngText = wd.findElement(locator).getAttribute("value");
       if (! text.equals(existngText)) {
@@ -42,4 +44,13 @@ public class HelperBase {
   }
 
 
+  protected boolean isElementPresents(By locator) {
+    try{
+      wd.findElement(locator);
+      return true;
+    }
+    catch(NoSuchElementException ex) {
+      return false;
+    }
+  }
 }
