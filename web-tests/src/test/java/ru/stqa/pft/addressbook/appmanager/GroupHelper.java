@@ -38,11 +38,27 @@ public class GroupHelper extends HelperBase {
     click(By.name("selected[]"));
   }
 
+  public void returnToGroupPage() {
+    wd.findElement(By.linkText("Logout")).click();
+    ;
+  }
+
   public void initGroupModification() {
     click(By.name("edit"));
   }
 
   public void submitGroupModification() {
     click(By.name("update"));
+  }
+
+  public void createGroup(GroupDate group) {
+  initGroupCreation();
+  fillGroupForm(new GroupDate("TestGroup1", "TestHeaderFroup", null));
+  submitGroupCreation();
+  returnToGroupPage();
+  }
+
+  public boolean isThereAGroup() {
+    return isElementPresents(By.name("selected[]"));
   }
 }

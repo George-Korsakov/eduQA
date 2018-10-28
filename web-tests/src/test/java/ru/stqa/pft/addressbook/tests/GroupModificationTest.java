@@ -9,11 +9,15 @@ public class GroupModificationTest extends TestBase {
   public void testGroupModification() {
 // редактирование полей первой группы в списке
     app.getNavigationHelper().gotoGroupPage();
+    // проверка наличия группы, создание при необходимости
+    if(! app.getGroupHelper().isThereAGroup()){
+      app.getGroupHelper().createGroup(new GroupDate("TestGroup1", "null", null));
+    };
     app.getGroupHelper().selectGroup();
     app.getGroupHelper().initGroupModification();
     app.getGroupHelper().fillGroupForm(new GroupDate("TestGroup1_edit", "TestHeaderFroup_e", "TestComment_e"));
     app.getGroupHelper().submitGroupModification();
-    app.returnToGroupPage(); // намерено оставленный метод вне класса помошника
-  }
+    app.getGroupHelper().returnToGroupPage();
 
+  }
 }

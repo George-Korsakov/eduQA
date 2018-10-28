@@ -8,7 +8,7 @@ public class SimpleTestRunner  extends TestBase {
     @Test
             public void testEmpty(){
      System.out.println("Тут будет какой то тест !");
-      app.returnToGroupPage();
+      app.getGroupHelper().returnToGroupPage();
   }
 
 

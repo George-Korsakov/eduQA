@@ -41,7 +41,7 @@ public class ApplicationManager {
   }
 
       // ожидание пояявление элемента на странице 1c для подстраховки
-    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get("http://localhost/addressbook/");
     navigationHelper = new NavigationHelper(wd);
@@ -53,17 +53,17 @@ public class ApplicationManager {
 
 
   // возврат на страницу списка групп временно оставлена вне класса помошника
-  public void returnToGroupPage() {
+/*  public void returnToGroupPage() {
     wd.findElement(By.linkText("Logout")).click();
     ;
   }
-
+*/
   public void stop() {
     //wd.close();
     wd.quit();
 
   }
-
+// какая то старая проверка, нужно исправить
   public boolean isElementPresent(By by) {
     try {
       wd.findElement(by);
@@ -77,11 +77,13 @@ public class ApplicationManager {
     return groupHelper;
   }
 
+  public ContactHelper getContactHelper() {
+    return contactHelper;
+  }
+
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
   }
 
-  public ContactHelper getContactHelper() {
-    return contactHelper;
-  }
+
 }
