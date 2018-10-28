@@ -39,7 +39,7 @@ public class GroupHelper extends HelperBase {
   }
 
   public void returnToGroupPage() {
-    wd.findElement(By.linkText("Logout")).click();
+    wd.findElement(By.linkText("groups")).click();
     ;
   }
 
@@ -53,7 +53,7 @@ public class GroupHelper extends HelperBase {
 
   public void createGroup(GroupDate group) {
   initGroupCreation();
-  fillGroupForm(new GroupDate("TestGroup1", "TestHeaderFroup", null));
+  fillGroupForm(new GroupDate("TestGroup1", null, null));
   submitGroupCreation();
   returnToGroupPage();
   }
