@@ -31,8 +31,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("middlename"), contactData.getMname());
     type(By.name("lastname"), contactData.getLname());
     type(By.name("nickname"), contactData.getNname());
-    //  удалить или заменить type(By.name("photo"),contactData.getPhotoPathToFile());
-    // выбор файла для контактов
+       // выбор файла для контактов
     wd.findElement(By.name("photo")).sendKeys(contactData.getPhotoPathToFile());
     type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
@@ -47,7 +46,7 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.name("byear")).click();
     wd.findElement(By.name("byear")).clear();
     wd.findElement(By.name("byear")).sendKeys(contactData.getbYear());
-
+  // проверка типа операции над контактом для выбора группы
     if (creation){
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
     }
