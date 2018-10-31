@@ -1,12 +1,15 @@
 package beginer.simple;
 
-import java.util.*;
+import javafx.beans.property.SimpleObjectProperty;
+
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 
-public class Circle{
+public class Circle {
 
   public static void main(String[] args) {
     // пример  работы с массивами
@@ -17,20 +20,28 @@ public class Circle{
     massiv[3] = "Bash";
     massiv[4] = "Pyton";
 
-    for (int i = 0; i < massiv.length; i++) {
-      System.out.println(" I can learn " + massiv[i]);
+    for (String l : massiv) {
+      System.out.println(" I can learn " + l);
     }
 
 
-
-  // пример  работы с списком
-    ArrayList<String> testList = new ArrayList<String>();
+    // пример  работы с списком
+    List<String> testList = new ArrayList<>();
     testList.add("test1");
     testList.add("test2");
     testList.add("test3");
 
-    for(Integer l = 0; l < testList.size(); l++){
-    System.out.println(testList.get(l));
+    for (Integer l = 0; l < testList.size(); l++) {
+      System.out.println(testList.get(l));
     }
+
+
+    List<String> testBList = Arrays.asList("testA", "TestB", "TeestC");
+
+    for (Integer l = 0; l < testBList.size(); l++) {
+      System.out.println(testBList.get(l));
+    }
+
+
   }
 }
