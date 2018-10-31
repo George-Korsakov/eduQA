@@ -12,7 +12,6 @@ public class GroupCreationTests extends TestBase {
 
     app.getNavigationHelper().gotoGroupPage();
     int Before = app.getGroupHelper().getGgroupCount();
-    // вариант использованиея app.getGroupHelper().createGroup(new GroupDate("TestGroup1", "TestHeaderFroup", null));
     app.getGroupHelper().initGroupCreation();
     app.getGroupHelper().fillGroupForm(new GroupDate("TestGroup1", "TestHeaderFroup", null));
     app.getGroupHelper().submitGroupCreation();

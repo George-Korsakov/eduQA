@@ -34,8 +34,8 @@ public class GroupHelper extends HelperBase {
   }
 
   // выбор группы для удаления
-  public void selectGroup() {
-    click(By.name("selected[]"));
+  public void selectGroup(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void returnToGroupPage() {

@@ -16,11 +16,11 @@ public class GroupDelitionTests extends TestBase {
     if(! app.getGroupHelper().isThereAGroup()){
       app.getGroupHelper().createGroup(new GroupDate("TestGroup1", "null", null));
     };
-    app.getGroupHelper().selectGroup();
+    app.getGroupHelper().selectGroup(Before-1);
     app.getGroupHelper().deleteSelectedGroups();
     app.getGroupHelper().returnToGroupPage();
     int After = app.getGroupHelper().getGgroupCount();
-    Assert.assertEquals();Before, After - 1);
+    Assert.assertEquals(Before, After - 1);
   }
 
 

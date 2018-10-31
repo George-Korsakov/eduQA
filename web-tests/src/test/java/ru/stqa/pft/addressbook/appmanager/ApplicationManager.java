@@ -8,10 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
-//import sun.plugin2.util.BrowserType;
-
-
-//import sun.plugin2.util.BrowserType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +37,7 @@ public class ApplicationManager {
   }
 
       // ожидание пояявление элемента на странице 5c для подстраховки
-    wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get("http://localhost/addressbook/");
     navigationHelper = new NavigationHelper(wd);
