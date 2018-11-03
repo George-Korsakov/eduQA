@@ -37,7 +37,7 @@ public class GroupHelper extends HelperBase {
   public void selectGroup(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
-
+// переход к списку групп
   public void returnToGroupPage() {
     wd.findElement(By.linkText("groups")).click();
     ;
@@ -50,14 +50,14 @@ public class GroupHelper extends HelperBase {
   public void submitGroupModification() {
     click(By.name("update"));
   }
-
+// создание группы
   public void createGroup(GroupDate group) {
   initGroupCreation();
   fillGroupForm(group);
   submitGroupCreation();
   returnToGroupPage();
   }
-
+// для проверки групп
   public boolean isThereAGroup() {
     return isElementPresents(By.name("selected[]"));
   }

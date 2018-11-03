@@ -47,19 +47,12 @@ public class ApplicationManager {
     sessionHelper.login("admin", "secret");
   }
 
-
-  // возврат на страницу списка групп временно оставлена вне класса помошника
-/*  public void returnToGroupPage() {
-    wd.findElement(By.linkText("Logout")).click();
-    ;
-  }
-*/
   public void stop() {
     //wd.close();
     wd.quit();
 
   }
-// какая то старая проверка, нужно исправить
+// проверка
   public boolean isElementPresent(By by) {
     try {
       wd.findElement(by);
