@@ -13,14 +13,14 @@ public class GroupDelitionTests extends TestBase {
     app.getNavigationHelper().gotoGroupPage();
     // проверка наличия группы, создание при необходимости
     if(! app.getGroupHelper().isThereAGroup()){
-      app.getGroupHelper().createGroup(new GroupDate("TestGroup1", "null", null));
+      app.getGroupHelper().createGroup(new GroupDate("TestGroup02", "null", null));
     };
     int Before = app.getGroupHelper().getGroupCount();
     app.getGroupHelper().selectGroup(Before-1);
     app.getGroupHelper().deleteSelectedGroups();
     app.getGroupHelper().returnToGroupPage();
     int After = app.getGroupHelper().getGroupCount();
-    Assert.assertEquals(Before, After - 1);
+    Assert.assertEquals(After,Before-1 );
   }
 
 

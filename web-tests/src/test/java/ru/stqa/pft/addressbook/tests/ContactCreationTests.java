@@ -8,17 +8,18 @@ public class ContactCreationTests extends TestBase {
 
   @Test
   public void testContactCreation() {
+    int r = (int)(Math.random()*1000000);
     // не обязательное действие по прееходу на додмаашнюю страницу для проверки
     app.getNavigationHelper().gotoHomePage();
     int Before = app.getContactHelper().getContactCount();
     app.getContactHelper().initContactCreation();
-    app.getContactHelper().fillContactForm(new ContactData("NameTest2", "MiddleNameTest2", "LastNameTest2", "NickNameTest2", "C:\\Temp\\03.jpg", "Test123", "CoTest", "Russian, Moscow, Red Square, 1", "+74951230007", "test1@test.test", "5", "September", "1987", "TestGroup1"), true);
+    // заполнение полей конатактов, для пропуска выбора группы указать значение [none]
+    app.getContactHelper().fillContactForm(new ContactData("NameTest1"+r, "MiddleNameTest1", "LastNameTest1"+r, "NickNameTest1", "C:\\Temp\\03.jpg", "Test123", "CoTest", "Russian, Moscow, Red Square, 1", "+74951230007", "test1@test.test", "5", "September", "1987", "[none]"), true);
     app.getContactHelper().submitContactCreation();
     app.getContactHelper().retutnHomePage();
     int After = app.getContactHelper().getContactCount();
-    Assert.assertEquals(Before, After +1);
+    Assert.assertEquals(Before, After -1);
     app.getNavigationHelper().gotoExit();
-
 
   }
 

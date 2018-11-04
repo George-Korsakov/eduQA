@@ -10,17 +10,18 @@ public class ContactDelitionTests extends TestBase {
   public void testContactDelition() {
 // удаление первого контакта в списке
     app.getNavigationHelper().gotoHomePage();
-    int Before = app.getGroupHelper().getGroupCount();
     if(! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createShortContact(new ContactShortData("NameTest",  "LastNameTest", "Ru.Msk", "+74991234567", "t@t.t"));
+      app.getContactHelper().createShortContact(new ContactShortData("NameTest",  "LastNameTest", "test", "00991234567", "t@t.t"));
+      app.getNavigationHelper().gotoHomePage();
     }
+    int Before = app.getContactHelper().getContactCount();
     app.getContactHelper().selectContact(Before-1);
     app.getContactHelper().deleteSelectedContact();
     app.getContactHelper().submitContactDelete();
-    app.getNavigationHelper().gotoExit();
-    int After = app.getGroupHelper().getGroupCount();
+    int After = app.getContactHelper().getContactCount();
     // проверка числа группы в списке до и после
-    Assert.assertEquals(Before, After-1);
+    Assert.assertEquals(Before, After +1);
+    app.getNavigationHelper().gotoExit();
   }
 
 }
