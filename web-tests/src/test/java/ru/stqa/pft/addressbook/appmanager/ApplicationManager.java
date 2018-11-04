@@ -48,8 +48,8 @@ public class ApplicationManager {
   }
 
   public void stop() {
-    //wd.close();
-    wd.quit();
+    wd.close();
+   // wd.quit();
 
   }
 // проверка

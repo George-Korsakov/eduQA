@@ -33,7 +33,7 @@ public class GroupHelper extends HelperBase {
     click(By.name("delete"));
   }
 
-  // выбор группы для удаления
+  // выбор группы для удаления по номеру в списке
   public void selectGroup(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
@@ -62,7 +62,7 @@ public class GroupHelper extends HelperBase {
     return isElementPresents(By.name("selected[]"));
   }
 
-  public int getGgroupCount() {
+  public int getGroupCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 }
