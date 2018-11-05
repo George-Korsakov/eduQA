@@ -22,6 +22,7 @@ public class GroupDelitionTests extends TestBase {
     app.getGroupHelper().deleteSelectedGroups();
     app.getGroupHelper().returnToGroupPage();
     List<GroupDate> after = app.getGroupHelper().getGroupList();
+
     // проврека рутем срправнения размеров списков
     Assert.assertEquals(after.size(),before.size()-1 );
     // проверка путем сравнение списков по элементно

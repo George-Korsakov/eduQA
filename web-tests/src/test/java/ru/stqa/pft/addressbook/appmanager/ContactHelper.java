@@ -84,6 +84,7 @@ public class ContactHelper extends HelperBase {
 
   public void submitContactDelete() {
     confirmAlert();
+
   }
 
   public void initContactModification() {
@@ -112,20 +113,44 @@ public class ContactHelper extends HelperBase {
   public List<ContactShortData> getContactList() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
-      //int index = 2;
-      //tableRows.get(index).getText();
-      //List<WebElement> elementsA = wd.findElements(By.cssSelector("tbody > tr:nth-child("+ a +") > td:nth-child(" +b + "")"");
-      //List<WebElement> elementsB = wd.findElements(By.cssSelector("tbody > tr:nth-child(" + a + ") > td:nth-child( " +b +"")"");
+
+          int maxRow =  getContactCount();
+
+
+      WebElement table = wd.findElement(By.id("maintable"));
+      List<WebElement> allRows = table.findElements(By.tagName("tr"));
+      for(int i = 2; i < maxRow; i++){
+      //for (WebElement row : allRows) {
+       // if( !row.equals(row.findElement(By.className("fdTableSortTrigger")))){
+        List<WebElement> cells = allRows.get(i).findElements(By.tagName("td"));
+        String lname = cells.get(2).getText();
+        String name = cells.get(3).getText();
+        ContactShortData contact = new ContactShortData(lname, name, null, null, null);
+        contacts.add(contact);
+          }
+
+
+
+     /* for(int a =2; a < maxRow+1; a++){
+        //String lname= wd.findElements(By.cssSelector(" "tbody > tr:nth-child("+ a +") > td:nth-child(" + 2 + ")" ");
+        String name = wd.findElements(By.cssSelector(" "tbody > tr:nth-child(" + a + ") > td:nth-child( " + 3 +")" ");
+        String lname= wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[a]/td[2])");
+        System.out.println("row num " + a " consist  " + lname + " and " + name  );
+        ContactShortData contact = new ContactShortData(lname, name, null, null, null);
+        contacts.add(contact);
+      }*/
+
 
       // в цикле получаем имена контактов из таблицы
-      WebElement contactTable = wd.findElement(By.id("maintable"));
+      /*WebElement contactTable = wd.findElement(By.id("maintable"));
       List<WebElement> tableRows = contactTable.findElements(By.tagName("tr"));
       for (WebElement tableRow : tableRows) {
         String lname = tableRows.get(2).getText();
         String name = tableRows.get(3).getText();
         ContactShortData contact = new ContactShortData(lname, name, null, null, null);
         contacts.add(contact);
-      }
+
+      }*/
     }
     return contacts;
   }

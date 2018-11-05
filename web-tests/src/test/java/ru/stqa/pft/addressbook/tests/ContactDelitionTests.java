@@ -21,18 +21,22 @@ public class ContactDelitionTests extends TestBase {
     app.getContactHelper().selectContact(beforec-1 );
     app.getContactHelper().deleteSelectedContact();
     app.getContactHelper().submitContactDelete();
-    //int after = app.getContactHelper().getContactCount();
+    // подстраховака если не отобразился спсиок контактов, то переходим на страницу с контактами
+    if(! app.getContactHelper().isThereAContact()){
+      app.getNavigationHelper().gotoHomePage();
+    };
     List<ContactShortData> after = app.getContactHelper().getContactList();
     // проверка числа группы в списке до и после
     Assert.assertEquals(before.size(), after.size() +1);
-    app.getNavigationHelper().gotoExit();
 
     // проверка сравнением
-    before.remove(before.size() -1);
+    before.remove(beforec-1);
     for(int i=0; i< after.size(); i++){
       Assert.assertEquals(before.get(i), after.get(i));
+      System.out.println(before.get(i));
     }
 
+    app.getNavigationHelper().gotoExit();
   }
 
 }
