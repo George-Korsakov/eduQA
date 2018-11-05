@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
 
+import java.util.List;
+
 public class ContactDelitionTests extends TestBase {
 
   @Test
@@ -14,14 +16,23 @@ public class ContactDelitionTests extends TestBase {
       app.getContactHelper().createShortContact(new ContactShortData("NameTest",  "LastNameTest", "test", "00991234567", "t@t.t"));
       app.getNavigationHelper().gotoHomePage();
     }
-    int Before = app.getContactHelper().getContactCount();
-    app.getContactHelper().selectContact(Before-1);
+   int beforec = app.getContactHelper().getContactCount();
+    List<ContactShortData> before = app.getContactHelper().getContactList();
+    app.getContactHelper().selectContact(beforec-1 );
     app.getContactHelper().deleteSelectedContact();
     app.getContactHelper().submitContactDelete();
-    int After = app.getContactHelper().getContactCount();
+    //int after = app.getContactHelper().getContactCount();
+    List<ContactShortData> after = app.getContactHelper().getContactList();
     // проверка числа группы в списке до и после
-    Assert.assertEquals(Before, After +1);
+    Assert.assertEquals(before.size(), after.size() +1);
     app.getNavigationHelper().gotoExit();
+
+    // проверка сравнением
+    before.remove(before.size() -1);
+    for(int i=0; i< after.size(); i++){
+      Assert.assertEquals(before.get(i), after.get(i));
+    }
+
   }
 
 }

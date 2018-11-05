@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.util.Objects;
+
 public class GroupDate {
   private final String groupName;
   private final String groupHeader;
@@ -19,6 +21,24 @@ public class GroupDate {
   }
 */
 
+// сравнение объектов грпп
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupDate groupDate = (GroupDate) o;
+    return Objects.equals(groupName, groupDate.groupName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupName);
+  }
+// преобразование элемента списка групп в строку для вывода
+  @Override
+  public String toString() {
+    return "GroupDate{" + "groupName='" + groupName + '\'' + '}';
+  }
 
   public String getGroupName() {
     return groupName;

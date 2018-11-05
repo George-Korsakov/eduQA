@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
   private final String fname;
   private final String mname;
@@ -63,6 +65,24 @@ public class ContactData {
 
   public String getCompany() {
     return company;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return Objects.equals(fname, that.fname) && Objects.equals(lname, that.lname);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fname, lname);
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" + "fname='" + fname + '\'' + ", lname='" + lname + '\'' + '}';
   }
 
   public String getAddress() {

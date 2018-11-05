@@ -3,10 +3,14 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.ContactShortData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -31,7 +35,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("middlename"), contactData.getMname());
     type(By.name("lastname"), contactData.getLname());
     type(By.name("nickname"), contactData.getNname());
-       // выбор файла для контактов
+    // выбор файла для контактов
     wd.findElement(By.name("photo")).sendKeys(contactData.getPhotoPathToFile());
     type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
@@ -46,11 +50,10 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.name("byear")).click();
     wd.findElement(By.name("byear")).clear();
     wd.findElement(By.name("byear")).sendKeys(contactData.getbYear());
-  // проверка типа операции над контактом для выбора группы
-    if (creation){
+    // проверка типа операции над контактом для выбора группы
+    if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
-    }
-    else {
+    } else {
       Assert.assertFalse(isElementPresents(By.name("new_group")));
     }
 
@@ -68,14 +71,12 @@ public class ContactHelper extends HelperBase {
 
   }
 
-    // добавление нового контакта вызов формы
+  // добавление нового контакта вызов формы
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
 
-  public void selectContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
-  }
+  public void selectContact(int index) { wd.findElements(By.name("selected[]")).get(index).click(); }
 
   public void deleteSelectedContact() {
     click(By.xpath("//input[@value='Delete']"));
@@ -92,16 +93,41 @@ public class ContactHelper extends HelperBase {
   public void submitContactModification() {
     click(By.name("update"));
   }
+
   // вспомогательный мететод, для создание предусловия другим тестам
   public void createShortContact(ContactShortData contact) {
-   initContactCreation();
-   fillShortContactForm(contact);
-   submitContactCreation();
+    initContactCreation();
+    fillShortContactForm(contact);
+    submitContactCreation();
   }
 
   public boolean isThereAContact() {
     return isElementPresents(By.name("selected[]"));
   }
 
-  public int getContactCount() {return wd.findElements(By.name("selected[]")).size();  }
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<ContactShortData> getContactList() {
+    List<ContactShortData> contacts = new ArrayList<ContactShortData>();
+    {
+      //int index = 2;
+      //tableRows.get(index).getText();
+      //List<WebElement> elementsA = wd.findElements(By.cssSelector("tbody > tr:nth-child("+ a +") > td:nth-child(" +b + "")"");
+      //List<WebElement> elementsB = wd.findElements(By.cssSelector("tbody > tr:nth-child(" + a + ") > td:nth-child( " +b +"")"");
+
+      // в цикле получаем имена контактов из таблицы
+      WebElement contactTable = wd.findElement(By.id("maintable"));
+      List<WebElement> tableRows = contactTable.findElements(By.tagName("tr"));
+      for (WebElement tableRow : tableRows) {
+        String lname = tableRows.get(2).getText();
+        String name = tableRows.get(3).getText();
+        ContactShortData contact = new ContactShortData(lname, name, null, null, null);
+        contacts.add(contact);
+      }
+    }
+    return contacts;
+  }
+
 }
