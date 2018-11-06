@@ -22,7 +22,7 @@ public class ContactCreationTests extends TestBase {
     app.getContactHelper().submitContactCreation();
     app.getContactHelper().retutnHomePage();
     List<ContactShortData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(before.size(), after.size() -1);
+    Assert.assertEquals(before.size(), after.size()+1);
     app.getNavigationHelper().gotoExit();
 
 //    System.out.println(app.getContactHelper().getContactList());

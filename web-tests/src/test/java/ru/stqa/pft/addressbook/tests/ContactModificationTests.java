@@ -13,7 +13,7 @@ public class ContactModificationTests extends TestBase {
     app.getNavigationHelper().gotoHomePage();
     // проверка на выполнение предуслоовия, создание контакта
     if(! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createShortContact(new ContactShortData("NewTest"+ r,  "LastNameTest", "Ru.Msk", "+74991234567", "t@t.t"));
+      app.getContactHelper().createShortContact(new ContactShortData("NewTest"+ r,  "LastNameTest"));
     }
     int before = app.getContactHelper().getContactCount();
     // редактирование полей первого контакта в списке

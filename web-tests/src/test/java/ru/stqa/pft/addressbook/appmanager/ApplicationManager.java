@@ -36,8 +36,8 @@ public class ApplicationManager {
     wd = new ChromeDriver();
   }
 
-      // ожидание пояявление элемента на странице 5c для подстраховки
-    wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+      // ожидание пояявление элемента на странице 2c для подстраховки
+    wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get("http://localhost/addressbook/");
     navigationHelper = new NavigationHelper(wd);

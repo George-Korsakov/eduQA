@@ -65,9 +65,6 @@ public class ContactHelper extends HelperBase {
   public void fillShortContactForm(ContactShortData contactShortData) {
     type(By.name("firstname"), contactShortData.getFname());
     type(By.name("lastname"), contactShortData.getLname());
-    type(By.name("address"), contactShortData.getAddress());
-    type(By.name("home"), contactShortData.getPhoneNumHome());
-    type(By.name("email"), contactShortData.getEmail());
 
   }
 
@@ -76,7 +73,9 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void selectContact(int index) { wd.findElements(By.name("selected[]")).get(index).click(); }
+  public void selectContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
+  }
 
   public void deleteSelectedContact() {
     click(By.xpath("//input[@value='Delete']"));
@@ -113,46 +112,40 @@ public class ContactHelper extends HelperBase {
   public List<ContactShortData> getContactList() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
+      //int maxRow = getContactCount();
+      WebElement table_element = wd.findElement(By.id("maintable"));
+      // получаем список строк таблицы
 
-          int maxRow =  getContactCount();
+      List<WebElement> allRows = table_element.findElements(By.xpath(".//tbody/tr"));
+      //String aa = table_element.findElement(By.xpath("//tr[4]/td[3]"))
+      for(WebElement row : allRows){
+        String name1 = row.findElement(By.xpath("//td[2]")).getText();
+        String name2 = row.findElement(By.xpath("//td[3]")).getText();
+        ContactShortData contact = new ContactShortData(name1, name2);
+        // добавлем объект контакт в список
+        contacts.add(contact);
+      }
 
-
-      WebElement table = wd.findElement(By.id("maintable"));
-      List<WebElement> allRows = table.findElements(By.tagName("tr"));
-      for(int i = 2; i < maxRow; i++){
+      // проходим все строки
       //for (WebElement row : allRows) {
-       // if( !row.equals(row.findElement(By.className("fdTableSortTrigger")))){
-        List<WebElement> cells = allRows.get(i).findElements(By.tagName("td"));
-        String lname = cells.get(2).getText();
-        String name = cells.get(3).getText();
-        ContactShortData contact = new ContactShortData(lname, name, null, null, null);
-        contacts.add(contact);
-          }
+        // получаем ячейки из строк
+        //List<WebElement> cells = row.findElements(By.tagName("td"));
+        // полчаем значение из нужных строк
+        //String valueA = row.findElements(By.cssSelector("tr")).get(1).toString();
+        //String valueB = row.findElements(By.cssSelector("tr")).get(2).toString();
+        //String cellB = cells.get(2).toString();
+        // осздаем новый объект контакт
+        //ContactShortData contact = new ContactShortData(valueA, valueB);
+        // добавлем объект контакт в список
+        //contacts.add(contact);
+      //}
+      return contacts;
+
+      //for (WebElement row : allRows) {
+      // if( !row.equals(row.findElement(By.className("fdTableSortTrigger")))){
+      //List<WebElement> cells = row.findElements(By.tagName("td"));
 
 
-
-     /* for(int a =2; a < maxRow+1; a++){
-        //String lname= wd.findElements(By.cssSelector(" "tbody > tr:nth-child("+ a +") > td:nth-child(" + 2 + ")" ");
-        String name = wd.findElements(By.cssSelector(" "tbody > tr:nth-child(" + a + ") > td:nth-child( " + 3 +")" ");
-        String lname= wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[a]/td[2])");
-        System.out.println("row num " + a " consist  " + lname + " and " + name  );
-        ContactShortData contact = new ContactShortData(lname, name, null, null, null);
-        contacts.add(contact);
-      }*/
-
-
-      // в цикле получаем имена контактов из таблицы
-      /*WebElement contactTable = wd.findElement(By.id("maintable"));
-      List<WebElement> tableRows = contactTable.findElements(By.tagName("tr"));
-      for (WebElement tableRow : tableRows) {
-        String lname = tableRows.get(2).getText();
-        String name = tableRows.get(3).getText();
-        ContactShortData contact = new ContactShortData(lname, name, null, null, null);
-        contacts.add(contact);
-
-      }*/
     }
-    return contacts;
   }
-
 }

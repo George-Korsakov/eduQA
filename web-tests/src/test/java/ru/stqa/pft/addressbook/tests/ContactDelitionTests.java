@@ -13,7 +13,7 @@ public class ContactDelitionTests extends TestBase {
 // удаление первого контакта в списке
     app.getNavigationHelper().gotoHomePage();
     if(! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createShortContact(new ContactShortData("NameTest",  "LastNameTest", "test", "00991234567", "t@t.t"));
+      app.getContactHelper().createShortContact(new ContactShortData("NameTest",  "LastNameTest"));
       app.getNavigationHelper().gotoHomePage();
     }
    int beforec = app.getContactHelper().getContactCount();

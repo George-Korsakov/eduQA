@@ -1,5 +1,13 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
@@ -7,35 +15,34 @@ import ru.stqa.pft.addressbook.model.GroupDate;
 import ru.stqa.pft.addressbook.appmanager.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.tests.GroupCreationTests;
+import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.ContactShortData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleTestRunner  extends TestBase {
 
+  WebDriver wd;
 
+  /*public simpleTestRunner(WebDriver wd) {
+    this.wd = wd;
+  }
+  */
   @Test
-  public void test1() {
+  public void test () {
+    //app.init();
     app.getNavigationHelper().gotoHomePage();
-    int sum = (int)app.getContactHelper().getContactCount();
 
-    List<ContactShortData> contactAll = app.getContactHelper().getContactList();
-        for(ContactShortData cont : contactAll){
-      System.out.print("test " + cont.getFname() + " " + cont.getLname() );
+    int sum = (int) app.getContactHelper().getContactCount();
+    System.out.println("Contacts = " + sum);
+
+    app.getContactHelper().getContactList().get(1);
+
+    List<WebElement> allR = wd.findElements(By.tagName("entry"));
+
+    //String valueA = allR.stream().findElements(By.tagName("td")).get(1).toString();
+    //System.out.println("Test = " + valueA);
+
     }
-    System.out.print("test " + contactAll.get(1) + " " + contactAll.get(2) + " " + contactAll.get(3));
-    System.out.print(" test contact summ is " + sum);
-
-    Assert.assertEquals(contactAll.size(), -99);
-  //  return;
-  };
-
-  //@Test
- // public void test2() { new ContactCreationTests(); return;};
-
-    /*ContactModificationTests step3 = new ContactModificationTests();
-     ContactDelitionTests step4 = new ContactDelitionTests();
-     GroupModificationTest step5 = new GroupModificationTest();
-     GroupDelitionTests step6 = new GroupDelitionTests();*/
-
-
 }
