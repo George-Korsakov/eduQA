@@ -112,39 +112,21 @@ public class ContactHelper extends HelperBase {
   public List<ContactShortData> getContactList() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
-      //int maxRow = getContactCount();
-      WebElement table_element = wd.findElement(By.id("maintable"));
-      // получаем список строк таблицы
-
-      List<WebElement> allRows = table_element.findElements(By.xpath(".//tbody/tr"));
-      //String aa = table_element.findElement(By.xpath("//tr[4]/td[3]"))
-      for(WebElement row : allRows){
-        String name1 = row.findElement(By.xpath("//td[2]")).getText();
-        String name2 = row.findElement(By.xpath("//td[3]")).getText();
+      int maxRow = getContactCount();
+      WebElement mytable = wd.findElement(By.xpath("html/body/table/tbody"));
+      // получаем строки
+      List < WebElement > rows_table = mytable.findElements(By.tagName("entry"));
+      for (int row = 0; row < maxRow; row++) {
+        //получение столбцов из строк (cells)
+        List< WebElement > Columns_row = rows_table.get(row).findElements(By.tagName("td"));
+        String name1 = Columns_row.get(1).getText();
+        String name2 = Columns_row.get(2).getText();
         ContactShortData contact = new ContactShortData(name1, name2);
         // добавлем объект контакт в список
         contacts.add(contact);
       }
 
-      // проходим все строки
-      //for (WebElement row : allRows) {
-        // получаем ячейки из строк
-        //List<WebElement> cells = row.findElements(By.tagName("td"));
-        // полчаем значение из нужных строк
-        //String valueA = row.findElements(By.cssSelector("tr")).get(1).toString();
-        //String valueB = row.findElements(By.cssSelector("tr")).get(2).toString();
-        //String cellB = cells.get(2).toString();
-        // осздаем новый объект контакт
-        //ContactShortData contact = new ContactShortData(valueA, valueB);
-        // добавлем объект контакт в список
-        //contacts.add(contact);
-      //}
       return contacts;
-
-      //for (WebElement row : allRows) {
-      // if( !row.equals(row.findElement(By.className("fdTableSortTrigger")))){
-      //List<WebElement> cells = row.findElements(By.tagName("td"));
-
 
     }
   }
