@@ -14,7 +14,7 @@ public class TestTable {
 
 
     WebDriver wd = new FirefoxDriver();
-    wd.manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
     wd = new FirefoxDriver();
     // проимер выборки значений их простейшей таблицы
    /* String baseUrl = "file://C:/Temp/testTable.html";

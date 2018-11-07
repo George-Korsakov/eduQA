@@ -112,18 +112,27 @@ public class ContactHelper extends HelperBase {
   public List<ContactShortData> getContactList() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
-      int maxRow = getContactCount();
-      WebElement mytable = wd.findElement(By.xpath("html/body/table/tbody"));
+      //int maxRow = getContactCount();
+      WebElement mytable = wd.findElement(By.xpath("//*[@id=\"maintable\"]"));
       // получаем строки
-      List < WebElement > rows_table = mytable.findElements(By.tagName("entry"));
-      for (int row = 0; row < maxRow; row++) {
+      List < WebElement > rows_table = mytable.findElements(By.tagName("tr")); // entry или tr аналогично
+      int maxRow = rows_table.size();
+      for (int row =0; row < maxRow; row++) {
         //получение столбцов из строк (cells)
-        List< WebElement > Columns_row = rows_table.get(row).findElements(By.tagName("td"));
-        String name1 = Columns_row.get(1).getText();
-        String name2 = Columns_row.get(2).getText();
-        ContactShortData contact = new ContactShortData(name1, name2);
-        // добавлем объект контакт в список
-        contacts.add(contact);
+        List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
+        int columns_count = Columns_row.size();
+        for (int column = 0 ; column < columns_count; column++) {
+          // выборо нужных значений ячеек
+          if(column == 2) {
+            String name1 = Columns_row.get(column-1).getText();
+            String name2 = Columns_row.get(column).getText();
+            ContactShortData contact = new ContactShortData(name1, name2);
+            // добавлем объект контакт в список
+            contacts.add(contact);
+          }
+        }
+
+
       }
 
       return contacts;
