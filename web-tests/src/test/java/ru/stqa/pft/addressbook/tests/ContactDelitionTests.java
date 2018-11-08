@@ -34,8 +34,10 @@ public class ContactDelitionTests extends TestBase {
     before.remove(before.size()-1);
     for(int i=0; i< after.size(); i++){
       Assert.assertEquals(before.get(i), after.get(i));
-      System.out.println(before.get(i));
+      //System.out.println("before " + before.get(i));
+      //System.out.println("after" + after.get(i));
     }
+
 
     app.getNavigationHelper().gotoExit();
   }
