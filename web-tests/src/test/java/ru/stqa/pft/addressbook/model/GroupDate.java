@@ -3,12 +3,30 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class GroupDate {
-  private final String groupID;
+  public void setGroupID(int groupID) {
+    this.groupID = groupID;
+  }
+
+  private  int groupID;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupDate groupDate = (GroupDate) o;
+    return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupID, groupName);
+  }
+
   private final String groupName;
   private final String groupHeader;
   private final String groupCommmet;
 
-  public GroupDate(String groupID, String groupName, String groupHeader, String groupCommmet) {
+  public GroupDate(int groupID, String groupName, String groupHeader, String groupCommmet) {
     this.groupID = groupID;
     this.groupName = groupName;
     this.groupHeader = groupHeader;
@@ -16,7 +34,7 @@ public class GroupDate {
   }
 
   public GroupDate( String groupName, String groupHeader, String groupCommmet) {
-    this.groupID = null;
+    this.groupID = 0;
     this.groupName = groupName;
     this.groupHeader = groupHeader;
     this.groupCommmet = groupCommmet;
@@ -29,20 +47,7 @@ public class GroupDate {
     return "GroupDate{" + "groupID='" + groupID + '\'' + ", groupName='" + groupName + '\'' + '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GroupDate groupDate = (GroupDate) o;
-    return Objects.equals(groupID, groupDate.groupID) && Objects.equals(groupName, groupDate.groupName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(groupID, groupName);
-  }
-
-  public String getGroupID() {  return groupID; }
+  public int getGroupID() {  return groupID; }
 
   public String getGroupName() {
     return groupName;
