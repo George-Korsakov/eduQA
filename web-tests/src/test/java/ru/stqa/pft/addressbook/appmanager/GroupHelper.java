@@ -76,7 +76,8 @@ public class GroupHelper extends HelperBase {
     // в цикле заполняется список полученными именами групп
     for(WebElement element: elements){
       String name = element.getText();
-      GroupDate group = new GroupDate(name, null, null);
+      String groupID = element.findElement(By.tagName("input")).getAttribute("value");
+      GroupDate group = new GroupDate(groupID, name, null, null);
       groups.add(group);
     }
     return groups;

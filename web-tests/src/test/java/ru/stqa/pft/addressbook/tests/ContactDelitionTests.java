@@ -32,12 +32,14 @@ public class ContactDelitionTests extends TestBase {
 
     // проверка сравнением
     before.remove(before.size()-1);
+ /* Сравнение в цикле
     for(int i=0; i< after.size(); i++){
       Assert.assertEquals(before.get(i), after.get(i));
       //System.out.println("before " + before.get(i));
       //System.out.println("after" + after.get(i));
-    }
-
+    }*/
+// сравнение списков
+    Assert.assertEquals(before, after);
 
     app.getNavigationHelper().gotoExit();
   }
