@@ -47,11 +47,16 @@ public class GroupCreationTests extends TestBase {
     int max = after.stream().max(byiD).get().getGroupID();*/
 
   // способ с использованием лябда-выражений , дает зависимость от версии java 8
-    group.setGroupID(after.stream().max((Comparator<GroupDate>) (o1, o2) -> Integer.compare(o1.getGroupID(),o2.getGroupID())).get().getGroupID());
+    //group.setGroupID(after.stream().max((Comparator<GroupDate>) (o1, o2) -> Integer.compare(o1.getGroupID(),o2.getGroupID())).get().getGroupID());
 
     before.add(group);
+
+    Comparator<? super GroupDate> byID = (g1, g2) -> Integer.compare(g1.getGroupID(), g2.getGroupID());
+    before.sort(byID);
+    after.sort(byID);
+
     // сравнение списков
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Assert.assertEquals(before,after);
   }
 
 

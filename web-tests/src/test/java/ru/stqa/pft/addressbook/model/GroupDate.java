@@ -9,19 +9,6 @@ public class GroupDate {
 
   private  int groupID;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GroupDate groupDate = (GroupDate) o;
-    return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(groupID, groupName);
-  }
-
   private final String groupName;
   private final String groupHeader;
   private final String groupCommmet;
@@ -33,8 +20,21 @@ public class GroupDate {
     this.groupCommmet = groupCommmet;
   }
 
-  public GroupDate( String groupName, String groupHeader, String groupCommmet) {
-    this.groupID = 0;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupDate groupDate = (GroupDate) o;
+    return Objects.equals(groupName, groupDate.groupName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupName);
+  }
+
+  public GroupDate(String groupName, String groupHeader, String groupCommmet) {
+    this.groupID = Integer.MAX_VALUE;
     this.groupName = groupName;
     this.groupHeader = groupHeader;
     this.groupCommmet = groupCommmet;
