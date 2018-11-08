@@ -22,7 +22,7 @@ public class ContactModificationTests extends TestBase {
     List<ContactShortData> before = app.getContactHelper().getContactList();
     // редактирование полей первого контакта в списке
     app.getContactHelper().selectContact(before.size()-1);
-    ContactShortData contact = new ContactShortData("NameTestEdit", "LastNameTestEdit");
+    ContactShortData contact = new ContactShortData(before.get(before.size()-1).getContactID(),"NameTestEdit", "LastNameTestEdit");
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillShortContactForm(contact);
     app.getContactHelper().submitContactModification();

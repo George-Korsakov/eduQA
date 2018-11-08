@@ -123,7 +123,8 @@ public class ContactHelper extends HelperBase {
         // получение значений из нужных ячеек по индексу
         String name1 = Columns_row.get(1).getText();
         String name2 = Columns_row.get(2).getText();
-        ContactShortData contact = new ContactShortData(name1, name2);
+        String contactID = Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value");
+        ContactShortData contact = new ContactShortData(contactID, name1, name2);
         // добавлем объект контакт в список
         contacts.add(contact);
       }
