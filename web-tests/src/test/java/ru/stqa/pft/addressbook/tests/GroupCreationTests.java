@@ -1,11 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
@@ -13,11 +12,11 @@ public class GroupCreationTests extends TestBase {
 
   @Test
   public void testGroupCreation() {
-    int r = (int)(Math.random()*1000);
+    int r = (int) (Math.random() * 1000);
     app.getNavigationHelper().gotoGroupPage();
     List<GroupDate> before = app.getGroupHelper().getGroupList();
     //int before = app.getGroupHelper().getGroupCount();
-    GroupDate group = new GroupDate("TestGroup", "TestHeaderFroup"+r, null);
+    GroupDate group = new GroupDate("TestGroup", "TestHeaderFroup" + r, null);
     app.getGroupHelper().initGroupCreation();
     app.getGroupHelper().fillGroupForm(group);
     app.getGroupHelper().submitGroupCreation();
@@ -46,7 +45,7 @@ public class GroupCreationTests extends TestBase {
     };
     int max = after.stream().max(byID).get().getGroupID();*/
 
-  // способ с использованием лябда-выражений , дает зависимость от версии java 8
+    // способ с использованием лябда-выражений , дает зависимость от версии java 8
     //group.setGroupID(after.stream().max((Comparator<GroupDate>) (o1, o2) -> Integer.compare(o1.getGroupID(),o2.getGroupID())).get().getGroupID());
 
     before.add(group);
@@ -56,7 +55,7 @@ public class GroupCreationTests extends TestBase {
     after.sort(byID);
 
     // сравнение списков
-    Assert.assertEquals(before,after);
+    Assert.assertEquals(before, after);
   }
 
 
