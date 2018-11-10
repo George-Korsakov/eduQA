@@ -8,7 +8,6 @@ public class GroupDate {
   }
 
   private  int groupID;
-
   private final String groupName;
   private final String groupHeader;
   private final String groupCommmet;

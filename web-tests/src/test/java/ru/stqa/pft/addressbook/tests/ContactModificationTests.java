@@ -4,7 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.ContactShortData;
+import ru.stqa.pft.addressbook.model.GroupDate;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -12,11 +14,11 @@ public class ContactModificationTests extends TestBase {
 
   @Test
   public void testContactModification() {
-    int r = (int)(Math.random()*1000000);
+    //int r = (int)(Math.random()*1000000);
     app.getNavigationHelper().gotoHomePage();
     // проверка на выполнение предуслоовия, создание контакта
     if(! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createShortContact(new ContactShortData("NewTest"+ r,  "LastNameTest"));
+      app.getContactHelper().createShortContact(new ContactShortData("NewTest",  "LastNameTest"));
     }
     //int before = app.getContactHelper().getContactCount();
     List<ContactShortData> before = app.getContactHelper().getContactList();
@@ -29,15 +31,22 @@ public class ContactModificationTests extends TestBase {
     app.getContactHelper().retutnHomePage();
     //int after = app.getContactHelper().getContactCount();
     List<ContactShortData> after = app.getContactHelper().getContactList();
-    // проверка числа группы в списке до и после
+    // проверка числа контаков в списке до и после
     Assert.assertEquals(before.size(), after.size());
 
-    // проверка сравнением списков
+    // проверка сравнением списков по значению
     before.remove(before.size()-1);
+
     before.add(contact);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    // сортировка перед сравнением
+    Comparator<? super ContactShortData> byID = (g1, g2) -> Integer.compare(g1.getContactID(), g2.getContactID());
+    before.sort(byID);
+    after.sort(byID);
+    // проверка сравнением списков
+    Assert.assertEquals(before,after);
+   // Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
-
+    // выход из приложения
     app.getNavigationHelper().gotoExit();
 
   }

@@ -121,9 +121,11 @@ public class ContactHelper extends HelperBase {
         //получение столбцов из строк (cells)
         List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
         // получение значений из нужных ячеек по индексу
-        String name1 = Columns_row.get(1).getText();
-        String name2 = Columns_row.get(2).getText();
-        String contactID = Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value");
+        // полчеение имени и фамили
+        String name2 = Columns_row.get(1).getText();
+        String name1 = Columns_row.get(2).getText();
+        // получение занчени ID и преобразования тип в целое число
+        int contactID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
         ContactShortData contact = new ContactShortData(contactID, name1, name2);
         // добавлем объект контакт в список
         contacts.add(contact);

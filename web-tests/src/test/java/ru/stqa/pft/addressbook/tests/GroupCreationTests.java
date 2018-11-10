@@ -38,13 +38,13 @@ public class GroupCreationTests extends TestBase {
     }*/
 
     // другой способ с использованием компаратора
-  /*  Comparator<? super GroupDate> byiD = new Comparator<GroupDate>() {
+  /*  Comparator<? super GroupDate> byID = new Comparator<GroupDate>() {
       @Override
       public int compare(GroupDate o1, GroupDate o2) {
         return Integer.compare(o1.getGroupID(),o2.getGroupID());
       }
     };
-    int max = after.stream().max(byiD).get().getGroupID();*/
+    int max = after.stream().max(byID).get().getGroupID();*/
 
   // способ с использованием лябда-выражений , дает зависимость от версии java 8
     //group.setGroupID(after.stream().max((Comparator<GroupDate>) (o1, o2) -> Integer.compare(o1.getGroupID(),o2.getGroupID())).get().getGroupID());
