@@ -63,8 +63,8 @@ public class ContactHelper extends HelperBase {
   //  заполнение сокращенной формы контакта
 
   public void fillShortContactForm(ContactShortData contactShortData) {
-    type(By.name("firstname"), contactShortData.getFname());
     type(By.name("lastname"), contactShortData.getLname());
+    type(By.name("firstname"), contactShortData.getFname());
 
   }
 
@@ -96,9 +96,18 @@ public class ContactHelper extends HelperBase {
 
   // вспомогательный мететод, для создание предусловия другим тестам
   public void createShortContact(ContactShortData contact) {
+
     initContactCreation();
     fillShortContactForm(contact);
     submitContactCreation();
+  }
+  // редактирование контакта
+  public void modifyGroup(int index, ContactShortData contact) {
+    selectContact(index);
+    initContactModification();
+    fillShortContactForm(contact);
+    submitContactModification();
+    retutnHomePage();
   }
 
   public boolean isThereAContact() {

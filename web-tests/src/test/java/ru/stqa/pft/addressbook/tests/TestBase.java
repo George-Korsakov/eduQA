@@ -9,7 +9,7 @@ import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-  protected static ApplicationManager app = new ApplicationManager(BrowserType.GOOGLECHROME);
+  protected static ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {

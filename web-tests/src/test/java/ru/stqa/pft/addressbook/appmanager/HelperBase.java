@@ -34,6 +34,8 @@ public class HelperBase {
 
   protected void confirmAlert() {
     wd.switchTo().alert().accept();
+    // обход проблемы для Fierfox
+    wd.findElement(By.cssSelector("div.msgbox"));
   }
 
   // проверка всплывающего сообщения на странице
