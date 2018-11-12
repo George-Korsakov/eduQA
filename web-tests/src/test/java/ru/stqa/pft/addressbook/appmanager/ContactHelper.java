@@ -63,8 +63,8 @@ public class ContactHelper extends HelperBase {
   //  заполнение сокращенной формы контакта
 
   public void fillShortContactForm(ContactShortData contactShortData) {
-    type(By.name("lastname"), contactShortData.getLname());
     type(By.name("firstname"), contactShortData.getFname());
+    type(By.name("lastname"), contactShortData.getLname());
 
   }
 
@@ -102,13 +102,20 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
   }
   // редактирование контакта
-  public void modifyGroup(int index, ContactShortData contact) {
+  public void modify(int index, ContactShortData contact) {
     selectContact(index);
     initContactModification();
     fillShortContactForm(contact);
     submitContactModification();
     retutnHomePage();
   }
+  // удаление контакта
+  public void deleteContact(int index) {
+    selectContact(index);
+    deleteSelectedContact();
+    submitContactDelete();
+  }
+
 
   public boolean isThereAContact() {
     return isElementPresents(By.name("selected[]"));
@@ -118,7 +125,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactShortData> getContactList() {
+  public List<ContactShortData> list() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
       // поиск таблицы для последующего получения значений ячеек
@@ -131,8 +138,8 @@ public class ContactHelper extends HelperBase {
         List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
         // получение значений из нужных ячеек по индексу
         // полчеение имени и фамили
-        String name2 = Columns_row.get(1).getText();
-        String name1 = Columns_row.get(2).getText();
+        String name1 = Columns_row.get(1).getText();
+        String name2 = Columns_row.get(2).getText();
         // получение занчени ID и преобразования тип в целое число
         int contactID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
         ContactShortData contact = new ContactShortData(contactID, name1, name2);

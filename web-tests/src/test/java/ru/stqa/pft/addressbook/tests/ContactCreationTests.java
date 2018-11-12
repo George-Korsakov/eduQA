@@ -15,7 +15,7 @@ public class ContactCreationTests extends TestBase {
     // int r = (int)(Math.random()*1000000);
     // не обязательное действие по прееходу на додмаашнюю страницу для проверки
     app.getNavigationHelper().gotoHomePage();
-    List<ContactShortData> before = app.getContactHelper().getContactList();
+    List<ContactShortData> before = app.getContactHelper().list();
     //int before = app.getContactHelper().getContactCount();
     ContactShortData contact = new ContactShortData("NameTest1", "LastNameTest1");
     app.getContactHelper().initContactCreation();
@@ -24,7 +24,7 @@ public class ContactCreationTests extends TestBase {
     app.getContactHelper().fillShortContactForm(contact);
     app.getContactHelper().submitContactCreation();
     app.getContactHelper().retutnHomePage();
-    List<ContactShortData> after = app.getContactHelper().getContactList();
+    List<ContactShortData> after = app.getContactHelper().list();
     // проверка сравнением размеров спсисков
     Assert.assertEquals(before.size(), after.size() - 1);
 

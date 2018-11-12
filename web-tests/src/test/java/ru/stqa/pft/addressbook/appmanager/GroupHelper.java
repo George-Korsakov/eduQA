@@ -69,6 +69,14 @@ public class GroupHelper extends HelperBase {
     submitGroupModification();
     returnToGroupPage();
   }
+// удаление группыё
+public void deleteGroup(int index) {
+  selectGroup(index);
+  deleteSelectedGroups();
+  returnToGroupPage();
+}
+
+
 
 // для проверки групп
   public boolean isThereAGroup() {
@@ -79,7 +87,7 @@ public class GroupHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 // метод получение списка
-  public List<GroupDate> getGroupList() {
+  public List<GroupDate> list() {
     List<GroupDate> groups  = new ArrayList<GroupDate>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     // в цикле заполняется список полученными именами групп

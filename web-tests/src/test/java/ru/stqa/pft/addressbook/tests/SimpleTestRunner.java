@@ -24,7 +24,7 @@ public class SimpleTestRunner extends TestBase {
     int sum = (int) app.getContactHelper().getContactCount();
     System.out.println("Contacts = " + sum);
 
-    app.getContactHelper().getContactList().get(1);
+    app.getContactHelper().list().get(1);
 
     List<WebElement> allR = wd.findElements(By.tagName("entry"));
 

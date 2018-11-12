@@ -16,14 +16,14 @@ public class GroupCreationTests extends TestBase {
     app.getNavigationHelper().gotoGroupPage();
 
     GroupDate group = new GroupDate("TestGroup", "TestHeaderFroup" + r, null);
-    List<GroupDate> before = app.getGroupHelper().getGroupList();
+    List<GroupDate> before = app.group().list();
 
-    app.getGroupHelper().initGroupCreation();
-    app.getGroupHelper().fillGroupForm(group);
-    app.getGroupHelper().submitGroupCreation();
-    app.getGroupHelper().returnToGroupPage(); // переход на страницу спсика групп
+    app.group().initGroupCreation();
+    app.group().fillGroupForm(group);
+    app.group().submitGroupCreation();
+    app.group().returnToGroupPage(); // переход на страницу спсика групп
 
-    List<GroupDate> after = app.getGroupHelper().getGroupList();
+    List<GroupDate> after = app.group().list();
     // проверка сравнением размеров списков до  и после
     Assert.assertEquals(before.size(), after.size() - 1);
 

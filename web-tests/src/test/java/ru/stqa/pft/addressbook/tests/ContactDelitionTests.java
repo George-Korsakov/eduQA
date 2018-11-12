@@ -24,18 +24,16 @@ public class ContactDelitionTests extends TestBase {
   public void testContactDelition() {
 
     // удаление выбранного контакта в списке
-    List<ContactShortData> before = app.getContactHelper().getContactList();
+    List<ContactShortData> before = app.getContactHelper().list();
     int index = before.size() - 1;
-    app.getContactHelper().selectContact(index);
-    app.getContactHelper().deleteSelectedContact();
-    app.getContactHelper().submitContactDelete();
+    app.getContactHelper().deleteContact(index);
     // подстраховака если не отобразился спсиок контактов, то переходим на страницу с контактами
     if (!app.getContactHelper().isThereAContact()) {
       app.getNavigationHelper().gotoHomePage();
     }
     ;
     //app.getNavigationHelper().gotoHomePage();
-    List<ContactShortData> after = app.getContactHelper().getContactList();
+    List<ContactShortData> after = app.getContactHelper().list();
     // проверка числа группы в списке до и после +1
     Assert.assertEquals(before.size(), after.size() + 1);
 
@@ -47,5 +45,7 @@ public class ContactDelitionTests extends TestBase {
     }
    // app.getNavigationHelper().gotoExit();
   }
+
+
 
 }

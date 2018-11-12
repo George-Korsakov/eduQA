@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
@@ -16,7 +15,7 @@ public class ContactModificationTests extends TestBase {
     //int r = (int)(Math.random()*1000000);
     app.getNavigationHelper().gotoHomePage();
     // проверка на выполнение предуслоовия, создание контакта
-    if (!app.getContactHelper().isThereAContact()) {
+    if (app.getContactHelper().list().size()==0) {
       app.getContactHelper().createShortContact(new ContactShortData("NewTest", "LastNameTest"));
     }
   }
@@ -24,12 +23,12 @@ public class ContactModificationTests extends TestBase {
   @Test
   public void testContactModification() {
 
-    List<ContactShortData> before = app.getContactHelper().getContactList();
+    List<ContactShortData> before = app.getContactHelper().list();
     int index = before.size() - 1;
     ContactShortData contact = new ContactShortData(before.get(index).getContactID(), "NameTest1", "LastNameTestEdit");
     // редактирование полей выбранного контакта в списке
-    app.getContactHelper().modifyGroup(index, contact);
-    List<ContactShortData> after = app.getContactHelper().getContactList();
+    app.getContactHelper().modify(index, contact);
+    List<ContactShortData> after = app.getContactHelper().list();
 
     // проверка числа контаков в списке до и после
     Assert.assertEquals(before.size(), after.size());
