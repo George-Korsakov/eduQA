@@ -15,15 +15,13 @@ public class GroupDate {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GroupDate groupDate = (GroupDate) o;
-    return Objects.equals(groupName, groupDate.groupName);
+    return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupName);
+    return Objects.hash(groupID, groupName);
   }
-
-
 
 
   public GroupDate withtGroupID(int groupID) {

@@ -21,7 +21,6 @@ public class ContactShortData {
     return Objects.hash(contactID, fname, lname);
   }
 
-
   public ContactShortData withFname(String fname) {
     this.fname = fname;
     return this;

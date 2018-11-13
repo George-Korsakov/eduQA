@@ -10,7 +10,9 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.ContactShortData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -125,6 +127,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  // метод получения списка
   public List<ContactShortData> list() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
@@ -148,6 +151,32 @@ public class ContactHelper extends HelperBase {
 
       return contacts;
     }
-
   }
+
+  // метод получения множетсва
+  public Set<ContactShortData> allContacts() {
+    Set<ContactShortData> contacts = new HashSet<ContactShortData>();
+    {
+      // поиск таблицы для последующего получения значений ячеек
+      WebElement mytable = wd.findElement(By.xpath("//*[@id=\"maintable\"]"));
+      // получаем строки
+      List<WebElement> rows_table = mytable.findElements(By.name("entry"));
+      int maxRow = rows_table.size();
+      for (int row = 0; row < maxRow; row++) {
+        //получение столбцов из строк (cells)
+        List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
+        // получение значений из нужных ячеек по индексу
+        // полчеение имени и фамили
+        String name2 = Columns_row.get(1).getText();
+        String name1 = Columns_row.get(2).getText();
+        // получение занчени ID и преобразования тип в целое число
+        int contactID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
+        // добавлем объект контакт в список
+        contacts.add(new ContactShortData().withContactID(contactID).withFname(name1).withLname(name2));
+      }
+
+      return contacts;
+    }
+  }
+
 }

@@ -7,7 +7,9 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -41,10 +43,15 @@ public class GroupHelper extends HelperBase {
   public void selectGroup(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
-// переход к списку групп
+
+  public void selectGroupbyId(int id) {
+
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+
+   // переход к списку групп
   public void returnToGroupPage() {
     wd.findElement(By.linkText("groups")).click();
-    ;
+
   }
 
   public void initGroupModification() {
@@ -76,9 +83,15 @@ public void deleteGroup(int index) {
   returnToGroupPage();
 }
 
+  public void deleteGroup(GroupDate group) {
+    selectGroupbyId(group().getId);
+    deleteSelectedGroups();
+    returnToGroupPage();
+  }
 
 
 // для проверки групп
+
   public boolean isThereAGroup() {
     return isElementPresents(By.name("selected[]"));
   }
@@ -87,8 +100,22 @@ public void deleteGroup(int index) {
     return wd.findElements(By.name("selected[]")).size();
   }
 // метод получение списка
+
   public List<GroupDate> list() {
     List<GroupDate> groups  = new ArrayList<GroupDate>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    // в цикле заполняется список полученными именами групп
+    for(WebElement element: elements){
+      String name = element.getText();
+      int groupID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      groups.add(new GroupDate().withtGroupID(groupID).withGroupName(name));
+    }
+    return groups;
+  }
+  // метод получения множества
+
+  public Set<GroupDate> all() {
+    Set<GroupDate> groups  = new HashSet<>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     // в цикле заполняется список полученными именами групп
     for(WebElement element: elements){
