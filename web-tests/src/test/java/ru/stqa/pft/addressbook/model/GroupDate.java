@@ -3,21 +3,12 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class GroupDate {
-  public void setGroupID(int groupID) {
-    this.groupID = groupID;
-  }
 
-  private  int groupID;
-  private final String groupName;
-  private final String groupHeader;
-  private final String groupCommmet;
+  int groupID = Integer.MAX_VALUE;
+  String groupName;
+  String groupHeader;
+  String groupCommmet;
 
-  public GroupDate(int groupID, String groupName, String groupHeader, String groupCommmet) {
-    this.groupID = groupID;
-    this.groupName = groupName;
-    this.groupHeader = groupHeader;
-    this.groupCommmet = groupCommmet;
-  }
 
   @Override
   public boolean equals(Object o) {
@@ -32,13 +23,27 @@ public class GroupDate {
     return Objects.hash(groupName);
   }
 
-  public GroupDate(String groupName, String groupHeader, String groupCommmet) {
-    this.groupID = Integer.MAX_VALUE;
+
+
+
+  public GroupDate withtGroupID(int groupID) {
+    this.groupID = groupID;
+    return this;
+  }
+  public GroupDate withGroupName(String groupName) {
     this.groupName = groupName;
-    this.groupHeader = groupHeader;
-    this.groupCommmet = groupCommmet;
+    return this;
   }
 
+  public GroupDate withGroupHeader(String groupHeader) {
+    this.groupHeader = groupHeader;
+    return this;
+  }
+
+  public GroupDate withGroupCommmet(String groupCommmet) {
+    this.groupCommmet = groupCommmet;
+    return this;
+  }
 
 
   @Override

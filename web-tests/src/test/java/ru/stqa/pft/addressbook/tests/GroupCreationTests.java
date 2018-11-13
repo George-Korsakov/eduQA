@@ -15,7 +15,7 @@ public class GroupCreationTests extends TestBase {
     int r = (int) (Math.random() * 1000);
     app.getNavigationHelper().gotoGroupPage();
 
-    GroupDate group = new GroupDate("TestGroup", "TestHeaderFroup" + r, null);
+    GroupDate group = new GroupDate().withGroupName("TestGroup");
     List<GroupDate> before = app.group().list();
 
     app.group().initGroupCreation();

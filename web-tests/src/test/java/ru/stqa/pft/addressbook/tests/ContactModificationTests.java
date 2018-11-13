@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
     app.getNavigationHelper().gotoHomePage();
     // проверка на выполнение предуслоовия, создание контакта
     if (app.getContactHelper().list().size()==0) {
-      app.getContactHelper().createShortContact(new ContactShortData("NewTest", "LastNameTest"));
+      app.getContactHelper().createShortContact(new ContactShortData().withFname("NewTest").withLname("LastNameTest"));
     }
   }
 
@@ -25,7 +25,7 @@ public class ContactModificationTests extends TestBase {
 
     List<ContactShortData> before = app.getContactHelper().list();
     int index = before.size() - 1;
-    ContactShortData contact = new ContactShortData(before.get(index).getContactID(), "NameTest1", "LastNameTestEdit");
+    ContactShortData contact = new ContactShortData().withContactID(before.get(index).getContactID()).withFname("NameTest1").withLname("LastNameTestEdit");
     // редактирование полей выбранного контакта в списке
     app.getContactHelper().modify(index, contact);
     List<ContactShortData> after = app.getContactHelper().list();

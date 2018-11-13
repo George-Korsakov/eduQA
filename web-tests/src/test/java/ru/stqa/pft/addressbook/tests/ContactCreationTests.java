@@ -16,11 +16,9 @@ public class ContactCreationTests extends TestBase {
     // не обязательное действие по прееходу на додмаашнюю страницу для проверки
     app.getNavigationHelper().gotoHomePage();
     List<ContactShortData> before = app.getContactHelper().list();
-    //int before = app.getContactHelper().getContactCount();
-    ContactShortData contact = new ContactShortData("NameTest1", "LastNameTest1");
+
+    ContactShortData contact = new ContactShortData().withFname("NameTest1").withLname("LastNameTest1");
     app.getContactHelper().initContactCreation();
-    // заполнение полей конатактов, для пропуска выбора группы указать значение [none]
-    // app.getContactHelper().fillContactForm(new ContactData("NameTest1"+r, "MiddleNameTest1", "LastNameTest1"+r, "NickNameTest1", "C:\\Temp\\03.jpg", "Test123", "CoTest", "Russian, Moscow, Red Square, 1", "+74951230007", "test1@test.test", "5", "September", "1987", "[none]"), true);
     app.getContactHelper().fillShortContactForm(contact);
     app.getContactHelper().submitContactCreation();
     app.getContactHelper().retutnHomePage();
@@ -35,7 +33,7 @@ public class ContactCreationTests extends TestBase {
       }
     };
     int max = after.stream().max(byId).get().getContactID();
-    contact.setContactID(max);
+    contact.withContactID(max);
     before.add(contact);
     // проверка сравнением списков
     // полиск максимального занчения id с использованием лябда-выражения
@@ -45,8 +43,8 @@ public class ContactCreationTests extends TestBase {
 
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
-
-   //app.getNavigationHelper().gotoExit();
+    // выход для повторной авторизации
+    // app.getNavigationHelper().gotoExit();
 
 
   }

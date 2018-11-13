@@ -15,7 +15,7 @@ public class ContactDelitionTests extends TestBase {
     app.getNavigationHelper().gotoHomePage();
     // проверка на выполнение предуслоовия, создание контакта
     if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createShortContact(new ContactShortData("NewTest", "LastNameTest"));
+      app.getContactHelper().createShortContact(new ContactShortData().withFname("NewTest").withLname("LastNameTest"));
     }
   }
 

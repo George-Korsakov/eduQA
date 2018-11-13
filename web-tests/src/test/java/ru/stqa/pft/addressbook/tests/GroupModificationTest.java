@@ -19,7 +19,7 @@ public class GroupModificationTest extends TestBase {
     app.getNavigationHelper().gotoGroupPage();
     // проверка наличия группы, создание при необходимости
     if (!app.group().isThereAGroup()) {
-      app.group().createGroup(new GroupDate("TestGroup0" + r, "null", null));
+      app.group().createGroup(new GroupDate().withGroupName("TestGroup"));
     };
   }
 
@@ -28,7 +28,8 @@ public class GroupModificationTest extends TestBase {
 
     List<GroupDate> before = app.group().list();
     int index = before.size() - 1;
-    GroupDate group = new GroupDate(before.get(index).getGroupID(), "TestEGroup1", "TestHeaderFroup_e", "TestComment_e");
+    GroupDate group = new GroupDate()
+            .withtGroupID(before.get(index).getGroupID()).withGroupName("TestEGroup1").withGroupHeader("TestHeaderFroup_e").withGroupCommmet("TestComment_e");
     app.group().modifyGroup(index, group);
     List<GroupDate> after = app.group().list();
     // проверка числа группы в списке до и после

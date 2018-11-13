@@ -94,8 +94,7 @@ public void deleteGroup(int index) {
     for(WebElement element: elements){
       String name = element.getText();
       int groupID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      GroupDate group = new GroupDate(groupID, name, null, null);
-      groups.add(group);
+      groups.add(new GroupDate().withtGroupID(groupID).withGroupName(name));
     }
     return groups;
   }

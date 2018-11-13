@@ -17,7 +17,7 @@ public class GroupDelitionTests extends TestBase {
     app.getNavigationHelper().gotoGroupPage();
     // проверка наличия группы, создание при необходимости
     if (app.group().list().size()==0) {
-      app.group().createGroup(new GroupDate("TestGroup0" + r, "null", null));
+      app.group().createGroup(new GroupDate().withGroupName("TestGroup"));
     }
     ;
   }
