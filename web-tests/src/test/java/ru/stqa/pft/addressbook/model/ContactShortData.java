@@ -3,14 +3,10 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactShortData {
-  private int contactID;
 
-  public void setContactID(int contactID) {
-    this.contactID = contactID;
-  }
-
-  private final String fname;
-  private final String lname;
+  private int contactID = Integer.MAX_VALUE;
+  private  String fname;
+  private  String lname;
 
 
   @Override
@@ -26,23 +22,40 @@ public class ContactShortData {
     return Objects.hash(contactID, fname, lname);
   }
 
-  public ContactShortData(int contactID, String fname, String lname) {
+ /* конструкторы уже не нужны
+ public ContactShortData(int contactID, String fname, String lname) {
     this.contactID = contactID;
     this.fname = fname;
     this.lname = lname;
-  }
-
-  @Override
-  public String toString() {
-    return "ContactShortData{" + "contactID='" + contactID + '\'' + ", fname='" + fname + '\'' + ", lname='" + lname + '\'' + '}';
   }
 
   public ContactShortData(String fname, String lname) {
     this.contactID = 0;
     this.fname = fname;
     this.lname = lname;
+  }*/
+
+  @Override
+  public String toString() {
+    return "ContactShortData{" + "contactID='" + contactID + '\'' + ", fname='" + fname + '\'' + ", lname='" + lname + '\'' + '}';
+  }
+// сеттеры измененные
+
+  public ContactShortData withContactID(int contactID) {
+    this.contactID = contactID;
+    return this;
   }
 
+  public ContactShortData withFname(String fname) {
+    this.fname = fname;
+    return this;
+  }
+
+  public ContactShortData withLname(String lname) {
+    this.lname = lname;
+    return this;
+  }
+// геттеры
   public String getFname() {
     return fname;
   }

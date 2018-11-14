@@ -11,7 +11,7 @@ public class NavigationHelper extends HelperBase {
   }
 
   // переход к списку групп с проверкой
-  public void gotoGroupPage() {
+  public void groupPage() {
 
     if (isElementPresents(By.tagName("h1"))
             && wd.findElement(By.tagName("h1")).getText().equals("Groups")
@@ -28,7 +28,7 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("Logout"));
   }
 // проверка для страницы с контакатами
-  public void gotoHomePage() {
+  public void homePage() {
     if (isElementPresents(By.id("maintable"))) {
       return;
     } else {

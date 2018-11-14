@@ -140,10 +140,9 @@ public class ContactHelper extends HelperBase {
         String name2 = Columns_row.get(1).getText();
         String name1 = Columns_row.get(2).getText();
         // получение занчени ID и преобразования тип в целое число
-        int contactID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
-        ContactShortData contact = new ContactShortData(contactID, name1, name2);
-        // добавлем объект контакт в список
-        contacts.add(contact);
+        int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
+       // добавлем объект контакт в список
+        contacts.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
       }
 
       return contacts;

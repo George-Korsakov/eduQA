@@ -15,7 +15,7 @@ public class ContactDelitionTests extends TestBase {
     app.goTo().homePage();
     // проверка на выполнение предуслоовия, создание контакта
     if (app.contact().list().size() == 0) {
-      app.contact().create(new ContactShortData("NewTest", "LastNameTest"));
+      app.contact().create(new ContactShortData().withFname("NewTest").withLname("LastNameTest"));
     }
   }
 

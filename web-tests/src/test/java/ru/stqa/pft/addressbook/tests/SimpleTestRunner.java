@@ -1,11 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 public class SimpleTestRunner extends TestBase {
 
@@ -19,9 +15,9 @@ public class SimpleTestRunner extends TestBase {
   @Test(enabled = false)
   public void test() {
 
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().homePage();
 
-    int sum = (int) app.getContactHelper().getContactCount();
+    int sum = (int) app.contact().getContactCount();
     System.out.println("Contacts = " + sum);
 
 

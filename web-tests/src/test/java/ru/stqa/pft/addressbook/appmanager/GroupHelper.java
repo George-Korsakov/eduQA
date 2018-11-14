@@ -94,9 +94,9 @@ public class GroupHelper extends HelperBase {
     // в цикле заполняется список полученными именами групп
     for (WebElement element : elements) {
       String name = element.getText();
-      int groupID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      GroupDate group = new GroupDate(groupID, name, null, null);
-      groups.add(group);
+      int ID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      //GroupDate group = new GroupDate().withGroupId(groupID).withGroupName(name);
+      groups.add(new GroupDate().withGroupId(ID).withGroupName(name));
     }
     return groups;
   }
