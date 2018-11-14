@@ -18,18 +18,12 @@ public class SimpleTestRunner extends TestBase {
 
   @Test(enabled = false)
   public void test() {
-    //app.init();
+
     app.getNavigationHelper().gotoHomePage();
 
     int sum = (int) app.getContactHelper().getContactCount();
     System.out.println("Contacts = " + sum);
 
-    app.getContactHelper().getContactList().get(1);
-
-    List<WebElement> allR = wd.findElements(By.tagName("entry"));
-
-    //String valueA = allR.stream().findElements(By.tagName("td")).get(1).toString();
-    //System.out.println("Test = " + valueA);
 
   }
 }

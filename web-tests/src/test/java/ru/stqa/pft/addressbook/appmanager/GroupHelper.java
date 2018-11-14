@@ -2,7 +2,6 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
@@ -41,10 +40,11 @@ public class GroupHelper extends HelperBase {
   public void selectGroup(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
-// переход к списку групп
+
+  // переход к списку групп
   public void returnToGroupPage() {
     wd.findElement(By.linkText("groups")).click();
-    ;
+
   }
 
   public void initGroupModification() {
@@ -54,14 +54,16 @@ public class GroupHelper extends HelperBase {
   public void submitGroupModification() {
     click(By.name("update"));
   }
-// создание группы
+
+  // создание группы
   public void createGroup(GroupDate group) {
-  initGroupCreation();
-  fillGroupForm(group);
-  submitGroupCreation();
-  returnToGroupPage();
+    initGroupCreation();
+    fillGroupForm(group);
+    submitGroupCreation();
+    returnToGroupPage();
   }
-// изменение группы
+
+  // изменение группы
   public void modifyGroup(int index, GroupDate group) {
     selectGroup(index);
     initGroupModification();
@@ -70,7 +72,7 @@ public class GroupHelper extends HelperBase {
     returnToGroupPage();
   }
 
-// для проверки групп
+  // для проверки групп
   public boolean isThereAGroup() {
     return isElementPresents(By.name("selected[]"));
   }
@@ -78,12 +80,13 @@ public class GroupHelper extends HelperBase {
   public int getGroupCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
-// метод получение списка
+
+  // метод получение списка
   public List<GroupDate> getGroupList() {
-    List<GroupDate> groups  = new ArrayList<GroupDate>();
+    List<GroupDate> groups = new ArrayList<GroupDate>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     // в цикле заполняется список полученными именами групп
-    for(WebElement element: elements){
+    for (WebElement element : elements) {
       String name = element.getText();
       int groupID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       GroupDate group = new GroupDate(groupID, name, null, null);

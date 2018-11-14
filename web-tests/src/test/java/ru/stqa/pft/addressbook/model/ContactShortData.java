@@ -43,11 +43,15 @@ public class ContactShortData {
     this.lname = lname;
   }
 
-  public String getFname(){
+  public String getFname() {
     return fname;
   }
-  public String getLname(){
+
+  public String getLname() {
     return lname;
   }
-  public int getContactID() { return contactID; }
+
+  public int getContactID() {
+    return contactID;
+  }
 }

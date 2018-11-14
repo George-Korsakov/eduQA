@@ -6,13 +6,12 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
   @BeforeMethod
-  public void ensurePrecondition(){
+  public void ensurePrecondition() {
     //int r = (int)(Math.random()*1000000);
     app.getNavigationHelper().gotoHomePage();
     // проверка на выполнение предуслоовия, создание контакта
@@ -42,14 +41,13 @@ public class ContactModificationTests extends TestBase {
     before.sort(byID);
     after.sort(byID);
     // проверка
-     Assert.assertEquals(before,after);
+    Assert.assertEquals(before, after);
     //Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
     // выход из приложения
-   // app.getNavigationHelper().gotoExit();
+    // app.getNavigationHelper().gotoExit();
 
   }
-
 
 
 }

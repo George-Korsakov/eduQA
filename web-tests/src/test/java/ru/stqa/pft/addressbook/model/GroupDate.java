@@ -7,7 +7,7 @@ public class GroupDate {
     this.groupID = groupID;
   }
 
-  private  int groupID;
+  private int groupID;
   private final String groupName;
   private final String groupHeader;
   private final String groupCommmet;
@@ -40,13 +40,14 @@ public class GroupDate {
   }
 
 
-
   @Override
   public String toString() {
     return "GroupDate{" + "groupID='" + groupID + '\'' + ", groupName='" + groupName + '\'' + '}';
   }
 
-  public int getGroupID() {  return groupID; }
+  public int getGroupID() {
+    return groupID;
+  }
 
   public String getGroupName() {
     return groupName;

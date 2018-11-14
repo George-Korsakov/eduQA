@@ -11,16 +11,16 @@ import java.util.List;
 public class GroupModificationTest extends TestBase {
 
 
-
   @BeforeMethod
-  public void ensurePrecondition(){
+  public void ensurePrecondition() {
     int r = (int) (Math.random() * 1000);
 // редактирование полей первой группы в списке
     app.getNavigationHelper().gotoGroupPage();
     // проверка наличия группы, создание при необходимости
     if (!app.getGroupHelper().isThereAGroup()) {
       app.getGroupHelper().createGroup(new GroupDate("TestGroup0" + r, "null", null));
-    };
+    }
+
   }
 
   @Test
@@ -46,7 +46,6 @@ public class GroupModificationTest extends TestBase {
     Assert.assertEquals(before, after);
     //Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
-
 
 
 }
