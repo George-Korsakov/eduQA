@@ -13,22 +13,22 @@ public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePrecondition() {
     //int r = (int)(Math.random()*1000000);
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().homePage();
     // проверка на выполнение предуслоовия, создание контакта
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createShortContact(new ContactShortData("NewTest", "LastNameTest"));
+    if (app.contact().list().size() == 0) {
+      app.contact().create(new ContactShortData("NewTest", "LastNameTest"));
     }
   }
 
   @Test
   public void testContactModification() {
 
-    List<ContactShortData> before = app.getContactHelper().getContactList();
+    List<ContactShortData> before = app.contact().list();
     int index = before.size() - 1;
     ContactShortData contact = new ContactShortData(before.get(index).getContactID(), "NameTest1", "LastNameTestEdit");
     // редактирование полей выбранного контакта в списке
-    app.getContactHelper().modifyGroup(index, contact);
-    List<ContactShortData> after = app.getContactHelper().getContactList();
+    app.contact().modify(index, contact);
+    List<ContactShortData> after = app.contact().list();
 
     // проверка числа контаков в списке до и после
     Assert.assertEquals(before.size(), after.size());
@@ -45,7 +45,7 @@ public class ContactModificationTests extends TestBase {
     //Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
     // выход из приложения
-    // app.getNavigationHelper().gotoExit();
+    // app.goTo().gotoExit();
 
   }
 

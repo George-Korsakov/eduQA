@@ -15,10 +15,10 @@ public class GroupModificationTest extends TestBase {
   public void ensurePrecondition() {
     int r = (int) (Math.random() * 1000);
 // редактирование полей первой группы в списке
-    app.getNavigationHelper().gotoGroupPage();
+    app.goTo().groupPage();
     // проверка наличия группы, создание при необходимости
-    if (!app.getGroupHelper().isThereAGroup()) {
-      app.getGroupHelper().createGroup(new GroupDate("TestGroup0" + r, "null", null));
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupDate("TestGroup0" + r, "null", null));
     }
 
   }
@@ -26,11 +26,11 @@ public class GroupModificationTest extends TestBase {
   @Test
   public void testGroupModification() {
 
-    List<GroupDate> before = app.getGroupHelper().getGroupList();
+    List<GroupDate> before = app.group().list();
     int index = before.size() - 1;
     GroupDate group = new GroupDate(before.get(index).getGroupID(), "TestEGroup1", "TestHeaderFroup_e", "TestComment_e");
-    app.getGroupHelper().modifyGroup(index, group);
-    List<GroupDate> after = app.getGroupHelper().getGroupList();
+    app.group().modify(index, group);
+    List<GroupDate> after = app.group().list();
     // проверка числа группы в списке до и после
     Assert.assertEquals(before.size(), after.size());
 

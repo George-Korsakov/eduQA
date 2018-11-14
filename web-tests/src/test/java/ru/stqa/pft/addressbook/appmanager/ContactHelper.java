@@ -94,7 +94,7 @@ public class ContactHelper extends HelperBase {
   }
 
   // вспомогательный мететод, для создание предусловия другим тестам
-  public void createShortContact(ContactShortData contact) {
+  public void create(ContactShortData contact) {
 
     initContactCreation();
     fillShortContactForm(contact);
@@ -102,12 +102,18 @@ public class ContactHelper extends HelperBase {
   }
 
   // редактирование контакта
-  public void modifyGroup(int index, ContactShortData contact) {
+  public void modify(int index, ContactShortData contact) {
     selectContact(index);
     initContactModification();
     fillShortContactForm(contact);
     submitContactModification();
     retutnHomePage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    deleteSelectedContact();
+    submitContactDelete();
   }
 
   public boolean isThereAContact() {
@@ -118,7 +124,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactShortData> getContactList() {
+  public List<ContactShortData> list() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
       // поиск таблицы для последующего получения значений ячеек
