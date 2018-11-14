@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -41,6 +43,11 @@ public class GroupHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectGroupById(int id) {
+    wd.findElement(By.cssSelector("input[value = '" + id +"']")).click();
+  }
+
+
   // переход к списку групп
   public void returnToGroupPage() {
     wd.findElement(By.linkText("groups")).click();
@@ -71,6 +78,15 @@ public class GroupHelper extends HelperBase {
     submitGroupModification();
     returnToGroupPage();
   }
+
+  public void modify(GroupDate group) {
+    selectGroupById(group.getGroupID());
+    initGroupModification();
+    fillGroupForm(group);
+    submitGroupModification();
+    returnToGroupPage();
+  }
+
  // удаление группы
  public void delete(int index) {
     selectGroup(index);
@@ -78,7 +94,13 @@ public class GroupHelper extends HelperBase {
     returnToGroupPage();
   }
 
+  public void delete(GroupDate group) {
+    selectGroupById(group.getGroupID());
+    deleteSelectedGroups();
+    returnToGroupPage();
+  }
   // для проверки групп
+
   public boolean isThereAGroup() {
     return isElementPresents(By.name("selected[]"));
   }
@@ -86,10 +108,23 @@ public class GroupHelper extends HelperBase {
   public int getGroupCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
-
   // метод получение списка
   public List<GroupDate> list() {
     List<GroupDate> groups = new ArrayList<GroupDate>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    // в цикле заполняется список полученными именами групп
+    for (WebElement element : elements) {
+      String name = element.getText();
+      int ID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      //GroupDate group = new GroupDate().withGroupId(groupID).withGroupName(name);
+      groups.add(new GroupDate().withGroupId(ID).withGroupName(name));
+    }
+    return groups;
+  }
+// метод получения списка
+
+  public Set<GroupDate> all() {
+    Set<GroupDate> groups = new HashSet<GroupDate>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     // в цикле заполняется список полученными именами групп
     for (WebElement element : elements) {

@@ -12,41 +12,28 @@ public class GroupDate {
   private  String groupHeader;
   private  String groupCommmet;
 
-/* конструкторы уже не нужны
-  public GroupDate(int groupID, String groupName, String groupHeader, String groupCommmet) {
-    this.groupID = groupID;
-    this.groupName = groupName;
-    this.groupHeader = groupHeader;
-    this.groupCommmet = groupCommmet;
-  }
-
-  public GroupDate(String groupName, String groupHeader, String groupCommmet) {
-    this.groupID = Integer.MAX_VALUE;
-    this.groupName = groupName;
-    this.groupHeader = groupHeader;
-    this.groupCommmet = groupCommmet;
-  }
-*/
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GroupDate groupDate = (GroupDate) o;
-    return Objects.equals(groupName, groupDate.groupName);
+    return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupName);
+    return Objects.hash(groupID, groupName);
   }
-
 
   @Override
   public String toString() {
     return "GroupDate{" + "groupID='" + groupID + '\'' + ", groupName='" + groupName + '\'' + '}';
   }
+  public int getGroupID() {
+    return groupID;
+  }
 // сеттеры измененные
+
   public GroupDate withGroupId(int groupID) {
     this.groupID = groupID;
     return this;
@@ -61,15 +48,11 @@ public class GroupDate {
     this.groupHeader = groupHeader;
     return this;
   }
-
   public GroupDate withGroupCommmet(String groupCommmet) {
     this.groupCommmet = groupCommmet;
     return this;
   }
 // геттеры
-  public int getGroupID() {
-    return groupID;
-  }
 
   public String getGroupName() {
     return groupName;
