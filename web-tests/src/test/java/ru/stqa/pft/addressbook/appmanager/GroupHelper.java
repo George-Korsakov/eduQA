@@ -44,7 +44,7 @@ public class GroupHelper extends HelperBase {
   }
 
   public void selectGroupById(int id) {
-    wd.findElement(By.cssSelector("input[value = '" + id +"']")).click();
+    wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
   }
 
 
@@ -87,12 +87,7 @@ public class GroupHelper extends HelperBase {
     returnToGroupPage();
   }
 
- // удаление группы
- public void delete(int index) {
-    selectGroup(index);
-    deleteSelectedGroups();
-    returnToGroupPage();
-  }
+  // удаление группы
 
   public void delete(GroupDate group) {
     selectGroupById(group.getGroupID());
@@ -108,6 +103,7 @@ public class GroupHelper extends HelperBase {
   public int getGroupCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
+
   // метод получение списка
   public List<GroupDate> list() {
     List<GroupDate> groups = new ArrayList<GroupDate>();

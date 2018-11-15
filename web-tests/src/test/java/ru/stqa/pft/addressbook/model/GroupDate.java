@@ -8,9 +8,9 @@ public class GroupDate {
   }
 
   private int groupID = Integer.MAX_VALUE;
-  private  String groupName;
-  private  String groupHeader;
-  private  String groupCommmet;
+  private String groupName;
+  private String groupHeader;
+  private String groupCommmet;
 
   @Override
   public boolean equals(Object o) {
@@ -29,6 +29,7 @@ public class GroupDate {
   public String toString() {
     return "GroupDate{" + "groupID='" + groupID + '\'' + ", groupName='" + groupName + '\'' + '}';
   }
+
   public int getGroupID() {
     return groupID;
   }
@@ -48,6 +49,7 @@ public class GroupDate {
     this.groupHeader = groupHeader;
     return this;
   }
+
   public GroupDate withGroupCommmet(String groupCommmet) {
     this.groupCommmet = groupCommmet;
     return this;

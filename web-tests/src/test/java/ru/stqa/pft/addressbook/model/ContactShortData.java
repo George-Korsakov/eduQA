@@ -5,9 +5,8 @@ import java.util.Objects;
 public class ContactShortData {
 
   private int contactID = Integer.MAX_VALUE;
-  private  String fname;
-  private  String lname;
-
+  private String fname;
+  private String lname;
 
   @Override
   public boolean equals(Object o) {
@@ -21,19 +20,6 @@ public class ContactShortData {
   public int hashCode() {
     return Objects.hash(contactID, fname, lname);
   }
-
- /* конструкторы уже не нужны
- public ContactShortData(int contactID, String fname, String lname) {
-    this.contactID = contactID;
-    this.fname = fname;
-    this.lname = lname;
-  }
-
-  public ContactShortData(String fname, String lname) {
-    this.contactID = 0;
-    this.fname = fname;
-    this.lname = lname;
-  }*/
 
   @Override
   public String toString() {
@@ -55,7 +41,8 @@ public class ContactShortData {
     this.lname = lname;
     return this;
   }
-// геттеры
+
+  // геттеры
   public String getFname() {
     return fname;
   }

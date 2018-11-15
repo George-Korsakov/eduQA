@@ -9,7 +9,9 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.ContactShortData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -76,6 +78,10 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
+  }
+
   public void deleteSelectedContact() {
     click(By.xpath("//input[@value='Delete']"));
   }
@@ -85,8 +91,12 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public void initContactModification() {
+  /*public void initContactModification() {
     click(By.xpath("//img[@alt='Edit']"));
+  }*/
+
+  public void initContactModificationById(int id) {
+    wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
   }
 
   public void submitContactModification() {
@@ -101,16 +111,17 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
   }
 
-  // редактирование контакта
-  public void modify(int index, ContactShortData contact) {
-    initContactModification();
+
+  public void modify(ContactShortData contact) {
+    initContactModificationById(contact.getContactID());
     fillShortContactForm(contact);
     submitContactModification();
     retutnHomePage();
   }
 
-  public void delete(int index) {
-    selectContact(index);
+
+  public void delete(ContactShortData contact) {
+    selectContactById(contact.getContactID());
     deleteSelectedContact();
     submitContactDelete();
   }
@@ -123,6 +134,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  // метод получения спсика контаков
   public List<ContactShortData> list() {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     {
@@ -140,12 +152,38 @@ public class ContactHelper extends HelperBase {
         String name1 = Columns_row.get(2).getText();
         // получение занчени ID и преобразования тип в целое число
         int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
-       // добавлем объект контакт в список
+        // добавлем объект контакт в список
+        contacts.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
+      }
+      return contacts;
+    }
+  }
+
+  // метод получения множества контактов
+  public Set<ContactShortData> all() {
+    Set<ContactShortData> contacts = new HashSet<>();
+    {
+      // поиск таблицы для последующего получения значений ячеек
+      WebElement mytable = wd.findElement(By.xpath("//*[@id=\"maintable\"]"));
+      // получаем строки
+      List<WebElement> rows_table = mytable.findElements(By.name("entry"));
+      int maxRow = rows_table.size();
+      for (int row = 0; row < maxRow; row++) {
+        //получение столбцов из строк (cells)
+        List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
+        // получение значений из нужных ячеек по индексу
+        // полчеение имени и фамили
+        String name2 = Columns_row.get(1).getText();
+        String name1 = Columns_row.get(2).getText();
+        // получение занчени ID и преобразования тип в целое число
+        int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
+        // добавлем объект контакт в список
         contacts.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
       }
 
       return contacts;
     }
-
   }
+
+
 }

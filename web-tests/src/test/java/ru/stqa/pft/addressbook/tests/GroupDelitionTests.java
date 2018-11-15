@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
-import java.util.List;
 import java.util.Set;
 
 public class GroupDelitionTests extends TestBase {
@@ -42,7 +41,6 @@ public class GroupDelitionTests extends TestBase {
 
 
   }
-
 
 
 }

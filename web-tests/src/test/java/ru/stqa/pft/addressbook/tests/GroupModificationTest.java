@@ -5,8 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 public class GroupModificationTest extends TestBase {
@@ -30,8 +28,7 @@ public class GroupModificationTest extends TestBase {
     Set<GroupDate> before = app.group().all();
     GroupDate modifyedGroup = before.iterator().next();
     //int index = before.size() - 1;
-    GroupDate group = new GroupDate()
-            .withGroupId(modifyedGroup.getGroupID()).withGroupName("TestEGroup1").withGroupHeader("TestHeaderFroup_e").withGroupCommmet("TestComment_e");
+    GroupDate group = new GroupDate().withGroupId(modifyedGroup.getGroupID()).withGroupName("TestEGroup1").withGroupHeader("TestHeaderFroup_e").withGroupCommmet("TestComment_e");
     app.group().modify(group);
     Set<GroupDate> after = app.group().all();
     // проверка числа группы в списке до и после

@@ -8,6 +8,7 @@ import ru.stqa.pft.addressbook.model.ContactShortData;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
@@ -16,40 +17,30 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() {
     // int r = (int)(Math.random()*1000000);
-    // не обязательное действие по прееходу на додмаашнюю страницу для проверки
+    // не обязательное действие по прееходу на страницу контактов для подстраховки
     app.goTo().homePage();
-    List<ContactShortData> before = app.contact().list();
-
+    Set<ContactShortData> before = app.contact().all();
     ContactShortData contact = new ContactShortData().withFname("NameTest1").withLname("LastNameTest1");
+
     app.contact().initContactCreation();
     app.contact().fillShortContactForm(contact);
     app.contact().submitContactCreation();
     app.contact().retutnHomePage();
-    List<ContactShortData> after = app.contact().list();
+
+    Set<ContactShortData> after = app.contact().all();
     // проверка сравнением размеров спсисков
     Assert.assertEquals(before.size(), after.size() - 1);
 
-    Comparator<? super ContactShortData> byId = new Comparator<ContactShortData>() {
-      @Override
-      public int compare(ContactShortData o1, ContactShortData o2) {
-        return Integer.compare(o1.getContactID(), o2.getContactID());
-      }
-    };
-    int max = after.stream().max(byId).get().getContactID();
-    contact.withContactID(max);
+
+    // проверка сравнением множеств
+    // анониманая функция принимающая в качесвте атрибута объект типа ContactShortData выделяет id целые числа и находит максимальное
+    contact.withContactID(after.stream().mapToInt( (c) -> c.getContactID()).max().getAsInt() );
     before.add(contact);
-    // проверка сравнением списков
-    // полиск максимального занчения id с использованием лябда-выражения
-    Comparator<? super ContactShortData> byID = (c1, c2) -> Integer.compare(c1.getContactID(), c2.getContactID());
-    before.sort(byID);
-    after.sort(byID);
-
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Assert.assertEquals(before, after);
 
 
-   //app.goTo().gotoExit();
-
+     // для одиночного теста, удалить
+    // app.goTo().gotoExit();
 
   }
-
 }
