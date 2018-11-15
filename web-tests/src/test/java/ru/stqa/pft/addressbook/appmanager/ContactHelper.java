@@ -103,7 +103,6 @@ public class ContactHelper extends HelperBase {
 
   // редактирование контакта
   public void modify(int index, ContactShortData contact) {
-    selectContact(index);
     initContactModification();
     fillShortContactForm(contact);
     submitContactModification();
