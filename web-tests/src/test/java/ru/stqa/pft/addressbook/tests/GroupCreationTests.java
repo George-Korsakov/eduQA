@@ -29,7 +29,7 @@ public class GroupCreationTests extends TestBase {
     Assert.assertEquals(before.size(), after.size() - 1);
 
     // проверка сравнением списков по содержанию (проблема с преобразованием типов !!!!!!!)
-    //group.withGroupId(after.stream().mapToInt( (g) -> g.getGroupID().max().getAsInt() ) );
+    group.withGroupId(after.stream().mapToInt( (g) -> g.getGroupID()).max().getAsInt() );
     before.add(group);
       // сравнение списков
     Assert.assertEquals(before, after);
