@@ -4,11 +4,16 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+// статический импорт методов для проверок (улучшеине читаемости кода)
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
 
@@ -19,7 +24,7 @@ public class ContactCreationTests extends TestBase {
     // int r = (int)(Math.random()*1000000);
     // не обязательное действие по прееходу на страницу контактов для подстраховки
     app.goTo().homePage();
-    Set<ContactShortData> before = app.contact().all();
+    Contacts before = app.contact().all();
     ContactShortData contact = new ContactShortData().withFname("NameTest1").withLname("LastNameTest1");
 
     app.contact().initContactCreation();
@@ -27,7 +32,7 @@ public class ContactCreationTests extends TestBase {
     app.contact().submitContactCreation();
     app.contact().retutnHomePage();
 
-    Set<ContactShortData> after = app.contact().all();
+    Contacts after = app.contact().all();
     // проверка сравнением размеров спсисков
     Assert.assertEquals(before.size(), after.size() - 1);
 
@@ -39,8 +44,9 @@ public class ContactCreationTests extends TestBase {
     Assert.assertEquals(before, after);
 
 
-     // для одиночного теста, удалить
-    // app.goTo().gotoExit();
+     // проверки в fluent-стиле, используя Hamcrest
+    assertThat(after, equalTo(before.withAdded(
+            contact.withContactID(after.stream().mapToInt( (g) -> g.getContactID()).max().getAsInt() ))));
 
   }
 }

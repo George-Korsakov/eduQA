@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupDate;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -70,14 +71,6 @@ public class GroupHelper extends HelperBase {
     returnToGroupPage();
   }
 
-  // изменение группы
-  public void modify(int index, GroupDate group) {
-    selectGroup(index);
-    initGroupModification();
-    fillGroupForm(group);
-    submitGroupModification();
-    returnToGroupPage();
-  }
 
   public void modify(GroupDate group) {
     selectGroupById(group.getGroupID());
@@ -119,8 +112,8 @@ public class GroupHelper extends HelperBase {
   }
 // метод получения списка
 
-  public Set<GroupDate> all() {
-    Set<GroupDate> groups = new HashSet<GroupDate>();
+  public Groups all() {
+    Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     // в цикле заполняется список полученными именами групп
     for (WebElement element : elements) {

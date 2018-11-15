@@ -18,7 +18,7 @@ public class SimpleTestRunner extends TestBase {
     app.goTo().homePage();
 
     int sum = (int) app.contact().getContactCount();
-    System.out.println("Contacts = " + sum);
+    System.out.println("Contactus = " + sum);
 
 
   }

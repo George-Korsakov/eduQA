@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.ContactShortData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -91,7 +92,9 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  /*public void initContactModification() {
+  /*
+  // отставлен для примера использования xpath
+  public void initContactModification() {
     click(By.xpath("//img[@alt='Edit']"));
   }*/
 
@@ -160,8 +163,8 @@ public class ContactHelper extends HelperBase {
   }
 
   // метод получения множества контактов
-  public Set<ContactShortData> all() {
-    Set<ContactShortData> contacts = new HashSet<>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     {
       // поиск таблицы для последующего получения значений ячеек
       WebElement mytable = wd.findElement(By.xpath("//*[@id=\"maintable\"]"));

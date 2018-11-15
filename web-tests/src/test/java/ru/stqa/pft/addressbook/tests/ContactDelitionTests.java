@@ -4,8 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.Set;
+// статический импорт методов для проверок (улучшеине читаемости кода)
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDelitionTests extends TestBase {
 
@@ -23,7 +27,7 @@ public class ContactDelitionTests extends TestBase {
   @Test
   public void testContactDelition() {
     // удаление выбранного контакта в списке
-    Set<ContactShortData> before = app.contact().all();
+    Contacts before = app.contact().all();
     ContactShortData deletedContact = before.iterator().next();
 
     app.contact().delete(deletedContact);
@@ -33,14 +37,12 @@ public class ContactDelitionTests extends TestBase {
       app.goTo().homePage();
     }
 
-    //app.goTo().homePage();
-    Set<ContactShortData> after = app.contact().all();
+    Contacts after = app.contact().all();
     // проверка числа группы в списке до и после +1
     Assert.assertEquals(before.size(), after.size() + 1);
 
-// сравнение списков по содержанию
-    before.remove(deletedContact);
-    Assert.assertEquals(before, after);
+    // проверки в fluent-стиле, используя Hamcrest
+    assertThat(after, equalTo(before.withOut(deletedContact)));
 
   }
 

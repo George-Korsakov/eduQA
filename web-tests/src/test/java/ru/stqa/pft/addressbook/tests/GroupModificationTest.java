@@ -1,11 +1,17 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupDate;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupModificationTest extends TestBase {
 
@@ -25,23 +31,20 @@ public class GroupModificationTest extends TestBase {
   @Test
   public void testGroupModification() {
 
-    Set<GroupDate> before = app.group().all();
+    Groups before = app.group().all();
     GroupDate modifyedGroup = before.iterator().next();
-    //int index = before.size() - 1;
-    GroupDate group = new GroupDate().withGroupId(modifyedGroup.getGroupID()).withGroupName("TestEGroup1").withGroupHeader("TestHeaderFroup_e").withGroupCommmet("TestComment_e");
+        GroupDate group = new GroupDate().withGroupId(modifyedGroup.getGroupID()).withGroupName("TestEGroup1").withGroupHeader("TestHeaderFroup_e").withGroupCommmet("TestComment_e");
     app.group().modify(group);
-    Set<GroupDate> after = app.group().all();
+    Groups after = app.group().all();
+
     // проверка числа группы в списке до и после
     Assert.assertEquals(before.size(), after.size());
 
-    // проверка сравнением списков
-    before.remove(modifyedGroup);
-    before.add(group);
+    // проверки в fluent-стиле, используя Hamcrest
+    assertThat(after, equalTo(before.withOut(modifyedGroup).withAdded(group)));
 
 
-    // проверка сравнением списков
-    Assert.assertEquals(before, after);
-    //Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+
   }
 
 
