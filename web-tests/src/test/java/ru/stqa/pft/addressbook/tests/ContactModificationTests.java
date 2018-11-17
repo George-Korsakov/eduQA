@@ -24,12 +24,13 @@ public class ContactModificationTests extends TestBase {
 
   @Test
   public void testContactModification() {
-
+    int r = (int)(Math.random()*1000000);
     Contacts before = app.contact().all();
     ContactShortData modifyContact = before.iterator().next();
 
 
-    ContactShortData contact = new ContactShortData().withContactID(modifyContact.getContactID()).withFname("NameTest1").withLname("LastNameTestEdit");
+    ContactShortData contact = new ContactShortData().withContactID(modifyContact.getContactID()).withFname("NameTest1").withLname("LastNameTestEdit")
+            .withPhoneNumHome(String.valueOf(r*1)).withPhoneNumMobile(String.valueOf(r*2)).withPhoneNumWork(String.valueOf(r*3));
     // редактирование полей выбранного контакта в списке
     app.contact().modify(contact);
     Contacts after = app.contact().all();

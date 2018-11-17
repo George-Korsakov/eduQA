@@ -10,9 +10,7 @@ import ru.stqa.pft.addressbook.model.ContactShortData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -22,7 +20,7 @@ public class ContactHelper extends HelperBase {
   }
 
   // возврат на основную страницу
-  public void retutnHomePage() {
+  public void goToHomePage() {
     click(By.linkText("home page"));
   }
 
@@ -43,6 +41,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"), contactData.getAddress());
     type(By.name("home"), contactData.getPhoneNumHome());
+   // type(By.name("mobile"), contactData.getPhoneNumMobile());
+    //type(By.name("work"), contactData.getPhoneNumWork());
     type(By.name("email"), contactData.getEmail());
 
     // задание даты рожения (позже вынести в отдельный класс и объект)
@@ -67,7 +67,9 @@ public class ContactHelper extends HelperBase {
   public void fillShortContactForm(ContactShortData contactShortData) {
     type(By.name("lastname"), contactShortData.getLname());
     type(By.name("firstname"), contactShortData.getFname());
-
+    type(By.name("home"), contactShortData.getPhoneNumHome());
+    type(By.name("mobile"), contactShortData.getPhoneNumMobile());
+    type(By.name("work"), contactShortData.getPhoneNumWork());
   }
 
   // добавление нового контакта вызов формы
@@ -99,7 +101,21 @@ public class ContactHelper extends HelperBase {
   }*/
 
   public void initContactModificationById(int id) {
+    // поиск по индентификатору кнопки редактирования
     wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
+
+    // альтренативные способы поиска кнопки редактирования, демонстрация String.format для склеивания строк
+    // поиск чекбоса с последующим переходм к родительскому эелменту, что бы получить строку в который выбирается нужная ячейка
+    //wd.findElement(By.xpath(String.format("//input[@value='$s']/../../td[8]/a",id))).click();
+    // с использованием подзапроса для поиска строки в которой выбирается нужная ячейка
+    //wd.findElement(By.xpath(String.format("//tr[.//input[@value='$s']]//td[8]/a", id)))
+
+   /* // длинный способ последовательного приближения
+    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='$s']",id)));
+    WebElement row = checkbox.findElement(By.xpath("./../.."));
+    List<WebElement> cells =row.findElements(By.tagName("td"));
+    cells.get(7).findElement(By.tagName("a")).click();*/
+
   }
 
   public void submitContactModification() {
@@ -113,7 +129,7 @@ public class ContactHelper extends HelperBase {
     fillShortContactForm(contact);
     submitContactCreation();
     contactCahe = null;
-    retutnHomePage(); // возвращение на страницу контактов для подстраховки
+    goToHomePage(); // возвращение на страницу контактов для подстраховки
   }
 
 
@@ -122,7 +138,7 @@ public class ContactHelper extends HelperBase {
     fillShortContactForm(contact);
     submitContactModification();
     contactCahe = null;
-    retutnHomePage(); // возвращение на страницу контактов для подстраховки
+    goToHomePage(); // возвращение на страницу контактов для подстраховки
   }
 
 
@@ -189,10 +205,13 @@ public class ContactHelper extends HelperBase {
           // полчеение имени и фамили
           String name2 = Columns_row.get(1).getText();
           String name1 = Columns_row.get(2).getText();
+          // получение номеров телефонов в виде массива
+          String[] phones = Columns_row.get(5).getText().split("\n");
           // получение занчени ID и преобразования тип в целое число
           int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
           // добавлем объект контакт в список
-          contactCahe.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
+          contactCahe.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2)
+                  .withPhoneNumHome(phones[0]).withPhoneNumMobile(phones[1]).withPhoneNumWork(phones[2]));
         }
 
         return new Contacts(contactCahe);
@@ -200,5 +219,18 @@ public class ContactHelper extends HelperBase {
     }
   }
 
+  // метод получения значений из формы редактирования
+  public ContactShortData infoFormEditForm(ContactShortData contact) {
+    initContactModificationById(contact.getContactID());
+    String fname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
 
+    // ????????
+    wd.navigate().back();
+    return new ContactShortData().withContactID(contact.getContactID()).withFname(fname).withLname(lname).withPhoneNumHome(home).withPhoneNumMobile(mobile).withPhoneNumWork(work);
+
+  }
 }

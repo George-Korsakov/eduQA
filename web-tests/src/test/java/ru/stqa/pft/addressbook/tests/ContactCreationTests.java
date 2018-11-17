@@ -25,7 +25,8 @@ public class ContactCreationTests extends TestBase {
     // не обязательное действие по прееходу на страницу контактов для подстраховки
     app.goTo().homePage();
     Contacts before = app.contact().all();
-    ContactShortData contact = new ContactShortData().withFname("NameTest1" +r).withLname("LastNameTest1");
+    ContactShortData contact = new ContactShortData().withFname("NameTest1" +r).withLname("LastNameTest1")
+            .withPhoneNumHome(String.valueOf(r*1)).withPhoneNumMobile(String.valueOf(r*2)).withPhoneNumWork(String.valueOf(r*3));
 
     app.contact().create(contact);
 
