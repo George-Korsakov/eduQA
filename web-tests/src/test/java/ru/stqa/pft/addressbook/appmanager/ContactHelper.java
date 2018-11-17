@@ -113,6 +113,7 @@ public class ContactHelper extends HelperBase {
     fillShortContactForm(contact);
     submitContactCreation();
     contactCahe = null;
+    retutnHomePage(); // возвращение на страницу контактов для подстраховки
   }
 
 
@@ -121,7 +122,7 @@ public class ContactHelper extends HelperBase {
     fillShortContactForm(contact);
     submitContactModification();
     contactCahe = null;
-    retutnHomePage();
+    retutnHomePage(); // возвращение на страницу контактов для подстраховки
   }
 
 
@@ -171,29 +172,31 @@ public class ContactHelper extends HelperBase {
   public Contacts all() {
     Contacts contacts = new Contacts();
     {
-      if(contactCahe != null){
+      if (contactCahe != null) {
+        return new Contacts(contactCahe);
+      } else {
+
+        contactCahe = new Contacts();
+        // поиск таблицы для последующего получения значений ячеек
+        WebElement mytable = wd.findElement(By.xpath("//*[@id=\"maintable\"]"));
+        // получаем строки
+        List<WebElement> rows_table = mytable.findElements(By.name("entry"));
+        int maxRow = rows_table.size();
+        for (int row = 0; row < maxRow; row++) {
+          //получение столбцов из строк (cells)
+          List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
+          // получение значений из нужных ячеек по индексу
+          // полчеение имени и фамили
+          String name2 = Columns_row.get(1).getText();
+          String name1 = Columns_row.get(2).getText();
+          // получение занчени ID и преобразования тип в целое число
+          int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
+          // добавлем объект контакт в список
+          contactCahe.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
+        }
+
         return new Contacts(contactCahe);
       }
-      contactCahe = new Contacts();
-      // поиск таблицы для последующего получения значений ячеек
-      WebElement mytable = wd.findElement(By.xpath("//*[@id=\"maintable\"]"));
-      // получаем строки
-      List<WebElement> rows_table = mytable.findElements(By.name("entry"));
-      int maxRow = rows_table.size();
-      for (int row = 0; row < maxRow; row++) {
-        //получение столбцов из строк (cells)
-        List<WebElement> Columns_row = rows_table.get(row).findElements(By.tagName("td"));
-        // получение значений из нужных ячеек по индексу
-        // полчеение имени и фамили
-        String name2 = Columns_row.get(1).getText();
-        String name1 = Columns_row.get(2).getText();
-        // получение занчени ID и преобразования тип в целое число
-        int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
-        // добавлем объект контакт в список
-        contactCahe.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
-      }
-
-      return new Contacts(contactCahe);
     }
   }
 

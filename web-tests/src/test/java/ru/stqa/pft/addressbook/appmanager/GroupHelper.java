@@ -118,18 +118,19 @@ public class GroupHelper extends HelperBase {
 
   // метод получения списка с кешированием
   public Groups all() {
-    if (groupCahe != null){
+    if (groupCahe != null) {
+      return new Groups(groupCahe);
+    } else {
+      groupCahe = new Groups();
+      List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+      // в цикле заполняется список полученными именами групп
+      for (WebElement element : elements) {
+        String name = element.getText();
+        int ID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+        //GroupDate group = new GroupDate().withGroupId(groupID).withGroupName(name);
+        groupCahe.add(new GroupDate().withGroupId(ID).withGroupName(name));
+      }
       return new Groups(groupCahe);
     }
-    groupCahe = new Groups();
-    List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-    // в цикле заполняется список полученными именами групп
-    for (WebElement element : elements) {
-      String name = element.getText();
-      int ID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      //GroupDate group = new GroupDate().withGroupId(groupID).withGroupName(name);
-      groupCahe.add(new GroupDate().withGroupId(ID).withGroupName(name));
-    }
-    return new Groups(groupCahe);
   }
 }

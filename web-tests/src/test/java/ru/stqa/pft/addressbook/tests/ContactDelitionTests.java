@@ -39,7 +39,7 @@ public class ContactDelitionTests extends TestBase {
 
     Contacts after = app.contact().all();
     // проверка числа группы в списке до и после +1
-    Assert.assertEquals(before.size(), after.size()-1 );
+    //assertThat(after.size(),equalTo(before.size()-1));
 
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withOut(deletedContact)));

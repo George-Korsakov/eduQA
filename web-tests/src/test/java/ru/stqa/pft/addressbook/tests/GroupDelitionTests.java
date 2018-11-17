@@ -33,11 +33,11 @@ public class GroupDelitionTests extends TestBase {
     Groups before = app.group().all();
     GroupDate deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
-    Assert.assertEquals(before.size(), app.group().getGroupCount()-1 );
     Groups after = app.group().all();
 
     // проврека рутем срправнения размеров списков
-    assertEquals(after.size(), before.size()-1);
+    Assert.assertEquals(before.size(), app.group().getGroupCount()+1 );
+
 
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withOut(deletedGroup)));

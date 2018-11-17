@@ -26,8 +26,8 @@ public class GroupCreationNegativTests extends TestBase {
     app.group().initGroupCreation();
     app.group().fillGroupForm(group);
     app.group().submitGroupCreation();
-    assertThat(before.size(), equalTo(app.group().getGroupCount()));
     app.group().returnToGroupPage(); // переход на страницу спсика групп
+    assertThat(before.size(), equalTo(app.group().getGroupCount()));
 
     Groups after = app.group().all();
 

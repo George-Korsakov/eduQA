@@ -20,18 +20,14 @@ public class GroupCreationTests extends TestBase {
     int r = (int) (Math.random() * 1000);
     app.goTo().groupPage();
 
-    GroupDate group = new GroupDate().withGroupName("TestGroup").withGroupHeader("TestHeaderFroup" + r);
+    GroupDate group = new GroupDate().withGroupName("TestGroup" +r).withGroupHeader("TestHeaderFroup" + r);
     Groups before = app.group().all();
-
-    app.group().initGroupCreation();
-    app.group().fillGroupForm(group);
-    app.group().submitGroupCreation();
-    app.group().returnToGroupPage(); // переход на страницу спсика групп
+    app.group().create(group);
 
     Groups after = app.group().all();
 
     // проверка сравнением размеров списков до  и после
-    assertThat(before.size(), equalTo(after.size()+1));
+    assertThat(before.size(), equalTo(after.size()-1));
 
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withAdded(

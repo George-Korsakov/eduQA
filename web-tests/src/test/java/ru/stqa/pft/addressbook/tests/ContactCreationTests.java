@@ -21,30 +21,27 @@ public class ContactCreationTests extends TestBase {
 
   @Test
   public void testContactCreation() {
-    // int r = (int)(Math.random()*1000000);
+    int r = (int)(Math.random()*1000000);
     // не обязательное действие по прееходу на страницу контактов для подстраховки
     app.goTo().homePage();
     Contacts before = app.contact().all();
-    ContactShortData contact = new ContactShortData().withFname("NameTest1").withLname("LastNameTest1");
+    ContactShortData contact = new ContactShortData().withFname("NameTest1" +r).withLname("LastNameTest1");
 
-    app.contact().initContactCreation();
-    app.contact().fillShortContactForm(contact);
-    app.contact().submitContactCreation();
-    app.contact().retutnHomePage();
+    app.contact().create(contact);
 
     Contacts after = app.contact().all();
-    // проверка сравнением размеров спсисков
-    Assert.assertEquals(before.size(), after.size()+1);
 
+    // проверка сравнением размеров спсисков
+    Assert.assertEquals(before.size(), after.size()-1);
 
     // проверка сравнением множеств
     // анониманая функция принимающая в качесвте атрибута объект типа ContactShortData выделяет id целые числа и находит максимальное
-    contact.withContactID(after.stream().mapToInt( (c) -> c.getContactID()).max().getAsInt() );
+   /* contact.withContactID(after.stream().mapToInt( (c) -> c.getContactID()).max().getAsInt() );
     before.add(contact);
-    Assert.assertEquals(before, after);
+    Assert.assertEquals(before, after);*/
 
 
-     // проверки в fluent-стиле, используя Hamcrest
+    // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withAdded(
             contact.withContactID(after.stream().mapToInt( (g) -> g.getContactID()).max().getAsInt() ))));
 
