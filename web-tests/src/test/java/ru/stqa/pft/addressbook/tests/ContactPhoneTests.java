@@ -16,9 +16,15 @@ public class ContactPhoneTests extends TestBase {
     ContactShortData contact = app.contact().all().iterator().next();
     ContactShortData contactInfoFormEditFrom = app.contact().infoFormEditForm(contact);
 
-    assertThat(contact.getPhoneNumHome(), equalTo(contactInfoFormEditFrom.getPhoneNumHome()));
-    assertThat(contact.getPhoneNumMobile(), equalTo(contactInfoFormEditFrom.getPhoneNumMobile()));
-    assertThat(contact.getPhoneNumWork(), equalTo(contactInfoFormEditFrom.getPhoneNumWork()));
+    assertThat(contact.getPhoneNumHome(), equalTo(cleaned(contactInfoFormEditFrom.getPhoneNumHome())));
+    assertThat(contact.getPhoneNumMobile(), equalTo(cleaned(contactInfoFormEditFrom.getPhoneNumMobile())));
+    assertThat(contact.getPhoneNumWork(), equalTo(cleaned(contactInfoFormEditFrom.getPhoneNumWork())));
   }
+
+  public String cleaned(String phone){
+
+    return phone.replaceAll("\\s","").replaceAll("[-()]", "");
+  }
+
 
 }
