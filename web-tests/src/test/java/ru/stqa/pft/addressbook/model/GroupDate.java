@@ -19,7 +19,7 @@ public class GroupDate {
     GroupDate groupDate = (GroupDate) o;
     return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName);
   }
-
+ // хеш код для более быстрой проверки
   @Override
   public int hashCode() {
     return Objects.hash(groupID, groupName);

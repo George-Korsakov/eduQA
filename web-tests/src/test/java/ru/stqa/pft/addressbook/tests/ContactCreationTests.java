@@ -34,7 +34,7 @@ public class ContactCreationTests extends TestBase {
 
     Contacts after = app.contact().all();
     // проверка сравнением размеров спсисков
-    Assert.assertEquals(before.size(), after.size() - 1);
+    Assert.assertEquals(before.size(), after.size()+1);
 
 
     // проверка сравнением множеств

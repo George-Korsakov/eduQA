@@ -40,7 +40,6 @@ public class ContactModificationTests extends TestBase {
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withOut(modifyContact).withAdded(contact)));
 
+
   }
-
-
 }

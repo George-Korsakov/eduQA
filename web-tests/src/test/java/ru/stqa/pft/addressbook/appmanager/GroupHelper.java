@@ -68,6 +68,7 @@ public class GroupHelper extends HelperBase {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupCreation();
+    groupCahe = null;
     returnToGroupPage();
   }
 
@@ -77,6 +78,7 @@ public class GroupHelper extends HelperBase {
     initGroupModification();
     fillGroupForm(group);
     submitGroupModification();
+    groupCahe = null;
     returnToGroupPage();
   }
 
@@ -85,6 +87,7 @@ public class GroupHelper extends HelperBase {
   public void delete(GroupDate group) {
     selectGroupById(group.getGroupID());
     deleteSelectedGroups();
+    groupCahe = null;
     returnToGroupPage();
   }
   // для проверки групп
@@ -110,18 +113,23 @@ public class GroupHelper extends HelperBase {
     }
     return groups;
   }
-// метод получения списка
 
+  private Groups groupCahe = null;
+
+  // метод получения списка с кешированием
   public Groups all() {
-    Groups groups = new Groups();
+    if (groupCahe != null){
+      return new Groups(groupCahe);
+    }
+    groupCahe = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     // в цикле заполняется список полученными именами групп
     for (WebElement element : elements) {
       String name = element.getText();
       int ID = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       //GroupDate group = new GroupDate().withGroupId(groupID).withGroupName(name);
-      groups.add(new GroupDate().withGroupId(ID).withGroupName(name));
+      groupCahe.add(new GroupDate().withGroupId(ID).withGroupName(name));
     }
-    return groups;
+    return new Groups(groupCahe);
   }
 }

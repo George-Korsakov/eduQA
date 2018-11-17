@@ -112,6 +112,7 @@ public class ContactHelper extends HelperBase {
     initContactCreation();
     fillShortContactForm(contact);
     submitContactCreation();
+    contactCahe = null;
   }
 
 
@@ -119,6 +120,7 @@ public class ContactHelper extends HelperBase {
     initContactModificationById(contact.getContactID());
     fillShortContactForm(contact);
     submitContactModification();
+    contactCahe = null;
     retutnHomePage();
   }
 
@@ -127,6 +129,7 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getContactID());
     deleteSelectedContact();
     submitContactDelete();
+    contactCahe = null;
   }
 
   public boolean isThereAContact() {
@@ -162,10 +165,16 @@ public class ContactHelper extends HelperBase {
     }
   }
 
+  private Contacts contactCahe = null;
+
   // метод получения множества контактов
   public Contacts all() {
     Contacts contacts = new Contacts();
     {
+      if(contactCahe != null){
+        return new Contacts(contactCahe);
+      }
+      contactCahe = new Contacts();
       // поиск таблицы для последующего получения значений ячеек
       WebElement mytable = wd.findElement(By.xpath("//*[@id=\"maintable\"]"));
       // получаем строки
@@ -181,10 +190,10 @@ public class ContactHelper extends HelperBase {
         // получение занчени ID и преобразования тип в целое число
         int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
         // добавлем объект контакт в список
-        contacts.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
+        contactCahe.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
       }
 
-      return contacts;
+      return new Contacts(contactCahe);
     }
   }
 

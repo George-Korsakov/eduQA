@@ -36,8 +36,7 @@ public class GroupModificationTest extends TestBase {
         GroupDate group = new GroupDate().withGroupId(modifyedGroup.getGroupID()).withGroupName("TestEGroup1").withGroupHeader("TestHeaderFroup_e").withGroupCommmet("TestComment_e");
     app.group().modify(group);
     Groups after = app.group().all();
-
-    // проверка числа группы в списке до и после
+       // проверка числа группы в списке до и после
     Assert.assertEquals(before.size(), after.size());
 
     // проверки в fluent-стиле, используя Hamcrest

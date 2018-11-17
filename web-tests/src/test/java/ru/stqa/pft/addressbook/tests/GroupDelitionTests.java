@@ -16,7 +16,6 @@ import static org.testng.Assert.assertEquals;
 
 public class GroupDelitionTests extends TestBase {
 
-
   @BeforeMethod
   public void ensurePrecondition() {
     int r = (int) (Math.random() * 1000);
@@ -26,28 +25,22 @@ public class GroupDelitionTests extends TestBase {
     if (app.group().all().size() == 0) {
       app.group().create(new GroupDate().withGroupName("TestGroup0" + r));
     }
-
   }
-
 
   @Test
   public void testGroupDelition() {
 
     Groups before = app.group().all();
     GroupDate deletedGroup = before.iterator().next();
-    //int index = before.size() - 1;
     app.group().delete(deletedGroup);
+    Assert.assertEquals(before.size(), app.group().getGroupCount()-1 );
     Groups after = app.group().all();
 
     // проврека рутем срправнения размеров списков
-    assertEquals(after.size(), before.size() - 1);
+    assertEquals(after.size(), before.size()-1);
 
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withOut(deletedGroup)));
 
-
-
   }
-
-
 }
