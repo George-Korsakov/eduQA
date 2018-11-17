@@ -206,12 +206,15 @@ public class ContactHelper extends HelperBase {
           String name2 = Columns_row.get(1).getText();
           String name1 = Columns_row.get(2).getText();
           // получение номеров телефонов в виде массива
-          String[] phones = Columns_row.get(5).getText().split("\n");
+          //String[] phones = Columns_row.get(5).getText().split("\n");
+          // для метода обратных проверок получаем все телефоны в строку
+          String allphones = Columns_row.get(5).getText();
           // получение занчени ID и преобразования тип в целое число
           int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
           // добавлем объект контакт в список
-          contactCahe.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2)
-                  .withPhoneNumHome(phones[0]).withPhoneNumMobile(phones[1]).withPhoneNumWork(phones[2]));
+          contactCahe.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2).withAllPhones(allphones));
+
+                  //  .withPhoneNumHome(phones[0]).withPhoneNumMobile(phones[1]).withPhoneNumWork(phones[2]));
         }
 
         return new Contacts(contactCahe);
@@ -228,7 +231,6 @@ public class ContactHelper extends HelperBase {
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
 
-    // ????????
     wd.navigate().back();
     return new ContactShortData().withContactID(contact.getContactID()).withFname(fname).withLname(lname).withPhoneNumHome(home).withPhoneNumMobile(mobile).withPhoneNumWork(work);
 

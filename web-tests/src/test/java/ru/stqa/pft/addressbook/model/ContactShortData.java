@@ -5,30 +5,34 @@ import java.util.Objects;
 public class ContactShortData {
 
   private int contactID = Integer.MAX_VALUE;
-  private String fname;
-  private String lname;
 
-  private String phoneNumHome;
-  private String phoneNumMobile;
-  private String phoneNumWork;
+  private String fname;
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactShortData that = (ContactShortData) o;
-    return contactID == that.contactID && Objects.equals(fname, that.fname) && Objects.equals(lname, that.lname) && Objects.equals(phoneNumHome, that.phoneNumHome) && Objects.equals(phoneNumMobile, that.phoneNumMobile) && Objects.equals(phoneNumWork, that.phoneNumWork);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(contactID, fname, lname, phoneNumHome, phoneNumMobile, phoneNumWork);
+    return contactID == that.contactID && Objects.equals(fname, that.fname) && Objects.equals(lname, that.lname);
   }
 
   @Override
   public String toString() {
-    return "ContactShortData{" + "contactID='" + contactID + '\'' + ", fname='" + fname + '\'' + ", lname='" + lname + '\'' + '}';
+    return "ContactShortData{" + "fname='" + fname + '\'' + ", lname='" + lname + '\'' + '}';
   }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(contactID, fname, lname);
+  }
+
+  private String lname;
+
+  private String phoneNumHome;
+  private String phoneNumMobile;
+  private String phoneNumWork;
+
+  private String allPhones;
 
 
 // сеттеры измененные
@@ -55,21 +59,25 @@ public class ContactShortData {
     this.phoneNumMobile = phoneNumMobile ;
     return this;
   }
-
   public ContactShortData withPhoneNumWork (String phoneNumWork) {
     this.phoneNumWork = phoneNumWork;
     return this;
   }
 
+  public ContactShortData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
 
   // геттеры
+
   public int getContactID() {
     return contactID;
   }
   public String getFname() {
     return fname;
   }
-
   public String getLname() {
     return lname;
   }
@@ -84,5 +92,9 @@ public class ContactShortData {
 
   public String getPhoneNumWork() {
     return phoneNumWork;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
   }
 }
