@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactShortData {
@@ -23,6 +24,8 @@ public class ContactShortData {
   private String email3;
   private String allemails;
 
+  private File photo;
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -30,6 +33,7 @@ public class ContactShortData {
     ContactShortData that = (ContactShortData) o;
     return contactID == that.contactID && Objects.equals(fname, that.fname) && Objects.equals(lname, that.lname);
   }
+
   @Override
   public String toString() {
     return "ContactShortData{" + "fname='" + fname + '\'' + ", lname='" + lname + '\'' + '}';
@@ -52,11 +56,11 @@ public class ContactShortData {
     this.fname = fname;
     return this;
   }
+
   public ContactShortData withLname(String lname) {
     this.lname = lname;
     return this;
   }
-
   public ContactShortData withPhoneNumHome(String phoneNumHome) {
     this.phoneNumHome = phoneNumHome;
     return this;
@@ -65,6 +69,7 @@ public class ContactShortData {
     this.phoneNumHome2 = phoneNumHome2;
     return this;
   }
+
   public ContactShortData withPhoneNumMobile(String phoneNumMobile) {
     this.phoneNumMobile = phoneNumMobile ;
     return this;
@@ -81,7 +86,6 @@ public class ContactShortData {
     this.allPhones = allPhones;
     return this;
   }
-
   public ContactShortData withAddress(String address) {
     this.address = address;
     return this;
@@ -90,6 +94,7 @@ public class ContactShortData {
     this.address2 = address2;
     return this;
   }
+
   public ContactShortData withAllAddress(String alladdress) {
     this.alladdress = alladdress;
     return this;
@@ -110,9 +115,13 @@ public class ContactShortData {
     this.allemails = allemails;
     return this;
   }
-
+  public ContactShortData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
 
   // геттеры
+
   public int getContactID() {
     return contactID;
   }
@@ -122,10 +131,10 @@ public class ContactShortData {
   public String getLname() {
     return lname;
   }
-
   public String getPhoneNumHome() {
     return phoneNumHome;
   }
+
   public String getPhoneNumMobile() {
     return phoneNumMobile;
   }
@@ -141,10 +150,10 @@ public class ContactShortData {
   public String getAllPhones() {
     return allPhones;
   }
-
   public String getAddress() {
     return address;
   }
+
   public String getAddress2() {
     return address2;
   }
@@ -162,5 +171,8 @@ public class ContactShortData {
   }
   public String getAllEmails() {
     return allemails;
+  }
+  public File getPhoto() {
+    return photo;
   }
 }

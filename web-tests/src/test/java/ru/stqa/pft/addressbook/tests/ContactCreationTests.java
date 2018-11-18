@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -25,8 +26,9 @@ public class ContactCreationTests extends TestBase {
     // не обязательное действие по прееходу на страницу контактов для подстраховки
     app.goTo().homePage();
     Contacts before = app.contact().all();
+    File photo = new File("src/test/resources/photo01.jpg");
     ContactShortData contact = new ContactShortData().withFname("NameTest1" +r).withLname("LastNameTest1")
-            .withPhoneNumHome(String.valueOf(r*1)).withPhoneNumMobile(String.valueOf(r*2)).withPhoneNumWork(String.valueOf(r*3));
+            .withPhoneNumHome(String.valueOf(r*1)).withPhoneNumMobile(String.valueOf(r*2)).withPhoneNumWork(String.valueOf(r*3)).withPhoto(photo);
 
     app.contact().create(contact);
 
@@ -47,4 +49,16 @@ public class ContactCreationTests extends TestBase {
             contact.withContactID(after.stream().mapToInt( (g) -> g.getContactID()).max().getAsInt() ))));
 
   }
+
+  @Test(enabled = false)
+  public void testCurrentDir (){
+    File currentDir = new File(".");
+    System.out.println(currentDir.getAbsolutePath());
+    File photo = new File("src/test/resources/photo01.jpg");
+    System.out.println(photo.getAbsolutePath());
+    System.out.println("Filsr exist = " + photo.exists());
+    System.out.println("It is file = " +  photo.isFile());
+    System.out.println("Size = " + photo.getTotalSpace());
+  }
+
 }
