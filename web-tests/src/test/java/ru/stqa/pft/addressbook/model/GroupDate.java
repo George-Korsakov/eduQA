@@ -1,15 +1,23 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.util.Objects;
+
+//@XStreamAlias("group")
+
 import java.util.Objects;
 
 public class GroupDate {
-  public void setGroupID(int groupID) {
-    this.groupID = groupID;
-  }
-
+  //@XStreamOmitField
   private int groupID = Integer.MAX_VALUE;
+  @Expose
   private String groupName;
+  @Expose
   private String groupHeader;
+  @Expose
   private String groupCommmet;
 
   @Override
@@ -19,7 +27,7 @@ public class GroupDate {
     GroupDate groupDate = (GroupDate) o;
     return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName);
   }
- // хеш код для более быстрой проверки
+
   @Override
   public int hashCode() {
     return Objects.hash(groupID, groupName);
@@ -33,7 +41,11 @@ public class GroupDate {
   public int getGroupID() {
     return groupID;
   }
+
 // сеттеры измененные
+public void setGroupID(int groupID) {
+  this.groupID = groupID;
+}
 
   public GroupDate withGroupId(int groupID) {
     this.groupID = groupID;

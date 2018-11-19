@@ -3,6 +3,9 @@ package ru.stqa.pft.addressbook.Generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.ContactShortData;
 
 import java.io.File;
@@ -16,9 +19,10 @@ public class ContactDataGenerator {
   // объявление переменных дял парметров и задание их опсиания
   @Parameter(names = "-c", description = "Contact count")
   public int count;
-
   @Parameter(names = "-f", description = "Target file")
   public String file;
+  @Parameter(names = "-d", description = "Data format")
+  public String format;
 
 
   public static void main(String[] args) throws IOException {
@@ -36,10 +40,39 @@ public class ContactDataGenerator {
 // запуск генератора из двух частей: созданик данных, сохранение в файл.
   private void run() throws IOException {
     List<ContactShortData> contacts = generateContacts(count);
-    save(contacts, new File(file));
+    if (format.equals("csv")){
+      saveAsCsv(contacts, new File(file));
+    } else if (format.equals("xml")) {
+      saveAsXml (contacts, new File(file));
+    } else if (format.equals("json")){
+      saveAsJson (contacts, new File(file));
+    } else {
+      System.out.println("Urecognise format " + format);
+    }
   }
-// сохранение в файл
-  private void save(List<ContactShortData> contacts, File file) throws IOException {
+
+  private void saveAsJson(List<ContactShortData> contacts, File file) throws IOException {
+   //Gson gson = new Gson();
+    Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+    String json = gson.toJson(contacts);
+    Writer writer = new FileWriter(file);
+    writer.write(json);
+    writer.close();
+  }
+
+  // сохранение в файл xml
+  private void saveAsXml(List<ContactShortData> contacts, File file) throws IOException {
+    XStream xstream = new XStream();
+    //xstream.alias("contact", ContactShortData.class);
+    xstream.processAnnotations(ContactShortData.class);
+    String xml = xstream.toXML(contacts);
+    Writer writer = new FileWriter(file);
+    writer.write(xml);
+    writer.close();
+  }
+
+// сохранение в файл CSV
+  private void saveAsCsv(List<ContactShortData> contacts, File file) throws IOException {
     System.out.println(new File(".").getAbsolutePath());
     Writer writer = new FileWriter(file);
     for (ContactShortData contact : contacts) {
@@ -51,7 +84,7 @@ public class ContactDataGenerator {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     int r = (int) (Math.random() * 1000000);
     for (int i = 0; i < count; i++) {
-      contacts.add(new ContactShortData().withFname(String.format("FName %s", r + i)).withLname(String.format("LName %s", r + i)).withPhoneNumHome(String.format("%s", r * i)).withEmail(String.format("%s-@test.t", r - i)).withAddress(String.format("Ru, Msc, Main str, %s", i)));
+      contacts.add(new ContactShortData().withFname(String.format("FName %s", r + i)).withLname(String.format("LName %s", r + i)).withPhoneNumHome(String.format("%s", r * i)).withAddress(String.format("Ru, Msc, Main str, %s", i)).withEmail(String.format("%s-@test.t", r - i)));
     }
     return contacts;
   }
