@@ -175,4 +175,6 @@ public class ContactShortData {
   public File getPhoto() {
     return photo;
   }
+
+
 }
