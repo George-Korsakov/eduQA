@@ -50,7 +50,7 @@ public class ContactDataGenerator {
       System.out.println("Urecognise format " + format);
     }
   }
-
+// сохранение в формате json
   private void saveAsJson(List<ContactShortData> contacts, File file) throws IOException {
    //Gson gson = new Gson();
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
