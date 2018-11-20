@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -21,11 +23,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
   @DataProvider
-  public Iterator<Object[]> validContacts() throws IOException {
+  public Iterator<Object[]> validContactsFromXml() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
     BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
     String line = reader.readLine();
-
     // чтение тестовых данных из xml файла
     String xml = "";
     while (line != null){
@@ -48,8 +49,24 @@ public class ContactCreationTests extends TestBase {
       return list.iterator();*/
   }
 
+  @DataProvider
+  public Iterator<Object[]> validContactsFromJson() throws IOException {
+    List<Object[]> list = new ArrayList<Object[]>();
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
+    String line = reader.readLine();
+    String json = "";
+    while (line != null) {
+      json += line;
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<ContactShortData> contacts =  gson.fromJson(json, new TypeToken<List<ContactShortData>>(){}.getType());;
+    return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+  }
 
-  @Test(dataProvider = "validContacts")
+
+
+    @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactShortData contact) {
     int r = (int)(Math.random()*1000000);
     // не обязательное действие по прееходу на страницу контактов для подстраховки
