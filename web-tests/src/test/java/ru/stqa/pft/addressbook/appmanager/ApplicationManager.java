@@ -9,11 +9,16 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 
 public class ApplicationManager {
-
+private final Properties properties;
   WebDriver wd;
   private NavigationHelper navigationHelper;
   private SessionHelper sessionHelper;
@@ -21,13 +26,18 @@ public class ApplicationManager {
   private ContactHelper contactHelper;
   private String browser;
 
-  public ApplicationManager(String browser) {
+  public ApplicationManager(String browser){
 
     this.browser = browser;
+    properties = new Properties();
+
   }
 
-  public void init() {
-  // выбор браузера
+  public void init() throws IOException {
+    // параметриазция, для использования конфигураицонного файла
+    String target = System.getProperty("target", "local");
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    // выбор браузера
   if(browser.equals(BrowserType.FIREFOX)){
     wd = new FirefoxDriver();
   } else if (browser.equals(BrowserType.IE)) {
@@ -39,12 +49,13 @@ public class ApplicationManager {
       // ожидание пояявление элемента на странице 5c для подстраховки
     wd.manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
     //  переход на страницу и авторизация
-    wd.get("http://localhost/addressbook/");
+    wd.get(properties.getProperty("web.baseUrl"));
     navigationHelper = new NavigationHelper(wd);
     groupHelper = new GroupHelper(wd);
     sessionHelper = new SessionHelper(wd);
     contactHelper = new ContactHelper(wd);
-    sessionHelper.login("admin", "secret");
+    // параметризован ввод логина и пароля
+    sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
   }
 
   public void stop() {

@@ -5,6 +5,8 @@ package ru.stqa.pft.addressbook.tests;
         import com.thoughtworks.xstream.XStream;
         import org.hamcrest.CoreMatchers;
         import org.hamcrest.MatcherAssert;
+        import org.slf4j.Logger;
+        import org.slf4j.LoggerFactory;
         import org.testng.Assert;
         import org.testng.annotations.DataProvider;
         import org.testng.annotations.Test;
@@ -23,6 +25,9 @@ package ru.stqa.pft.addressbook.tests;
         import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
+  // для вывод логов
+  //Logger logger = LoggerFactory.getLogger(GroupCreationTests.class);
+
   // провайдер данных содержит список тестовых данных
   @DataProvider
   public Iterator<Object[]> validGroupsFormXml() throws IOException {
@@ -83,7 +88,7 @@ public class GroupCreationTests extends TestBase {
 
       // проверки в fluent-стиле, используя Hamcrest
       assertThat(after, equalTo(before.withAdded(group.withGroupId(after.stream().mapToInt((g) -> g.getGroupID()).max().getAsInt()))));
-
+//logger.info("Stop test GropupCreation");
   }
 
 
