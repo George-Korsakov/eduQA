@@ -54,9 +54,10 @@ public class GroupDataGenerator {
     //Gson gson = new Gson();
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(groups);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+   try(Writer writer = new FileWriter(file);) {
+     writer.write(json);
+   }
+    //writer.close();
   }
 
   // создание документа в формает xml при помощи XStream
@@ -65,9 +66,9 @@ public class GroupDataGenerator {
     xstream.alias("group", GroupDate.class);
     //xstream.processAnnotations(GroupDate.class);
     String xml = xstream.toXML(groups);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer = new FileWriter(file);) {
+    writer.write(xml); }
+    //writer.close();
   }
 
   // запись данных в файл в формате csv

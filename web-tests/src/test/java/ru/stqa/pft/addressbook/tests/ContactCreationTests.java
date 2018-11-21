@@ -25,19 +25,19 @@ public class ContactCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validContactsFromXml() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
-    String line = reader.readLine();
-    // чтение тестовых данных из xml файла
-    String xml = "";
-    while (line != null){
-      xml += line;
-      line = reader.readLine();
-    }
-    XStream xstream  = new XStream();
-    xstream.processAnnotations(ContactShortData.class);
-    List<ContactShortData> contacts = (List<ContactShortData>) xstream.fromXML(xml);
-    return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
-
+   try ( BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));) {
+     String line = reader.readLine();
+     // чтение тестовых данных из xml файла
+     String xml = "";
+     while (line != null) {
+       xml += line;
+       line = reader.readLine();
+     }
+     XStream xstream = new XStream();
+     xstream.processAnnotations(ContactShortData.class);
+     List<ContactShortData> contacts = (List<ContactShortData>) xstream.fromXML(xml);
+     return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+   }
     /*// чтение файла csv
     BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
     String line = reader.readLine();
@@ -52,16 +52,19 @@ public class ContactCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
-    String line = reader.readLine();
-    String json = "";
-    while (line != null) {
-      json += line;
-      line = reader.readLine();
-    }
-    Gson gson = new Gson();
-    List<ContactShortData> contacts =  gson.fromJson(json, new TypeToken<List<ContactShortData>>(){}.getType());;
-    return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+   try ( BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));) {
+     String line = reader.readLine();
+     String json = "";
+     while (line != null) {
+       json += line;
+       line = reader.readLine();
+     }
+     Gson gson = new Gson();
+     List<ContactShortData> contacts = gson.fromJson(json, new TypeToken<List<ContactShortData>>() {
+     }.getType());
+     ;
+     return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+   }
   }
 
 

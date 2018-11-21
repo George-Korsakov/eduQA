@@ -27,20 +27,20 @@ public class GroupCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validGroupsFormXml() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
-    String line = reader.readLine();
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));) {
+      String line = reader.readLine();
 
-    // чтение тестовых данных из xml файла
-    String xml = "";
-    while (line != null){
-      xml += line;
-      line = reader.readLine();
+      // чтение тестовых данных из xml файла
+      String xml = "";
+      while (line != null) {
+        xml += line;
+        line = reader.readLine();
+      }
+      XStream xstream = new XStream();
+      xstream.processAnnotations(GroupDate.class);
+      List<GroupDate> groups = (List<GroupDate>) xstream.fromXML(xml);
+      return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
-    XStream xstream  = new XStream();
-    xstream.processAnnotations(GroupDate.class);
-    List<GroupDate> groups = (List<GroupDate>) xstream.fromXML(xml);
-    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
-
     /*// чтение файла csv
     BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups2.csv")));
     String line = reader.readLine();
@@ -54,17 +54,19 @@ public class GroupCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validGroupsFormJson() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));
-    String line = reader.readLine();
+   try ( BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));) {
+     String line = reader.readLine();
 
-    String json = "";
-    while (line != null) {
-      json += line;
-      line = reader.readLine();
-    }
-    Gson gson = new Gson();
-    List<GroupDate> groups = gson.fromJson(json, new TypeToken<List<GroupDate>>(){}.getType());
-    return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+     String json = "";
+     while (line != null) {
+       json += line;
+       line = reader.readLine();
+     }
+     Gson gson = new Gson();
+     List<GroupDate> groups = gson.fromJson(json, new TypeToken<List<GroupDate>>() {
+     }.getType());
+     return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+   }
   }
 
     @Test(dataProvider = "validGroupsFormJson")
@@ -72,10 +74,8 @@ public class GroupCreationTests extends TestBase {
     int r = (int) (Math.random() * 1000);
 
       app.goTo().groupPage();
-      //GroupDate group = new GroupDate().withGroupName(name + r).withGroupHeader(header).withGroupCommmet(footer);
       Groups before = app.group().all();
       app.group().create(group);
-
       Groups after = app.group().all();
 
       // проверка сравнением размеров списков до  и после

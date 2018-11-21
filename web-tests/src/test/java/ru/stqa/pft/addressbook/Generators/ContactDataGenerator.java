@@ -55,9 +55,12 @@ public class ContactDataGenerator {
    //Gson gson = new Gson();
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+    // проверка для автоматического закрытия файла
+    try(Writer writer = new FileWriter(file);){
+      writer.write(json);
+    }
+    // прямая команда закрытяи заменена на проверку
+    // writer.close();
   }
 
   // сохранение в файл xml
@@ -66,9 +69,10 @@ public class ContactDataGenerator {
     //xstream.alias("contact", ContactShortData.class);
     xstream.processAnnotations(ContactShortData.class);
     String xml = xstream.toXML(contacts);
-    Writer writer = new FileWriter(file);
+  try (  Writer writer = new FileWriter(file);) {
     writer.write(xml);
-    writer.close();
+  }
+    //writer.close();
   }
 
 // сохранение в файл CSV
@@ -88,6 +92,5 @@ public class ContactDataGenerator {
     }
     return contacts;
   }
-
 
 }
