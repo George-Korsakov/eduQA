@@ -1,1 +1,5 @@
-�������
+Заметки
+
+скачать hibernate-tutorials.zip
+примеры конфигурационного файла и тестов
+http://docs.jboss.org/hibernate/orm/5.3/quickstart/html_single/
