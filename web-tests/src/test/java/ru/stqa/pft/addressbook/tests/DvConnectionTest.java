@@ -20,9 +20,8 @@ public class DvConnectionTest {
       ResultSet rs = st.executeQuery("select group_id, group_name, group_header, group_footer from group_list ");
       Groups groups = new Groups();
       // цикл начитки из БД данных о группах в списко
-      while (rs.next()){
-        groups.add(new GroupDate().withGroupId(rs.getInt("group_id")).withGroupName(rs.getString("group_name"))
-                .withGroupHeader(rs.getString("group_header")).withGroupCommmet(rs.getString("group_footer")));
+      while (rs.next()) {
+        groups.add(new GroupDate().withGroupId(rs.getInt("group_id")).withGroupName(rs.getString("group_name")).withGroupHeader(rs.getString("group_header")).withGroupCommmet(rs.getString("group_footer")));
       }
       rs.close();
       st.close();

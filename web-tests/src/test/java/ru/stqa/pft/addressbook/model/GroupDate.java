@@ -2,18 +2,16 @@ package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
-//import org.hibernate.annotations.Entity;
 
-import javax.persistence.Entity;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
+//import org.hibernate.annotations.Entity;
 
-import java.util.Objects;
 @XStreamAlias("group")
 @Entity
 @Table(name = "group_list")
@@ -56,10 +54,10 @@ public class GroupDate {
     return groupID;
   }
 
-// сеттеры измененные
-public void setGroupID(int groupID) {
-  this.groupID = groupID;
-}
+  // сеттеры измененные
+  public void setGroupID(int groupID) {
+    this.groupID = groupID;
+  }
 
   public GroupDate withGroupId(int groupID) {
     this.groupID = groupID;
