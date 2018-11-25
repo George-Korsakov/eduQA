@@ -3,35 +3,75 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
+
+@Entity
+@Table(name = "addressbook")
+
+
 @XStreamAlias("contact")
 public class ContactShortData {
   @XStreamOmitField
+  @Id
+  @Column(name ="id")
   private int contactID = Integer.MAX_VALUE;
   @Expose
+  @Column(name = "firstname")
   private String fname;
   @Expose
+  @Column(name = "lastname")
   private String lname;
   @Expose
+  @Column(name = "home")
+  @Type(type ="text")
   private String phoneNumHome;
+  @Column(name = "mobile")
+  @Type(type ="text")
   private String phoneNumMobile;
+  @Column(name = "work")
+  @Type(type ="text")
   private String phoneNumWork;
+  @Column(name = "fax")
+  @Type(type ="text")
   private String phoneNumFax;
+  @Type(type ="text")
+  @Column(name = "phone2")
   private String phoneNumHome2;
+  @Transient
   private String allPhones;
   @Expose
+  @Column(name = "address")
+  @Type(type ="text")
   private  String address;
+  @Column(name = "address2")
+  @Type(type ="text")
   private  String address2;
+  @Transient
   private String alladdress;
   @Expose
+  @Type(type ="text")
+  @Column(name = "email")
   private String email;
+  @Type(type ="text")
+  @Column(name = "email2")
   private String email2;
+  @Column(name = "email3")
+  @Type(type ="text")
   private String email3;
+  @Transient
   private String allemails;
-  private File photo;
+  // todo вернуть выбор группы в тесты контактов
+  @Transient
+  private String group;
 
+  /*@Column(name = "photo")
+  @Type(type ="text")
+  private String photo;
+*/
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -121,10 +161,14 @@ public class ContactShortData {
     this.allemails = allemails;
     return this;
   }
-  public ContactShortData withPhoto(File photo) {
-    this.photo = photo;
-    return this;
+  public ContactShortData withGroup(String group){
+  this.group = group;
+  return this;
   }
+  /*public ContactShortData withPhoto(File photo) {
+    this.photo = photo.getPath();
+    return this;
+  }*/
 
   // геттеры
 
@@ -178,9 +222,8 @@ public class ContactShortData {
   public String getAllEmails() {
     return allemails;
   }
-  public File getPhoto() {
-    return photo;
-  }
+  public String getGroup() {    return group;  }
+ // public File getPhoto() {  return photo();  }
 
 
 }

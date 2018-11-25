@@ -77,7 +77,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("email2"), contactShortData.getEmail2());
     type(By.name("email3"), contactShortData.getEmail3());
 
-    attach(By.name("photo"), contactShortData.getPhoto());
+    //attach(By.name("photo"), contactShortData.getPhoto());
+    //type(By.name("photo"), contactShortData.getPhoto());
   }
 
   // добавление нового контакта вызов формы

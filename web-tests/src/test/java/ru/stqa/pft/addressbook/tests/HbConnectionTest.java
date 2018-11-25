@@ -7,6 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.ContactShortData;
 import ru.stqa.pft.addressbook.model.GroupDate;
 
 import java.util.List;
@@ -40,10 +41,17 @@ public class HbConnectionTest {
     session.beginTransaction();
     // запросом начитывается в цикле значения из БД
     // для выполнения запроса в классе модели данных нужно указать анотации с именем таблицы и именами столюцов
-    List<GroupDate> result = session.createQuery( "from GroupDate" ).list();
+    // для групп
+  /*  List<GroupDate> result = session.createQuery( "from GroupDate" ).list();
     for ( GroupDate group : result ) {
       System.out.println(group);
+    }*/
+  // для контактов
+    List<ContactShortData> result = session.createQuery("from ContactShortData where deprecated = '0000-00-00' " ).list();
+    for ( ContactShortData contact : result ) {
+      System.out.println(contact);
     }
+
     session.getTransaction().commit();
     session.close();
 
