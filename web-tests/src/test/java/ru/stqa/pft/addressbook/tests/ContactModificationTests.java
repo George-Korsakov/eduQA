@@ -17,24 +17,27 @@ public class ContactModificationTests extends TestBase {
 
     app.goTo().homePage();
     // проверка на выполнение предуслоовия, создание контакта
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0){
       app.contact().create(new ContactShortData().withFname("NewTest").withLname("LastNameTest"));
     }
+   /* if (app.contact().all().size() == 0) {
+      app.contact().create(new ContactShortData().withFname("NewTest").withLname("LastNameTest"));
+    }*/
   }
 
   @Test
   public void testContactModification() {
     int r = (int)(Math.random()*1000000);
-    Contacts before = app.contact().all();
+    //Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactShortData modifyContact = before.iterator().next();
 
-
     ContactShortData contact = new ContactShortData().withContactID(modifyContact.getContactID()).withFname("NameTest1").withLname("LastNameTestEdit")
-            .withPhoneNumHome(String.valueOf(r*1)).withPhoneNumMobile(String.valueOf(r*2)).withPhoneNumWork(String.valueOf(r*3));
+            .withPhoneNumHome(String.valueOf(r*1)).withAddress("Ru, Spb, Nevskaya str, " + r ).withEmail("test@test.local");
     // редактирование полей выбранного контакта в списке
     app.contact().modify(contact);
-    Contacts after = app.contact().all();
-
+    //Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     // проверка числа контаков в списке до и после
     Assert.assertEquals(before.size(), after.size());
 

@@ -67,30 +67,23 @@ public class ContactShortData {
   @Transient
   private String group;
 
-  // todo исправить ошибку с преобраззованием типов, что бы вернуть работу с photo
-  /*@Column(name = "photo")
-  @Type(type ="text")
-  private String photo;
-*/
+  @Override
+  public String toString() {
+    return "ContactShortData{" + "contactID=" + contactID + ", fname='" + fname + '\'' + ", lname='" + lname + '\'' + ", phoneNumHome='" + phoneNumHome + '\'' + ", phoneNumMobile='" + phoneNumMobile + '\'' + ", phoneNumWork='" + phoneNumWork + '\'' + ", phoneNumFax='" + phoneNumFax + '\'' + ", phoneNumHome2='" + phoneNumHome2 + '\'' + ", address='" + address + '\'' + ", address2='" + address2 + '\'' + ", alladdress='" + alladdress + '\'' + ", email='" + email + '\'' + ", email2='" + email2 + '\'' + ", email3='" + email3 + '\'' + '}';
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactShortData that = (ContactShortData) o;
-    return contactID == that.contactID && Objects.equals(fname, that.fname) && Objects.equals(lname, that.lname);
-  }
-
-  @Override
-  public String toString() {
-    return "ContactShortData{" + "fname='" + fname + '\'' + ", lname='" + lname + '\'' + '}';
+    return contactID == that.contactID && Objects.equals(fname, that.fname) && Objects.equals(lname, that.lname) && Objects.equals(phoneNumHome, that.phoneNumHome) && Objects.equals(address, that.address) && Objects.equals(email, that.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contactID, fname, lname);
+    return Objects.hash(contactID, fname, lname, phoneNumHome, address, email);
   }
-
-
 // сеттеры измененные
 
   public ContactShortData withContactID(int contactID) {

@@ -75,14 +75,15 @@ public class ContactCreationTests extends TestBase {
     int r = (int) (Math.random() * 1000000);
     // не обязательное действие по прееходу на страницу контактов для подстраховки
     app.goTo().homePage();
-    Contacts before = app.contact().all();
-    File photo = new File("src/test/resources/photo01.jpg");
+    //Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
+    // File photo = new File("src/test/resources/photo01.jpg");
     //ContactShortData contact = new ContactShortData().withFname("NameTest1" +r).withLname("LastNameTest1").withPhoneNumHome(String.valueOf(r*1)).withPhoneNumMobile(String.valueOf(r*2)).withPhoneNumWork(String.valueOf(r*3)).withPhoto(photo);
 
     app.contact().create(contact);
 
-    Contacts after = app.contact().all();
-
+    //Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     // проверка сравнением размеров спсисков
     Assert.assertEquals(before.size(), after.size() - 1);
 

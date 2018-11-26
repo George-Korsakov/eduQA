@@ -17,17 +17,21 @@ public class ContactDelitionTests extends TestBase {
   public void ensurePrecondition() {
 
     app.goTo().homePage();
-    // проверка на выполнение предуслоовия, создание контакта
-    if (app.contact().all().size() == 0) {
+    if(app.db().contacts().size() == 0){
       app.contact().create(new ContactShortData().withFname("NewTest").withLname("LastNameTest"));
     }
+    // проверка на выполнение предуслоовия, создание контакта
+    /*if (app.contact().all().size() == 0) {
+      app.contact().create(new ContactShortData().withFname("NewTest").withLname("LastNameTest"));
+    }*/
   }
 
 
   @Test
   public void testContactDelition() {
     // удаление выбранного контакта в списке
-    Contacts before = app.contact().all();
+    //Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactShortData deletedContact = before.iterator().next();
 
     app.contact().delete(deletedContact);
@@ -37,8 +41,9 @@ public class ContactDelitionTests extends TestBase {
       app.goTo().homePage();
     }
 
-    Contacts after = app.contact().all();
-    // проверка числа группы в списке до и после +1
+    //Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
+            // проверка числа группы в списке до и после +1
     //assertThat(after.size(),equalTo(before.size()-1));
 
     // проверки в fluent-стиле, используя Hamcrest
