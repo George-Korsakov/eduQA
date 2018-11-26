@@ -21,20 +21,24 @@ public class GroupDelitionTests extends TestBase {
     int r = (int) (Math.random() * 1000);
 // редактирование полей первой группы в списке
     app.goTo().groupPage();
-    // проверка наличия группы, создание при необходимости
-    if (app.group().all().size() == 0) {
+    if (app.db().groups().size() == 0){
       app.group().create(new GroupDate().withGroupName("TestGroup0" + r));
     }
+    // проверка наличия группы, создание при необходимости
+    /*if (app.group().all().size() == 0) {
+      app.group().create(new GroupDate().withGroupName("TestGroup0" + r));
+    }*/
   }
 
   @Test
   public void testGroupDelition() {
 
-    Groups before = app.group().all();
+    //Groups before = app.group().all();
+    Groups before = app.db().groups();
     GroupDate deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
-    Groups after = app.group().all();
-
+    //Groups after = app.group().all();
+    Groups after = app.db().groups();
     // проврека рутем срправнения размеров списков
     Assert.assertEquals(before.size(), app.group().getGroupCount()+1 );
 

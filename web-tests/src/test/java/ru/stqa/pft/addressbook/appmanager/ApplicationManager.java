@@ -25,6 +25,7 @@ private final Properties properties;
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
   private String browser;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser){
 
@@ -37,8 +38,10 @@ private final Properties properties;
     // параметриазция, для использования конфигураицонного файла
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    // вызов метода подключения к БД
+    dbHelper = new DbHelper();
     // выбор браузера
-  if(browser.equals(BrowserType.FIREFOX)){
+    if(browser.equals(BrowserType.FIREFOX)){
     wd = new FirefoxDriver();
   } else if (browser.equals(BrowserType.IE)) {
     wd = new InternetExplorerDriver();
@@ -85,5 +88,8 @@ private final Properties properties;
     return navigationHelper;
   }
 
+  public DbHelper db() {
+    return dbHelper;
+  }
 
 }

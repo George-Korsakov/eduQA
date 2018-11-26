@@ -33,19 +33,6 @@ public class GroupDate {
   private String groupCommmet;
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GroupDate groupDate = (GroupDate) o;
-    return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(groupID, groupName);
-  }
-
-  @Override
   public String toString() {
     return "GroupDate{" + "groupID='" + groupID + '\'' + ", groupName='" + groupName + '\'' + '}';
   }
@@ -90,5 +77,18 @@ public class GroupDate {
 
   public String getGroupCommmet() {
     return groupCommmet;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupDate groupDate = (GroupDate) o;
+    return groupID == groupDate.groupID && Objects.equals(groupName, groupDate.groupName) && Objects.equals(groupHeader, groupDate.groupHeader) && Objects.equals(groupCommmet, groupDate.groupCommmet);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupID, groupName, groupHeader, groupCommmet);
   }
 }

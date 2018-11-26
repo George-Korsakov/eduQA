@@ -77,10 +77,11 @@ public class GroupCreationTests extends TestBase {
     int r = (int) (Math.random() * 1000);
 
     app.goTo().groupPage();
-    Groups before = app.group().all();
+   // Groups before = app.group().all();
+    Groups before = app.db().groups();
     app.group().create(group);
-    Groups after = app.group().all();
-
+   // Groups after = app.group().all();
+    Groups after = app.db().groups();
     // проверка сравнением размеров списков до  и после
     assertThat(before.size(), equalTo(after.size() - 1));
 
