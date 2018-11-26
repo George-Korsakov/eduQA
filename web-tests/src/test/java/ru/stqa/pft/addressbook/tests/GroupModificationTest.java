@@ -46,6 +46,7 @@ public class GroupModificationTest extends TestBase {
 
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withOut(modifyedGroup).withAdded(group)));
+    verifyGroupListInUI();
   }
 
 
