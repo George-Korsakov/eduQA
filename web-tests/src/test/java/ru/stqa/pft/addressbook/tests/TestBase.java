@@ -53,7 +53,7 @@ public class TestBase {
 
 
   public void verifyGroupListInUI() {
-    // для включения проверки прописать -DverifyUI=true
+    // для включения проверки указать параметр -DverifyUI=true
     if (Boolean.getBoolean("verifyUI")) {
       Groups dbgroups = app.db().groups();
       Groups uigroups = app.group().all();

@@ -6,7 +6,9 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -63,13 +65,19 @@ public class ContactShortData {
   private String email3;
   @Transient
   private String allemails;
-  // todo вернуть выбор группы в тесты контактов
-  @Transient
-  private String group;
+  // связь между группами и контактами многие ко многим
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name ="address_in_groups", joinColumns = @JoinColumn(name ="id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupDate> groups = new HashSet<GroupDate>();
 
   @Override
   public String toString() {
     return "ContactShortData{" + "contactID=" + contactID + ", fname='" + fname + '\'' + ", lname='" + lname + '\'' + ", phoneNumHome='" + phoneNumHome + '\'' + ", phoneNumMobile='" + phoneNumMobile + '\'' + ", phoneNumWork='" + phoneNumWork + '\'' + ", phoneNumFax='" + phoneNumFax + '\'' + ", phoneNumHome2='" + phoneNumHome2 + '\'' + ", address='" + address + '\'' + ", address2='" + address2 + '\'' + ", alladdress='" + alladdress + '\'' + ", email='" + email + '\'' + ", email2='" + email2 + '\'' + ", email3='" + email3 + '\'' + '}';
+  }
+
+  public ContactShortData inGroup(GroupDate group){
+    groups.add(group);
+    return this;
   }
 
   @Override
@@ -84,8 +92,8 @@ public class ContactShortData {
   public int hashCode() {
     return Objects.hash(contactID, fname, lname, phoneNumHome, address, email);
   }
-// сеттеры измененные
 
+// сеттеры измененные
   public ContactShortData withContactID(int contactID) {
     this.contactID = contactID;
     return this;
@@ -166,16 +174,17 @@ public class ContactShortData {
     return this;
   }
 
-  public ContactShortData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
+
+
   /*public ContactShortData withPhoto(File photo) {
     this.photo = photo.getPath();
     return this;
   }*/
 
   // геттеры
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
 
   public int getContactID() {
     return contactID;
@@ -241,9 +250,7 @@ public class ContactShortData {
     return allemails;
   }
 
-  public String getGroup() {
-    return group;
-  }
+
   // public File getPhoto() {  return photo();  }
 
 

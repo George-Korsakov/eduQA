@@ -53,7 +53,8 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.name("byear")).sendKeys(contactData.getbYear());
     // проверка типа операции над контактом для выбора группы
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getChosenGroup());
+
     } else {
       Assert.assertFalse(isElementPresents(By.name("new_group")));
     }
@@ -94,9 +95,22 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
   }
 
+
   public void deleteSelectedContact() {
     click(By.xpath("//input[@value='Delete']"));
   }
+  // кнопка добавления контакта в выбранную группу
+  public void addSelectedContactToGroup() {
+    click(By.name("add"));
+    //click(By.xpath("//input[@value='Add to']"));
+  }
+  // выбор группы для добавления конетакта по id
+  public void selectGroupToAddContact(int id_group)
+  {
+   click(By.xpath(String.format("//select[@name='to_group'][.//input[@value='$s']]", id_group)));
+   //click((By.name("to_group"))).selectByVisibleText("TestEGroup1"));
+  }
+
 
   public void submitContactDelete() {
     confirmAlert();
@@ -183,6 +197,9 @@ public class ContactHelper extends HelperBase {
         String name1 = Columns_row.get(2).getText();
         // получение занчени ID и преобразования тип в целое число
         int ID = Integer.parseInt(Columns_row.get(0).findElement(By.tagName("input")).getAttribute("value"));
+
+
+
         // добавлем объект контакт в список
         contacts.add(new ContactShortData().withContactID(ID).withFname(name1).withLname(name2));
       }

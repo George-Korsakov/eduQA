@@ -45,12 +45,13 @@ public class HbConnectionTest {
     }*/
     // для контактов
     List<ContactShortData> result = session.createQuery("from ContactShortData where deprecated = '0000-00-00' ").list();
-    for (ContactShortData contact : result) {
-      System.out.println(contact);
-    }
 
     session.getTransaction().commit();
     session.close();
+    for (ContactShortData contact : result) {
+      System.out.println(contact);
+      System.out.println(contact.getGroups());
+    }
 
   }
 

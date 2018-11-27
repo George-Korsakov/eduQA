@@ -4,11 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 //import org.hibernate.annotations.Entity;
 
@@ -31,6 +30,9 @@ public class GroupDate {
   @Column(name = "group_footer")
   @Type(type = "text")
   private String groupCommmet;
+  // связь между группами и контактами многие ко многим
+  @ManyToMany(mappedBy = "groups")
+  private Set<ContactShortData> contacts = new HashSet<ContactShortData>();
 
   @Override
   public String toString() {
@@ -42,10 +44,10 @@ public class GroupDate {
   }
 
   // сеттеры измененные
+
   public void setGroupID(int groupID) {
     this.groupID = groupID;
   }
-
   public GroupDate withGroupId(int groupID) {
     this.groupID = groupID;
     return this;
@@ -65,7 +67,11 @@ public class GroupDate {
     this.groupCommmet = groupCommmet;
     return this;
   }
+
 // геттеры
+public Contacts getContacts() {
+  return new Contacts(contacts);
+}
 
   public String getGroupName() {
     return groupName;
