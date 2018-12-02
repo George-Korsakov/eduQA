@@ -48,7 +48,9 @@ public class ContactDelitionTests extends TestBase {
 
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withOut(deletedContact)));
-
+    System.out.println("-------------- TEST --START ---------------");
+    System.out.println(app.db().groupsIds());
+    System.out.println("-------------- TEST --END ---------------");
   }
 
 }

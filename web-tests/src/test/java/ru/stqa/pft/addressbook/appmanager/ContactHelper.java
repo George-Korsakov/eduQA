@@ -12,6 +12,8 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.stqa.pft.addressbook.tests.TestBase.app;
+
 public class ContactHelper extends HelperBase {
 
 
@@ -100,16 +102,21 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//input[@value='Delete']"));
   }
   // кнопка добавления контакта в выбранную группу
-  public void addSelectedContactToGroup() {
+  public void confirmAddToGroup() {
     click(By.name("add"));
     //click(By.xpath("//input[@value='Add to']"));
   }
   // выбор группы для добавления конетакта по id
-  public void selectGroupToAddContact(int id_group)
+  public void selectGroupToAddContact(String groupName){
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName);
+  }
+  public void selectGroupToAddContactById(int id_group)
   {
-   click(By.xpath(String.format("//select[@name='to_group'][.//input[@value='$s']]", id_group)));
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(Integer.toString(id_group));
+   // new Select(wd.findElement(By.xpath("//a[contains( './?group= '" + id_group + "')]")));
    //click((By.name("to_group"))).selectByVisibleText("TestEGroup1"));
   }
+
 
 
   public void submitContactDelete() {
@@ -121,6 +128,13 @@ public class ContactHelper extends HelperBase {
   public void initContactModification() {
     click(By.xpath("//img[@alt='Edit']"));
   }*/
+  public void gotoGroupListContacts(String name){
+    wd.findElement(By.linkText("group page \"" + name +"\"")).click();
+  }
+
+  public void gotoGroupListContacts2(int id){
+    wd.findElement(By.cssSelector("a[href='./?group=" + id + "']")).click();
+  }
 
   public void initContactModificationById(int id) {
     // поиск по индентификатору кнопки редактирования
@@ -146,7 +160,6 @@ public class ContactHelper extends HelperBase {
 
   // вспомогательный мететод, для создание предусловия другим тестам
   public void create(ContactShortData contact) {
-
     initContactCreation();
     fillShortContactForm(contact);
     submitContactCreation();
@@ -273,4 +286,7 @@ public class ContactHelper extends HelperBase {
             .withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
 
   }
+
+
+
 }

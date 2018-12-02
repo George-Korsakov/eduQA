@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactShortData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -46,10 +47,18 @@ public class HbConnectionTest {
     // для контактов
     List<ContactShortData> result = session.createQuery("from ContactShortData where deprecated = '0000-00-00' ").list();
 
+   // List<ContactShortData> result2 = session.createQuery("from ContactShortData where exists group_id and deprecated = '0000-00-00' and id = '213' ").list();
+   // пример выборки id групп по id контакта
+    int t = 213;
+    List<String> result2 = session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " + " WHERE id = " + t).list();
+    System.out.println("Test = " + result2);
+
+
+
     session.getTransaction().commit();
     session.close();
     for (ContactShortData contact : result) {
-      System.out.println(contact);
+      //System.out.println(contact);
       System.out.println(contact.getGroups());
     }
 

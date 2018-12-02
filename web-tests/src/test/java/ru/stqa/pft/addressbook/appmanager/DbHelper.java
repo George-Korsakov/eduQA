@@ -11,6 +11,7 @@ import ru.stqa.pft.addressbook.model.GroupDate;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
+import java.util.Set;
 
 public class DbHelper {
 
@@ -48,5 +49,51 @@ public class DbHelper {
     session.getTransaction().commit();
     session.close();
     return new Contacts(result);
+  }
+
+  // проверка наличиея связи группы и контакта
+  public boolean isContactHasLinkGroup(int id, int group_id){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    String result =  session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " + " WHERE id = " + id + "and group_id = " + group_id).toString();
+      if (result != ""){
+        return true;
+      }
+    session.getTransaction().commit();
+    session.close();
+    return false;
+  }
+// получение id группы не привязанной к  контакту
+  public int isContactHasNotLinkGroup(int id){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<Integer> allGroups = session.createNativeQuery("SELECT group_id " + " FROM group_list "+ "where deprecated = '0000-00-00'" ).list();
+    List<Integer> groupsList =  session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " + " WHERE id = " + id).list();
+    for(int i=0; i < allGroups.size(); i++){
+            for(int j=0; j < groupsList.size(); j++) {
+        if (groupsList.get(j) != allGroups.get(i)) return allGroups.get(i);
+      }
+    }
+    session.getTransaction().commit();
+    session.close();
+    return allGroups.get(0);
+  }
+  // получение значения id по имени группы, но имена могут совпадать у разных групп
+  public int findGroupIdbyName(String groupName){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<Integer> groupId = session.createNativeQuery("SELECT group_id " + " FROM group_list " + " WHERE group_name = '" + groupName + "'" ).list();
+    session.getTransaction().commit();
+    session.close();
+    return groupId.get(0);
+  }
+
+  public List<Integer> groupsIds(){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<Integer> groupsIds = session.createQuery("SELECT group_id " + "FROM group_list" + "where deprecated = '0000-00-00'" ).list();
+            session.getTransaction().commit();
+    session.close();
+    return groupsIds;
   }
 }

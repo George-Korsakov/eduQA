@@ -36,4 +36,8 @@ public class NavigationHelper extends HelperBase {
     }
   }
 
+  public void contactsListInGroup(int id){
+    wd.findElement(By.cssSelector("a[href='./?group=" + id + "']")).click();
+  }
+
 }
