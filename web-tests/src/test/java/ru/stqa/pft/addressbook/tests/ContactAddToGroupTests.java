@@ -31,11 +31,8 @@ public class ContactAddToGroupTests extends TestBase {
     // поилучение id не привязанной к конаткату группы
     int addGroupId = app.db().isContactHasNotLinkGroup(contact.getContactID());
 
-    // добавление контакта в группу (todo вынесети в отдельный метод хелпера)
-    app.goTo().homePage();
-    app.contact().selectContactById(contact.getContactID());
-    app.contact().selectGroupToAddContactById(addGroupId);
-    app.contact().confirmAddToGroup();
+    // добавление контакта в группу
+    app.contact().addConatctToGroup(contact.getContactID(), addGroupId);
 
     // необязательный переход на страницу группы для визульаного контроля
     app.goTo().contactsListInGroup(addGroupId);
@@ -45,6 +42,8 @@ public class ContactAddToGroupTests extends TestBase {
     Assert.assertTrue(app.db().isContactHasLinkGroup(contact.getContactID(),addGroupId));
 
   }
-  }
+
+
+}
 
 

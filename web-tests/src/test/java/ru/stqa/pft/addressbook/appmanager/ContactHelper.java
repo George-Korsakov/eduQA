@@ -92,6 +92,9 @@ public class ContactHelper extends HelperBase {
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
+  public void selectContactAny() {
+    wd.findElements(By.name("selected[]")).iterator().next().click();
+  }
 
   public void selectContactById(int id) {
     wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
@@ -101,6 +104,7 @@ public class ContactHelper extends HelperBase {
   public void deleteSelectedContact() {
     click(By.xpath("//input[@value='Delete']"));
   }
+
   // кнопка добавления контакта в выбранную группу
   public void confirmAddToGroup() {
     click(By.name("add"));
@@ -287,6 +291,15 @@ public class ContactHelper extends HelperBase {
 
   }
 
+  public void addConatctToGroup(int contactId, int addGroupId) {
+    app.goTo().homePage();
+    app.contact().selectContactById(contactId);
+    app.contact().selectGroupToAddContactById(addGroupId);
+    app.contact().confirmAddToGroup();
+  }
 
 
+  public void submitRemoveContactFromGroup() {
+    click(By.name("remove"));
+  }
 }

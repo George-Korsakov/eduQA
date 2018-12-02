@@ -70,7 +70,7 @@ public class DbHelper {
     List<Integer> allGroups = session.createNativeQuery("SELECT group_id " + " FROM group_list "+ "where deprecated = '0000-00-00'" ).list();
     List<Integer> groupsList =  session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " + " WHERE id = " + id).list();
     for(int i=0; i < allGroups.size(); i++){
-            for(int j=0; j < groupsList.size(); j++) {
+      for(int j=0; j < groupsList.size(); j++) {
         if (groupsList.get(j) != allGroups.get(i)) return allGroups.get(i);
       }
     }
@@ -78,6 +78,25 @@ public class DbHelper {
     session.close();
     return allGroups.get(0);
   }
+  // проверка налчичия конаткат в группе , возвращает номер группы
+  public int isAnyGroupIncludeContact(){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<Integer> groups=  session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " ).list();
+    session.getTransaction().commit();
+    session.close();
+    return groups.iterator().next();
+  }
+public int groupIncludeContact (int id){
+  Session session = sessionFactory.openSession();
+  session.beginTransaction();
+  List<Integer> contacts =  session.createNativeQuery("SELECT id " + " FROM address_in_groups " + " WHERE group_id = " + id).list();
+  session.getTransaction().commit();
+  session.close();
+  if(contacts.size()> 0 ) {   return contacts.iterator().next();}
+  else {return 0;}
+}
+
   // получение значения id по имени группы, но имена могут совпадать у разных групп
   public int findGroupIdbyName(String groupName){
     Session session = sessionFactory.openSession();

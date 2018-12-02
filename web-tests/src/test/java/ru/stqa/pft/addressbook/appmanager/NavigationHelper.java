@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 
 public class NavigationHelper extends HelperBase {
@@ -40,4 +41,8 @@ public class NavigationHelper extends HelperBase {
     wd.findElement(By.cssSelector("a[href='./?group=" + id + "']")).click();
   }
 
+  public void homePageChosenGroup(int groupIncludeContact) {
+    //homePage();
+    new Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(groupIncludeContact));
+  }
 }
