@@ -38,7 +38,7 @@ public class ContactRemoveFromGroupTests extends TestBase {
     app.contact().submitRemoveContactFromGroup();
 
     // проверка наличия связи по БД
-    Assert.assertFalse(app.db().isContactHasLinkGroup(contactId,groupId));
+    Assert.assertFalse(app.db().isContactHasLinkGroup(contactId, groupId));
 
   }
 

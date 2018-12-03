@@ -55,9 +55,10 @@ public class DbHelper {
   public boolean isContactHasLinkGroup(int id, int group_id){
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    String result =  session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " + " WHERE id = " + id + "and group_id = " + group_id).toString();
-      if (result != ""){
-        return true;
+    List<Integer> groupsList =  session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " + " WHERE id = " + id).list();
+    // перебор значений для сравнения
+    for(int i=0; i < groupsList.size(); i++){
+      if (groupsList.get(i) == group_id){ return true;  }
       }
     session.getTransaction().commit();
     session.close();
@@ -85,7 +86,10 @@ public class DbHelper {
     List<Integer> groups=  session.createNativeQuery("SELECT group_id " + " FROM address_in_groups " ).list();
     session.getTransaction().commit();
     session.close();
-    return groups.iterator().next();
+    if(groups.size() > 0) {
+      return groups.iterator().next();
+    }
+    return 0;
   }
 public int groupIncludeContact (int id){
   Session session = sessionFactory.openSession();
