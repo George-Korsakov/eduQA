@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.MatchResult;
 
 
 public class ApplicationManager {
@@ -36,13 +37,13 @@ public class ApplicationManager {
     // вызов метода подключения к БД
 
     // выбор браузера
-    if (browser.equals(BrowserType.FIREFOX)) {
+   /* if (browser.equals(BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
     } else if (browser.equals(BrowserType.IE)) {
       wd = new InternetExplorerDriver();
     } else if (browser.equals(BrowserType.GOOGLECHROME)) {
       wd = new ChromeDriver();
-    }
+    }*/
 
     // ожидание пояявление элемента на странице 5c для подстраховки
     wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -51,8 +52,11 @@ public class ApplicationManager {
   }
 
   public void stop() {
+    if(wd != null){
+
+      wd.quit();
+    }
     wd.close();
-     wd.quit();
 
   }
 
@@ -66,4 +70,33 @@ public class ApplicationManager {
     }
   }
 
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
+
+  public String getProperty(String key) {
+    return properties.getProperty(key);
+  }
+
+  public RegistrationHelper registration() {
+    if(registrationHelper == null){
+
+      registrationHelper = new RegistrationHelper(this);
+    }
+  return registrationHelper;
+  }
+
+
+  public WebDriver getDriver() {
+  if(wd == null) {
+    if (browser.equals(BrowserType.FIREFOX)) {
+      wd = new FirefoxDriver();
+    } else if (browser.equals(BrowserType.IE)) {
+      wd = new InternetExplorerDriver();
+    } else if (browser.equals(BrowserType.GOOGLECHROME)) {
+      wd = new ChromeDriver();
+    }
+  }
+    return wd;
+  }
 }
