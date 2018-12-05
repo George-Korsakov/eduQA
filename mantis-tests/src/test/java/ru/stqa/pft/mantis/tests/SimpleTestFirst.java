@@ -1,4 +1,4 @@
-package ru.stqa.pft.mantis.test;
+package ru.stqa.pft.mantis.tests;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;

@@ -13,7 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.MatchResult;
+
 
 
 public class ApplicationManager {
@@ -34,7 +34,7 @@ public class ApplicationManager {
     // параметриазция, для использования конфигураицонного файла
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-    // вызов метода подключения к БД
+
 
     // выбор браузера
    /* if (browser.equals(BrowserType.FIREFOX)) {
@@ -46,7 +46,7 @@ public class ApplicationManager {
     }*/
 
     // ожидание пояявление элемента на странице 5c для подстраховки
-    wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get(properties.getProperty("web.baseUrl"));
   }
@@ -55,8 +55,8 @@ public class ApplicationManager {
     if(wd != null){
 
       wd.quit();
+      wd.close();
     }
-    wd.close();
 
   }
 
@@ -78,14 +78,14 @@ public class ApplicationManager {
     return properties.getProperty(key);
   }
 
-  public RegistrationHelper registration() {
+ /* public RegistrationHelper registration() {
     if(registrationHelper == null){
 
       registrationHelper = new RegistrationHelper(this);
     }
   return registrationHelper;
   }
-
+*/
 
   public WebDriver getDriver() {
   if(wd == null) {

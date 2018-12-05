@@ -2,7 +2,7 @@
 
 <suite name="Suite1" verbose="1" >
 
-    <test name="Contacts">
+    <test name="Test">
         <classes>
             <class name="ru.stqa.pft.addressbook.tests.ContactCreationTests"/>
             <class name="ru.stqa.pft.addressbook.tests.ContactModificationTests"/>

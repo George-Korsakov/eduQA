@@ -33,7 +33,7 @@ public class ContactModificationTests extends TestBase {
     ContactShortData modifyContact = before.iterator().next();
 
     ContactShortData contact = new ContactShortData().withContactID(modifyContact.getContactID()).withFname("NameTest1").withLname("LastNameTestEdit")
-            .withPhoneNumHome(String.valueOf(r*1)).withAddress("Ru, Spb, Nevskaya str, " + r ).withEmail("test@test.local");
+            .withPhoneNumHome(String.valueOf(r*1)).withAddress("Ru, Spb, Nevskaya str, " + r ).withEmail("tests@tests.local");
     // редактирование полей выбранного контакта в списке
     app.contact().modify(contact);
     //Contacts after = app.contact().all();

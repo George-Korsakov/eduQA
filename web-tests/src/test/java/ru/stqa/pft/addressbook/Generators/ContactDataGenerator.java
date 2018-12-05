@@ -88,7 +88,7 @@ public class ContactDataGenerator {
     List<ContactShortData> contacts = new ArrayList<ContactShortData>();
     int r = (int) (Math.random() * 1000000);
     for (int i = 0; i < count; i++) {
-      contacts.add(new ContactShortData().withFname(String.format("FName %s", r + i)).withLname(String.format("LName %s", r + i)).withPhoneNumHome(String.format("%s", r * i)).withAddress(String.format("Ru, Msc, Main str, %s", i)).withEmail(String.format("%s-@test.t", r - i)));
+      contacts.add(new ContactShortData().withFname(String.format("FName %s", r + i)).withLname(String.format("LName %s", r + i)).withPhoneNumHome(String.format("%s", r * i)).withAddress(String.format("Ru, Msc, Main str, %s", i)).withEmail(String.format("%s-@tests.t", r - i)));
     }
     return contacts;
   }

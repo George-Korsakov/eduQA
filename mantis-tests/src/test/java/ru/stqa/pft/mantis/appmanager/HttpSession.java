@@ -38,6 +38,7 @@ public class HttpSession {
     // получение ответа и проверка
     CloseableHttpResponse response = httpclient.execute(post);
     String body = getTextFrom(response);
+    //return body.contains(String.format("<span class=\"italic\">$s</span>", username));
     return body.contains(String.format("<span class=\"italic\">$s</span>", username));
   }
 

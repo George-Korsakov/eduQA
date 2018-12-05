@@ -27,7 +27,7 @@ public class ContactCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validContactsFromXml() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/contacts.xml")));) {
       String line = reader.readLine();
       // чтение тестовых данных из xml файла
       String xml = "";
@@ -41,7 +41,7 @@ public class ContactCreationTests extends TestBase {
       return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
     /*// чтение файла csv
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/contacts.csv")));
     String line = reader.readLine();
     while (line != null){
       String[] testdata = line.split(";");
@@ -54,7 +54,7 @@ public class ContactCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/contacts.json")));) {
       String line = reader.readLine();
       String json = "";
       while (line != null) {
@@ -77,7 +77,7 @@ public class ContactCreationTests extends TestBase {
     app.goTo().homePage();
     //Contacts before = app.contact().all();
     Contacts before = app.db().contacts();
-    // File photo = new File("src/test/resources/photo01.jpg");
+    // File photo = new File("src/tests/resources/photo01.jpg");
     //ContactShortData contact = new ContactShortData().withFname("NameTest1" +r).withLname("LastNameTest1").withPhoneNumHome(String.valueOf(r*1)).withPhoneNumMobile(String.valueOf(r*2)).withPhoneNumWork(String.valueOf(r*3)).withPhoto(photo);
 
     app.contact().create(contact);
@@ -103,7 +103,7 @@ public class ContactCreationTests extends TestBase {
   public void testCurrentDir() {
     File currentDir = new File(".");
     System.out.println(currentDir.getAbsolutePath());
-    File photo = new File("src/test/resources/photo01.jpg");
+    File photo = new File("src/tests/resources/photo01.jpg");
     System.out.println(photo.getAbsolutePath());
     System.out.println("Filsr exist = " + photo.exists());
     System.out.println("It is file = " + photo.isFile());

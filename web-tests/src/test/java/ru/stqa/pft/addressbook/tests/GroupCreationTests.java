@@ -30,7 +30,7 @@ public class GroupCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validGroupsFormXml() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/groups.xml")));) {
       String line = reader.readLine();
 
       // чтение тестовых данных из xml файла
@@ -45,7 +45,7 @@ public class GroupCreationTests extends TestBase {
       return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
     /*// чтение файла csv
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups2.csv")));
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/groups2.csv")));
     String line = reader.readLine();
     while (line != null){
       String[] split = line.split(";");
@@ -57,7 +57,7 @@ public class GroupCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validGroupsFormJson() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/groups.json")));) {
       String line = reader.readLine();
 
       String json = "";
@@ -87,7 +87,7 @@ public class GroupCreationTests extends TestBase {
 
     // проверки в fluent-стиле, используя Hamcrest
     assertThat(after, equalTo(before.withAdded(group.withGroupId(after.stream().mapToInt((g) -> g.getGroupID()).max().getAsInt()))));
-//logger.info("Stop test GropupCreation");
+//logger.info("Stop tests GropupCreation");
   }
 
 
