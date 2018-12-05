@@ -18,9 +18,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
   private final Properties properties;
-  WebDriver wd;
+  private WebDriver wd;
 
   private String browser;
+  private RegistrationHelper registrationHelper;
 
 
   public ApplicationManager(String browser) {
@@ -43,21 +44,19 @@ public class ApplicationManager {
       wd = new InternetExplorerDriver();
     } else if (browser.equals(BrowserType.GOOGLECHROME)) {
       wd = new ChromeDriver();
-    }*/
+    }
 
     // ожидание пояявление элемента на странице 5c для подстраховки
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     //  переход на страницу и авторизация
     wd.get(properties.getProperty("web.baseUrl"));
-  }
+  } */
 
   public void stop() {
     if(wd != null){
-
       wd.quit();
-      wd.close();
+      //wd.close();
     }
-
   }
 
   // проверка
@@ -78,14 +77,13 @@ public class ApplicationManager {
     return properties.getProperty(key);
   }
 
- /* public RegistrationHelper registration() {
+ public RegistrationHelper registration() {
     if(registrationHelper == null){
-
       registrationHelper = new RegistrationHelper(this);
     }
   return registrationHelper;
   }
-*/
+
 
   public WebDriver getDriver() {
   if(wd == null) {
@@ -96,6 +94,10 @@ public class ApplicationManager {
     } else if (browser.equals(BrowserType.GOOGLECHROME)) {
       wd = new ChromeDriver();
     }
+    // ожидание пояявление элемента на странице 5c для подстраховки
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    //  переход на страницу и авторизация
+    wd.get(properties.getProperty("web.baseUrl"));
   }
     return wd;
   }
