@@ -12,7 +12,7 @@ public class RegistrationHelper {
     wd = app.getDriver();
   }
 
-  public void start(String username, String email){}
-  wd.get(app.getProperty("web.baseUrl") + "signup_page.php");
-
+  public void start(String username, String email) {
+    wd.get(app.getProperty("web.baseUrl") + "signup_page.php");
+  }
 }

@@ -22,6 +22,7 @@ public class ApplicationManager {
 
   private String browser;
   private RegistrationHelper registrationHelper;
+  private String key;
 
 
   public ApplicationManager(String browser) {
@@ -51,7 +52,7 @@ public class ApplicationManager {
     //  переход на страницу и авторизация
     wd.get(properties.getProperty("web.baseUrl"));
   } */
-
+  }
   public void stop() {
     if(wd != null){
       wd.quit();
@@ -85,20 +86,23 @@ public class ApplicationManager {
   }
 
 
+
+
   public WebDriver getDriver() {
-  if(wd == null) {
-    if (browser.equals(BrowserType.FIREFOX)) {
-      wd = new FirefoxDriver();
-    } else if (browser.equals(BrowserType.IE)) {
-      wd = new InternetExplorerDriver();
-    } else if (browser.equals(BrowserType.GOOGLECHROME)) {
-      wd = new ChromeDriver();
+    if(wd == null) {
+      if (browser.equals(BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      } else if (browser.equals(BrowserType.IE)) {
+        wd = new InternetExplorerDriver();
+      } else if (browser.equals(BrowserType.GOOGLECHROME)) {
+        wd = new ChromeDriver();
+      }
+      // ожидание пояявление элемента на странице 5c для подстраховки
+      wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+      //  переход на страницу и авторизация
+      wd.get(properties.getProperty("web.baseUrl"));
     }
-    // ожидание пояявление элемента на странице 5c для подстраховки
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    //  переход на страницу и авторизация
-    wd.get(properties.getProperty("web.baseUrl"));
+      return wd;
+    }
   }
-    return wd;
-  }
-}
+

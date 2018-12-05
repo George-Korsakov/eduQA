@@ -38,8 +38,8 @@ public class HttpSession {
     // получение ответа и проверка
     CloseableHttpResponse response = httpclient.execute(post);
     String body = getTextFrom(response);
-    //return body.contains(String.format("<span class=\"italic\">$s</span>", username));
-    return body.contains(String.format("<span class=\"italic\">$s</span>", username));
+    //возвращает результат проверки наличия строки с логином пользователя
+    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
   }
 
   private String getTextFrom(CloseableHttpResponse response) throws IOException {
@@ -54,8 +54,7 @@ public class HttpSession {
     HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
     CloseableHttpResponse response = httpclient.execute(get);
     String body = getTextFrom(response);
-    return body.contains(String.format("<span class=\"italic\">$s</span>", username));
+    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
   }
-
 
 }
