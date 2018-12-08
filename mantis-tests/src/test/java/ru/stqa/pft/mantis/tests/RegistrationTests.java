@@ -23,14 +23,20 @@ public class RegistrationTests extends TestBase {
   @Test
   public void testRegistration() throws IOException, MessagingException {
     long now= System.currentTimeMillis();
-    String email = String.format("user%s@loclahost.localdomain", now);
     String user = String.format("user%s" , now);
     String password = "password";
+    String email = String.format("user%s@loclahost.localdomain", now);
+    // добавление пользовтаеля на почтовом сервере James
+    app.james().createUser(user, password);
     // создание нового пользователя
     app.registration().start(user, email);
     app.mail().waitForMail(2, 10000);
     // обравботка письма и подьвержение прегичтарции
-    List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+    // обработка для встроенного почтонового сервера
+     List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+
+    // обработка для внешнего почтового сервера
+   // List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
     findConfirmationLink(mailMessages, email);
     String confirmationLink = findConfirmationLink(mailMessages, email);
     app.registration().finish(confirmationLink,  password);

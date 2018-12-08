@@ -25,6 +25,9 @@ public class ApplicationManager {
   private String key;
   private FtpHelper ftp;
   private MailHelper mailHelper;
+  private JamesHelper jamesHelper;
+  private DbHelper dbHelper;
+
 
 
   public ApplicationManager(String browser) {
@@ -93,7 +96,7 @@ public class ApplicationManager {
     }
     return ftp;
   }
-
+  
   public MailHelper mail(){
     if(mailHelper == null){
       mailHelper = new MailHelper(this);
@@ -117,5 +120,20 @@ public class ApplicationManager {
     }
       return wd;
     }
+  // ленивая инициализация для почтового сервера James
+  public JamesHelper james() {
+    if (jamesHelper == null) {
+      jamesHelper = new JamesHelper(this);
+    }
+    return jamesHelper;
   }
+
+  public DbHelper db(){
+    dbHelper = new DbHelper(this);
+    return dbHelper;
+  }
+  
+}
+
+
 

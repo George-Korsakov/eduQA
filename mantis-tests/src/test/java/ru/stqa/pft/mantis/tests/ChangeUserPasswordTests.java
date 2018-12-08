@@ -1,0 +1,13 @@
+package ru.stqa.pft.mantis.tests;
+
+import org.testng.annotations.Test;
+
+public class ChangeUserPasswordTests extends TestBase {
+
+  @Test
+  public void testChangeUserPassword () {
+
+    app.db().getUserFromDb();
+  }
+
+}
