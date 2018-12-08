@@ -9,15 +9,15 @@ import java.io.File;
 
 
 public class HelperBase {
-  WebDriver wd;
+  protected ApplicationManager app;
+  protected  WebDriver wd;
 
-  public HelperBase(WebDriver wd) {
-    this.wd = wd;
+  public HelperBase(ApplicationManager app) {
+    this.app = app;
+    this.wd = app.getDriver();
   }
 
-
-
-  // нажатие на элемент найденный по локалтору
+   // нажатие на элемент найденный по локалтору
   protected void click(By locator) {
     wd.findElement(locator).click();
   }
@@ -25,14 +25,18 @@ public class HelperBase {
   // нажатие, очитска поля и ввод текста поиск по локатору
   protected void type(By locator, String text) {
     click(locator);
-    // проверка на наличие значения в поле ввода и сравнение его на совпадение
-    if (text != null) {
-      String existngText = wd.findElement(locator).getAttribute("value");
-      if (!text.equals(existngText)) {
+    wd.findElement(locator).click();
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
+
+   // проверка на наличие значения в поле ввода и сравнение его на совпадение
+   /* if (text != null) {
+      String existingText = wd.findElement(locator).getAttribute("value");
+      if (!text.equals(existingText)) {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
       }
-    }
+    }*/
   }
 
   protected void attach(By locator, File file) {

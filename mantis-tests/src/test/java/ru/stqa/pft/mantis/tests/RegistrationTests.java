@@ -17,9 +17,7 @@ import static org.testng.Assert.assertTrue;
 public class RegistrationTests extends TestBase {
 
   @BeforeMethod
-  public void startMailServer() {
-    app.mail().start();
-  }
+  public void startMailServer() { app.mail().start(); }
 
 
   @Test
@@ -28,15 +26,18 @@ public class RegistrationTests extends TestBase {
     String email = String.format("user%s@loclahost.localdomain", now);
     String user = String.format("user%s" , now);
     String password = "password";
+    // создание нового пользователя
     app.registration().start(user, email);
     app.mail().waitForMail(2, 10000);
+    // обравботка письма и подьвержение прегичтарции
     List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
     findConfirmationLink(mailMessages, email);
     String confirmationLink = findConfirmationLink(mailMessages, email);
     app.registration().finish(confirmationLink,  password);
+    // проверка авторизацей
     assertTrue(app.newSession().login(user, password));
   }
-
+  // поиск ссылки подтверждения регичтрации в тексте письма
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
     MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();

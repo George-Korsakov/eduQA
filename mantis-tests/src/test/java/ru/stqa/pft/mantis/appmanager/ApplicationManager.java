@@ -111,7 +111,7 @@ public class ApplicationManager {
         wd = new ChromeDriver();
       }
       // ожидание пояявление элемента на странице 5c для подстраховки
-      wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+      wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
       //  переход на страницу и авторизация
       wd.get(properties.getProperty("web.baseUrl"));
     }

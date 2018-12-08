@@ -1,7 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import net.bytebuddy.agent.builder.AgentBuilder;
-import org.openqa.selenium.WebDriver;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 import ru.stqa.pft.mantis.model.MailMessage;
@@ -17,16 +15,16 @@ public class MailHelper extends HelperBase {
   private ApplicationManager app;
   private final Wiser wiser;
 
-  public MailHelper(ApplicationManager app){
-    super(wd);
+  public MailHelper(ApplicationManager app) {
+    super(app);
     this.app = app;
     wiser = new Wiser();
   }
 
-  public List<MailMessage> waitForMail(int count, long timeout) throws  IOException, MessagingException {
+  public List<MailMessage> waitForMail(int count, long timeout) throws IOException, MessagingException {
     long start = System.currentTimeMillis();
     while (System.currentTimeMillis() < start + timeout) {
-      if(wiser.getMessages().size() >= count) {
+      if (wiser.getMessages().size() >= count) {
         return wiser.getMessages().stream().map((m) -> toModeMail(m)).collect(Collectors.toList());
       }
       try {
@@ -39,22 +37,25 @@ public class MailHelper extends HelperBase {
   }
 
 
-
-  public static MailMessage toModeMail(WiserMessage m){
-  try {
-    MimeMessage mm = m.getMimeMessage();
-    return new MailMessage(mm.getAllRecipients()[0].toString(), (String) mm.getContent());
-  } catch (IOException e){
-    e.printStackTrace();
-    return null;
-  } catch (MessagingException e) {
-    e.printStackTrace();
-    return null;
+  public static MailMessage toModeMail(WiserMessage m) {
+    try {
+      MimeMessage mm = m.getMimeMessage();
+      return new MailMessage(mm.getAllRecipients()[0].toString(), (String) mm.getContent());
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    } catch (MessagingException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
+  public void start() {
+    wiser.start();
   }
 
-  public void start() {wiser.start();}
-  public void stop() {wiser.stop();};
+  public void stop() {
+    wiser.stop();
+  }
 
 }
