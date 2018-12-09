@@ -20,11 +20,21 @@ import static org.testng.Assert.assertTrue;
 public class ChangeUserPasswordTests extends TestBase {
 
   @BeforeMethod
-  public void startMailServer() {
+  public void startMailServer() throws IOException, MessagingException {
     app.mail().start();
-    // проверка и обеспечение предуслвоия
+    // проверка и обеспечение предусловия
     if (app.db().getUsers().size() < 2 ) {
-
+      // создание пользователя
+      long now= System.currentTimeMillis();
+      String user = String.format("user%s" , now);
+      String password = "password";
+      String email = String.format("user%s@loclahost.localdomain", now);
+      app.registration().start(user, email);
+      app.mail().waitForMail(2, 10000);
+      List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+      findChangePWDLink(mailMessages, email);
+      String confirmationLink = findChangePWDLink(mailMessages, email);
+      app.registration().finish(confirmationLink,  password);
     }
   }
 
