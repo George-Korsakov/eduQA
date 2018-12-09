@@ -1,7 +1,7 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
-import ru.stqa.pft.mantis.model.MailMessage;
+import ru.stqa.pft.mantis.models.MailMessage;
 
 import javax.mail.*;
 import java.io.PrintStream;
@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class JamesHelper {
