@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import ru.stqa.pft.mantis.models.User_data;
 
 import java.io.File;
 import java.io.FileReader;
@@ -23,6 +24,7 @@ public class ApplicationManager {
   private String browser;
   private RegistrationHelper registrationHelper;
   private String key;
+  private String content;
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
@@ -81,6 +83,10 @@ public class ApplicationManager {
 
   public String getProperty(String key) {
     return properties.getProperty(key);
+  }
+
+  public void setPropertyUsername( String content) {
+    this.properties.setProperty("web.username", content);
   }
 
  public RegistrationHelper registration() {

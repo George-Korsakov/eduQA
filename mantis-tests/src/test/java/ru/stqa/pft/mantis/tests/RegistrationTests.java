@@ -25,7 +25,7 @@ public class RegistrationTests extends TestBase {
     String password = "password";
     String email = String.format("user%s@loclahost.localdomain", now);
     // добавление пользовтаеля на почтовом сервере James
-    app.james().createUser(user, password);
+    //app.james().createUser(user, password);
     // создание нового пользователя
     app.registration().start(user, email);
     app.mail().waitForMail(2, 10000);
@@ -40,6 +40,7 @@ public class RegistrationTests extends TestBase {
     app.registration().finish(confirmationLink,  password);
     // проверка авторизацей
     assertTrue(app.newSession().login(user, password));
+    app.setPropertyUsername(user);
   }
   // поиск ссылки подтверждения регичтрации в тексте письма
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {

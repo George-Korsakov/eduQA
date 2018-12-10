@@ -1,17 +1,29 @@
 package ru.stqa.pft.mantis.models;
 import org.hibernate.annotations.Type;
-
+import com.google.gson.annotations.Expose;
 import javax.persistence.*;
 
 @Entity
 @Table(name =  "mantis_user_table")
 public class User_data {
+  @Override
+  public String toString() {
+    return "User_data{" +
+            "username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            '}';
+  }
+
   @Id
   @Column(name = "id")
   public int id;
+
+  @Expose
   @Column(name = "username")
   @Type(type = "string")
   public String username;
+
+  @Expose
   @Column(name = "email")
   @Type(type = "string")
   public String email;
