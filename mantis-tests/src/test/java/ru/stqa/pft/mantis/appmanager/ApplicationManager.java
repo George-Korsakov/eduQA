@@ -30,6 +30,7 @@ public class ApplicationManager {
   private JamesHelper jamesHelper;
   private DbHelper dbHelper;
   private ManageUsersHelper manageUsers;
+  private SoapHelper soapHelper;
 
 
   public ApplicationManager(String browser) {
@@ -147,7 +148,15 @@ public class ApplicationManager {
     }
     return manageUsers;
   }
-  
+
+  public SoapHelper soap() {
+    if (soapHelper == null) {
+      soapHelper = new soapHelper(this);
+    }
+    return soapHelper;
+  }
+
+
 }
 
 
