@@ -1,5 +1,7 @@
 apply plugin: 'java'
-
+dependensies {
+    compile 'org.testng:testng:6.14.3'
+}
 buildscript{
     repositories{
         jcenter()
