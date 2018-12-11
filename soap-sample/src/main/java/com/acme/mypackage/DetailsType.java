@@ -138,4 +138,13 @@ public class DetailsType {
         this.plz = value;
     }
 
+    @Override
+    public String toString() {
+        return "DetailsType{" +
+                "bezeichnung='" + bezeichnung + '\'' +
+                ", bic='" + bic + '\'' +
+                ", ort='" + ort + '\'' +
+                ", plz='" + plz + '\'' +
+                '}';
+    }
 }
