@@ -4,6 +4,13 @@ public class Issue {
 
   private int id;
   private String summary;
+  private String description;
+  private String name;
+  private Project project;
+
+  public Project getProject() {
+    return project;
+  }
 
   public int getId() {
     return id;
@@ -16,23 +23,35 @@ public class Issue {
   public String getDescription() {
     return description;
   }
+  public String getName() {
+    return name;
+  }
 
-  public int withId(int id) {
+
+  public Issue withId(int id) {
     this.id = id;
     return this;
   }
 
-  public void withDescription(String description) {
+  public Issue withDescription(String description) {
     this.description = description;
     return this;
   }
 
-  public void with_Summary(String summary) {
+  public Issue withSummary(String summary) {
     this.summary = summary;
     return this;
   }
 
-  private String description;
+  public Issue withName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public Issue withProject(Project project) {
+    this.project = project;
+    return this;
+  }
 
 
 

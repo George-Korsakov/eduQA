@@ -151,7 +151,7 @@ public class ApplicationManager {
 
   public SoapHelper soap() {
     if (soapHelper == null) {
-      soapHelper = new soapHelper(this);
+      soapHelper = new SoapHelper(this);
     }
     return soapHelper;
   }

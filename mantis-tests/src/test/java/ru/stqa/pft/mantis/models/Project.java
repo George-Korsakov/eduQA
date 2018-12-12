@@ -4,6 +4,27 @@ import java.util.Objects;
 
 public class Project {
 
+  private int id;
+  private String name;
+
+  public Project withId(int id) {
+    this.id =id;
+    return this;
+  }
+
+  public Project withName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -13,30 +34,8 @@ public class Project {
             Objects.equals(name, project.name);
   }
 
-  public Project withId(int i) {
-    this.id =id;
-    return this;
-  }
 
-  public Project withName(String name) {
-    this.name = this.name;
-    return this;
-  }
 
-  public void setId(int id) {
-    this.id = id;
-  }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name);
-  }
-
-  private int id;
-  private String name;
 
 }
