@@ -1,5 +1,7 @@
 package ru.stqa.pft.mantis.models;
 
+import biz.futureware.mantis.rpc.soap.client.IssueData;
+
 public class Issue {
 
   private int id;
@@ -7,6 +9,18 @@ public class Issue {
   private String description;
   private String name;
   private Project project;
+  private String category;
+  private String status;
+
+  public Issue(){}
+
+  public Issue(IssueData issueData){
+    id = issueData.getId().intValue();
+    summary = issueData.getSummary();
+    description = issueData.getDescription();
+    category = issueData.getCategory();
+    status = issueData.getStatus().getName();
+  }
 
   public Project getProject() {
     return project;
@@ -20,11 +34,26 @@ public class Issue {
     return summary;
   }
 
+  @Override
+  public String toString() {
+    return "Issue{" +
+            "status='" + status + '\'' +
+            '}';
+  }
+
   public String getDescription() {
     return description;
   }
   public String getName() {
     return name;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public String getStatus() {
+    return status;
   }
 
 
@@ -52,6 +81,17 @@ public class Issue {
     this.project = project;
     return this;
   }
+
+  public Issue withCategory(String category) {
+    this.category = category;
+    return this;
+  }
+
+  public Issue withStatus(String status) {
+    this.status = status;
+    return this;
+  }
+
 
 
 
