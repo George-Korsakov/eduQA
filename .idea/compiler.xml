@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="mantis-tests_main" target="1.8" />
       <module name="mantis-tests_test" target="1.8" />
+      <module name="rest-sample.main" target="1.8" />
+      <module name="rest-sample.test" target="1.8" />
       <module name="sendbox_main" target="1.8" />
       <module name="sendbox_test" target="1.8" />
       <module name="soap-sample.main" target="1.8" />
