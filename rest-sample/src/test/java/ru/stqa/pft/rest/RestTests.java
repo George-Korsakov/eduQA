@@ -20,11 +20,19 @@ public class RestTests {
   @Test
   public void testCreateIssue() throws IOException {
     Set<Issue> oldIssues = getIssues();
-    Issue newIssue = new Issue().withSubject("Test Issue 999").withDescription("Test 1234567890");
+    Issue newIssue = new Issue().withSubject("Test Issue 990").withDescription("Test 12345678901");
     int issueId = createIssue(newIssue);
     Set<Issue> newIssues = getIssues();
     oldIssues.add(newIssue.withId(issueId));
     assertEquals(newIssues, oldIssues);
+
+  }
+
+  private Set<Issue> getIssues() throws IOException {
+    String json =  getExecutor().execute(Request.Get("http://bugify.stqa.ru/api/issues.json")).returnContent().asString();
+    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement issue = parsed.getAsJsonObject().get("issues");
+    return new Gson().fromJson(issue, new TypeToken<Set<Issue>>(){}.getType());
 
   }
 
@@ -35,14 +43,6 @@ public class RestTests {
     JsonElement parsed = new JsonParser().parse(json);
     return parsed.getAsJsonObject().get("issue_id").getAsInt();
 
-  }
-
-  private Set<Issue> getIssues() throws IOException {
-    String json =  getExecutor().execute(Request.Get("http://bugify.stqa.ru/api/issues.json")).returnContent().asString();
-    JsonElement parsed = new JsonParser().parse(json);
-    JsonElement issue = parsed.getAsJsonObject().get("issue");
-    new Gson().fromJson(issue, new TypeToken<Set<Issue>>(){}.getType());
-    return null;
   }
 
   private Executor getExecutor() {
