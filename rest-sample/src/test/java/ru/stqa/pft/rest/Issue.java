@@ -7,6 +7,7 @@ public class Issue {
   private int id;
   private String subject;
   private String description;
+  private String status;
 
   @Override
   public boolean equals(Object o) {
@@ -35,6 +36,10 @@ public class Issue {
     return description;
   }
 
+  public String getStatus() {
+    return status;
+  }
+
   public Issue withId(int id) {
     this.id = id;
     return this;
@@ -44,11 +49,16 @@ public class Issue {
     this.subject = subject;
     return this;
   }
+
   public Issue withDescription(String description) {
     this.description = description;
     return this;
   }
 
+  public Issue withStatus(String status) {
+    this.status = status;
+    return this;
+  }
 
 
 }
