@@ -41,13 +41,19 @@ private final Properties properties;
     // вызов метода подключения к БД
     dbHelper = new DbHelper();
     // выбор браузера
-    if(browser.equals(BrowserType.FIREFOX)){
-    wd = new FirefoxDriver();
-  } else if (browser.equals(BrowserType.IE)) {
-    wd = new InternetExplorerDriver();
-  } else if(browser.equals(BrowserType.GOOGLECHROME)) {
-    wd = new ChromeDriver();
-  }
+    if("".equals(properties.getProperty("selenium.server"))) {
+      if (browser.equals(BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      } else if (browser.equals(BrowserType.IE)) {
+        wd = new InternetExplorerDriver();
+      } else if (browser.equals(BrowserType.GOOGLECHROME)) {
+        wd = new ChromeDriver();
+      }
+    } else {
+      DesiredCapabilities capabilities = new DesiredCapabilities();
+      capabilities.setBrowserName(browser);
+      wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
+    }
 
       // ожидание пояявление элемента на странице 5c для подстраховки
     wd.manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
