@@ -42,7 +42,9 @@ private final Properties properties;
     dbHelper = new DbHelper();
     // выбор браузера
     if("".equals(properties.getProperty("selenium.server"))) {
-      if (browser.equals(BrowserType.FIREFOX)) {
+      if (browser.equals(BrowserType.FF)) {
+        wd = new firefox();
+      } else if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
       } else if (browser.equals(BrowserType.IE)) {
         wd = new InternetExplorerDriver();
