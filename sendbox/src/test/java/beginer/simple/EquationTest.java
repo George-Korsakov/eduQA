@@ -9,7 +9,7 @@ public class EquationTest {
   @Test
   public void test0(){
     Equation e = new Equation(1,1,1);
-    Assert.assertEquals(e.RootNumder(),20);
+    Assert.assertEquals(e.RootNumder(),0);
       }
 
   @Test
