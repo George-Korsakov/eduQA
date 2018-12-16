@@ -42,6 +42,7 @@ private final Properties properties;
     dbHelper = new DbHelper();
     // выбор браузера
     if("".equals(properties.getProperty("selenium.server"))) {
+      // для запуска удаленнного браузера, отличается наименование браузера
       if (browser.equals(BrowserType.firefox)) {
         wd = new firefox();
       } else if (browser.equals(BrowserType.FIREFOX)) {
@@ -54,6 +55,7 @@ private final Properties properties;
     } else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
+      capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "Win7")));
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 
