@@ -45,7 +45,11 @@ private final Properties properties;
       // для запуска удаленнного браузера, отличается наименование браузера
       if (browser.equals(BrowserType.firefox)) {
         wd = new firefox();
-      } else if (browser.equals(BrowserType.FIREFOX)) {
+      } else if (browser.equals(BrowserType.chrome)) {
+        wd = new chrome();
+      }
+       // для локального запуска
+      else if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
       } else if (browser.equals(BrowserType.IE)) {
         wd = new InternetExplorerDriver();
