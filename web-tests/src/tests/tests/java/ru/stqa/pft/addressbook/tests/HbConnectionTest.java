@@ -32,7 +32,7 @@ public class HbConnectionTest {
     }
   }
 
-  @Test
+  @Test (enabled = false)
   public void testHbConnection() {
     // создание подключение к БД
     Session session = sessionFactory.openSession();

@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationNegativTests extends TestBase {
 
 
-  @Test
+  @Test(enabled = false)
   public void testGroupCreation() {
     int r = (int) (Math.random() * 1000);
     app.goTo().groupPage();
