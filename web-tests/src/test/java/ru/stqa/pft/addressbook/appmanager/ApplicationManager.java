@@ -40,10 +40,11 @@ private final Properties properties;
   public void init() throws IOException {
     // параметриазция, для использования конфигураицонного файла
     String target = System.getProperty("target", "local");
-    properties.load(new FileReader(new File(String.format("src/tests/resources/%s.properties", target))));
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     // вызов метода подключения к БД
     dbHelper = new DbHelper();
     // выбор браузера
+    if("".equals(properties.getProperty("selenium.server"))) {
     if("local".equals(properties.getProperty("selenium.server"))) {
       if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
@@ -52,9 +53,10 @@ private final Properties properties;
       } else if (browser.equals(BrowserType.GOOGLECHROME)) {
         wd = new ChromeDriver();
       }
-    } else {
+    } }else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
+      //capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "Win7")));
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 

@@ -27,7 +27,7 @@ public class TestBase {
   Logger logger = LoggerFactory.getLogger(TestBase.class);
 
  // protected static ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
-  public static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.GOOGLECHROME));
+  public static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
 
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {

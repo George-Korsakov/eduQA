@@ -27,7 +27,7 @@ public class ContactCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validContactsFromXml() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/contacts.xml")));) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));) {
       String line = reader.readLine();
       // чтение тестовых данных из xml файла
       String xml = "";
@@ -54,7 +54,7 @@ public class ContactCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/tests/resources/contacts.json")));) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));) {
       String line = reader.readLine();
       String json = "";
       while (line != null) {
@@ -103,7 +103,7 @@ public class ContactCreationTests extends TestBase {
   public void testCurrentDir() {
     File currentDir = new File(".");
     System.out.println(currentDir.getAbsolutePath());
-    File photo = new File("src/tests/resources/photo01.jpg");
+    File photo = new File("src/test/resources/photo01.jpg");
     System.out.println(photo.getAbsolutePath());
     System.out.println("Filsr exist = " + photo.exists());
     System.out.println("It is file = " + photo.isFile());
