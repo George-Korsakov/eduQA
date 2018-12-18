@@ -41,15 +41,8 @@ private final Properties properties;
     // вызов метода подключения к БД
     dbHelper = new DbHelper();
     // выбор браузера
-    if("".equals(properties.getProperty("selenium.server"))) {
-      // для запуска удаленнного браузера, отличается наименование браузера
-      if (browser.equals(BrowserType.firefox)) {
-        wd = new firefox();
-      } else if (browser.equals(BrowserType.chrome)) {
-        wd = new chrome();
-      }
-       // для локального запуска
-      else if (browser.equals(BrowserType.FIREFOX)) {
+    if("local".equals(properties.getProperty("selenium.server"))) {
+      if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
       } else if (browser.equals(BrowserType.IE)) {
         wd = new InternetExplorerDriver();
@@ -59,7 +52,6 @@ private final Properties properties;
     } else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
-      capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "Win7")));
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 

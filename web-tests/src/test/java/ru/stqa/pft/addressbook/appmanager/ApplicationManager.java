@@ -44,7 +44,7 @@ private final Properties properties;
     // вызов метода подключения к БД
     dbHelper = new DbHelper();
     // выбор браузера
-    if("".equals(properties.getProperty("selenium.server"))) {
+    if("local".equals(properties.getProperty("selenium.server"))) {
       if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
       } else if (browser.equals(BrowserType.IE)) {
