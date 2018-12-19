@@ -64,12 +64,13 @@ private final Properties properties;
     if("".equals(properties.getProperty("selenium.server"))) {
       wd = new FirefoxDriver();
       if (browser.equals(BrowserType.FIREFOX)) {
-      } else if (browser.equals(BrowserType.IE)) {
+             wd = new FirefoxDriver();
+      }else  if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
+      }
+      else if (browser.equals(BrowserType.IE)) {
         wd = new InternetExplorerDriver();
-      } else if (browser.equals(BrowserType.IE)) {
       } else if(browser.equals(BrowserType.GOOGLECHROME)) {
-        wd = new InternetExplorerDriver();
         wd = new ChromeDriver();
       } else if (browser.equals(BrowserType.GOOGLECHROME)) {
       }	         wd = new ChromeDriver();
