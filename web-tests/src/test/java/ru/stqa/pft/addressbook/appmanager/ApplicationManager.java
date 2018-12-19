@@ -44,6 +44,7 @@ private final Properties properties;
     // вызов метода подключения к БД
     dbHelper = new DbHelper();
     // выбор браузера
+ /*
     if("".equals(properties.getProperty("selenium.server"))) {
     if("local".equals(properties.getProperty("selenium.server"))) {
       if (browser.equals(BrowserType.FIREFOX)) {
@@ -59,7 +60,25 @@ private final Properties properties;
       //capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "Win7")));
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
-
+*/
+    if("".equals(properties.getProperty("selenium.server"))) {
+      wd = new FirefoxDriver();
+      if (browser.equals(BrowserType.FIREFOX)) {
+      } else if (browser.equals(BrowserType.IE)) {
+        wd = new FirefoxDriver();
+        wd = new InternetExplorerDriver();
+      } else if (browser.equals(BrowserType.IE)) {
+      } else if(browser.equals(BrowserType.GOOGLECHROME)) {
+        wd = new InternetExplorerDriver();
+        wd = new ChromeDriver();
+      } else if (browser.equals(BrowserType.GOOGLECHROME)) {
+      }	         wd = new ChromeDriver();
+    }
+   else {
+    DesiredCapabilities capabilities = new DesiredCapabilities();
+    capabilities.setBrowserName(browser);
+    wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
+  }
       // ожидание пояявление элемента на странице 5c для подстраховки
     wd.manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
     //  переход на страницу и авторизация
