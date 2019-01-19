@@ -1,8 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -65,7 +63,7 @@ private final Properties properties;
       wd = new FirefoxDriver();
       if (browser.equals(BrowserType.FIREFOX)) {
              wd = new FirefoxDriver();
-      }else  if (browser.equals(BrowserType.FIREFOX)) {
+      } else  if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
       }
       else if (browser.equals(BrowserType.IE)) {
@@ -121,6 +119,11 @@ private final Properties properties;
 
   public DbHelper db() {
     return dbHelper;
+  }
+
+  // возвращает скриншот сделаный webdriver-ом
+  public byte[] takeScreenshot() {
+    return ((TakesScreenshot) wd).getScreenshotAs(OutputType.BYTES);
   }
 
 }

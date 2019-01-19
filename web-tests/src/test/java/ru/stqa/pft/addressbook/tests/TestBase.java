@@ -6,10 +6,8 @@ import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.GroupDate;
 import ru.stqa.pft.addressbook.model.Groups;
@@ -22,7 +20,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 //import sun.plugin2.util.BrowserType;
 
-
+@Listeners(MyTestListener.class)
 public class TestBase {
   Logger logger = LoggerFactory.getLogger(TestBase.class);
 
@@ -30,8 +28,9 @@ public class TestBase {
   public static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
 
   @BeforeSuite(alwaysRun = true)
-  public void setUp() throws Exception {
+  public void setUp(ITestContext context) throws Exception {
     app.init();
+    context.setAttribute("app", app);
   }
 
 
