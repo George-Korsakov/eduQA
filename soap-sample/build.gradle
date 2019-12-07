@@ -25,11 +25,11 @@ dependencies(){
 
 wsdl2java{
     wsdlsToGenerate = [
-            ['-p','com.acme.mypackage', '-autoNameResolution',"$projectDir/src/main/resources/BLZService.wsdl"]
+            ['-p','com.acme.mypackage', '-autoNameResolution',"$projectDir/src/main/resources/AkdApiIdempWS.wsdl"]
     ]
     generatedWsdlDir = file("$projectDir/src/main/java")
     wsdlDir = file("$projectDir/src/main/resources/")
-    locale = Locale.FRANCE
+    locale = Locale.ENGLISH
 }
 
 wsdl2javaExt {

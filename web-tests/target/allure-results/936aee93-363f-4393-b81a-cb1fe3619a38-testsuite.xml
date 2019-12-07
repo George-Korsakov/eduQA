@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite xmlns:ns2="urn:model.allure.qatools.yandex.ru" start="1561488864182" stop="1561488885046">
+    <name>Default Suite</name>
+    <test-cases>
+        <test-case start="1561488864394" stop="1561488873568" status="passed">
+            <name>testContactCreation[ContactShortData{contactID=2147483647, fname='FName 677413', lname='LName 677413', phoneNumHome='0', phoneNumMobile='null', phoneNumWork='null', phoneNumFax='null', phoneNumHome2='null', address='Ru, Msc, Main str, 0', address2='null', alladdress='null', email='677413-@test.t', email2='null', email3='null'}]</name>
+            <steps/>
+            <attachments/>
+            <labels/>
+        </test-case>
+        <test-case start="1561488873770" stop="1561488879369" status="passed">
+            <name>testContactCreation[ContactShortData{contactID=2147483647, fname='FName 677414', lname='LName 677414', phoneNumHome='677413', phoneNumMobile='null', phoneNumWork='null', phoneNumFax='null', phoneNumHome2='null', address='Ru, Msc, Main str, 1', address2='null', alladdress='null', email='677412-@test.t', email2='null', email3='null'}]</name>
+            <steps/>
+            <attachments/>
+            <labels/>
+        </test-case>
+        <test-case start="1561488879369" stop="1561488885035" status="passed">
+            <name>testContactCreation[ContactShortData{contactID=2147483647, fname='FName 677415', lname='LName 677415', phoneNumHome='1354826', phoneNumMobile='null', phoneNumWork='null', phoneNumFax='null', phoneNumHome2='null', address='Ru, Msc, Main str, 2', address2='null', alladdress='null', email='677411-@test.t', email2='null', email3='null'}]</name>
+            <steps/>
+            <attachments/>
+            <labels/>
+        </test-case>
+    </test-cases>
+    <labels/>
+</ns2:test-suite>
