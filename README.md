@@ -1,2 +1,3 @@
 # eduQA
-education, research and simple test
+simple test
+код тестов с курса software-testing.ru
